@@ -13,7 +13,7 @@ import Foundation
  
  - Mandatory: The key that failed the decoding
  */
-enum DecodingError: ErrorType {
+public enum DecodingError: ErrorType {
   case Mandatory(key: String)
   
   var description: String {
@@ -24,7 +24,7 @@ enum DecodingError: ErrorType {
   }
 }
 
-protocol JSONRawType {}
+public protocol JSONRawType {}
 extension String : JSONRawType {}
 extension Int : JSONRawType {}
 extension Double : JSONRawType {}
@@ -34,7 +34,7 @@ extension Array : JSONRawType {}
 /**
  *  Use the Decodable protocol to support nested JSON objects
  */
-protocol Decodable {
+public protocol Decodable {
   /**
    Creates a instance of struct or class from a JSONDictionary
    
@@ -47,7 +47,9 @@ protocol Decodable {
   init(jsonDictionary: JSONDictionary) throws
 }
 
-class JSONDecoder {
+public class JSONDecoder {
+  
+  /// Holds the dictionary for decoded
   let dictionary : JSONDictionary
   
   /**
@@ -57,7 +59,7 @@ class JSONDecoder {
    
    - returns: An instatiated JSONDecoder
    */
-  init(jsonDictionary: JSONDictionary) {
+  public init(jsonDictionary: JSONDictionary) {
     self.dictionary = jsonDictionary
   }
   
@@ -70,7 +72,7 @@ class JSONDecoder {
    
    - returns: The decoded value from the inferred type
    */
-  func decode<T : JSONRawType>(key: String) throws -> T {
+  public func decode<T : JSONRawType>(key: String) throws -> T {
     guard let value = dictionary[key] as? T else {
       throw DecodingError.Mandatory(key: key)
     }
@@ -84,7 +86,7 @@ class JSONDecoder {
    
    - returns: The decoded object from the inferred type if it exists otherwise nil
    */
-  func decode<T : JSONRawType>(key: String) -> T? {
+  public func decode<T : JSONRawType>(key: String) -> T? {
     return dictionary[key] as? T
   }
   
@@ -97,7 +99,7 @@ class JSONDecoder {
    
    - returns: The decoded object from the inferred type
    */
-  func decode<T : Decodable>(key: String) throws -> T {
+  public func decode<T : Decodable>(key: String) throws -> T {
     
     guard let jsonDictionary = dictionary[key] as? JSONDictionary else {
       throw DecodingError.Mandatory(key: key)
