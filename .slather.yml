@@ -1,4 +1,2 @@
-ci_service: travis_ci
 coverage_service: coveralls
 xcodeproj: JSONUtilities.xcodeproj
-source_directory: JSONUtilities
