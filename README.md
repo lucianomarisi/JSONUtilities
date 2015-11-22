@@ -1,13 +1,21 @@
 # JSONUtilities
 
 ![Build Status](https://travis-ci.org/lucianomarisi/JSONUtilities.svg?branch=master)
+![](https://img.shields.io/cocoapods/v/JSONUtilities.svg)
 
-
-Easily load JSON object and decoded then into structs or classes
+Easily load JSON objects and decode them into structs or classes
 
 ## Installation
 
-* Add the `JSONUtilities` module to your project
+Either
+
+- Use [CocoaPods](http://cocoapods.org):
+
+	`pod 'JSONUtilities'`
+
+OR
+
+- Add the files inside the `JSONUtilities` folder to your project
 
 ## Types supported
 
@@ -27,6 +35,14 @@ Easily load JSON object and decoded then into structs or classes
 - `[String]`
 - `[Bool]`
 
-### Custom JSON objects
+### Custom JSON objects and custom JSON object arrays
 
-### Custom JSON object arrays
+e.g. if `MyClass` and `MyStruct` conform to `Decodable` protocol
+
+- `MyClass`
+- [`MyClass`]
+- `MyStruct`
+- [`MyStruct`]
+
+
+**Note: Raw dictionaries are intentionally not supported, i.e. `[String : T]`**
