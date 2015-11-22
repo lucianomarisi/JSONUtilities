@@ -92,7 +92,7 @@ public class JSONDecoder {
   
   /// Decode an Array of mandatory Decodable objects
   public func decode<T : Decodable>(key: String) throws -> [T] {
-    return objectsArray(try JSONArrayForKey(key))
+    return decodableObjectsArray(try JSONArrayForKey(key))
   }
   
   /// Decode an Array of optional Decodable objects
@@ -100,7 +100,7 @@ public class JSONDecoder {
     guard let jsonArray = try? JSONArrayForKey(key) else {
       return nil
     }
-    return objectsArray(jsonArray)
+    return decodableObjectsArray(jsonArray)
   }
   
   /// Decode a mandatory Decodable object
@@ -131,16 +131,17 @@ public class JSONDecoder {
   
   // MARK: JSONArray decoding
   
-  private func objectsArray<T : Decodable>(jsonArray: JSONArray) -> [T] {
-    var temporaryArray = [T]()
+  private func decodableObjectsArray<T : Decodable>(jsonArray: JSONArray) -> [T] {
+    var decodedArray = [T]()
     
-    for jsonObject in jsonArray where (jsonObject as? JSONDictionary) != nil {
-      if let castedJsonObject = jsonObject as? JSONDictionary {
-        if let decodedObject = try? T(jsonDictionary: castedJsonObject) {
-          temporaryArray.append(decodedObject)
-        }
+    for jsonObject in jsonArray {
+      guard let castedJsonObject = jsonObject as? JSONDictionary,
+            let decodedObject = try? T(jsonDictionary: castedJsonObject) else {
+              continue
       }
-    }
-    return temporaryArray
+      decodedArray.append(decodedObject)
+      }
+    
+    return decodedArray
   }
 }

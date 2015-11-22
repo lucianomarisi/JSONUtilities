@@ -10,12 +10,14 @@ import Foundation
 
 @testable import JSONUtilities
 
-struct MockChildStruct : Decodable {
+struct MockChildStruct {
   let string: String
   let integer: Int
   let double: Double
   let bool: Bool
-  
+}
+
+extension MockChildStruct : Decodable {
   init(jsonDictionary: JSONDictionary) throws {
     let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     string = try decoder.decode("stringKey")
@@ -26,15 +28,6 @@ struct MockChildStruct : Decodable {
 }
 
 // MARK: Extensions necessary for testing
-
-extension MockChildStruct {
-  init(string: String, integer: Int, double: Double, bool: Bool) {
-    self.string = string
-    self.integer = integer
-    self.double = double
-    self.bool = bool
-  }
-}
 
 extension MockChildStruct : Equatable {}
   

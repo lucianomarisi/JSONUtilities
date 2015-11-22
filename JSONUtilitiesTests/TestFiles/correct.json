@@ -26,6 +26,9 @@
                                          "integerKey" : 1,
                                          "doubleKey" : 1.2,
                                          "boolKey" : true
+                                         },
+                                         {
+                                         "randomTypeObject" : 123
                                          }
                                          ]
 }

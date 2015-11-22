@@ -52,7 +52,10 @@ struct MockParentStruct {
   let optionalMissingArrayBool: [Bool]?
   let optionalMissingArrayCustomJSONObject: [MockChildStruct]?
   
-  
+}
+
+
+extension MockParentStruct {
   init(jsonDictionary: JSONDictionary) throws {
     let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     mandatoryString = try decoder.decode("mandatoryStringKey")

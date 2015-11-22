@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4F8ADC561C01F02B008FD528 /* correct_with_missing_raw_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */; };
 		4F8ADC581C01F100008FD528 /* correct_with_missing_nested_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */; };
+		4F8ADC5A1C020CA1008FD528 /* MockParentClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8ADC591C020CA0008FD528 /* MockParentClass.swift */; };
+		4F8ADC5C1C0210EF008FD528 /* MockChildClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8ADC5B1C0210EF008FD528 /* MockChildClass.swift */; };
 		4FE3C0291C00EDE900607CC4 /* JSONUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FE3C0301C00EDE900607CC4 /* JSONUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE3C0251C00EDE900607CC4 /* JSONUtilities.framework */; };
 		4FE3C0351C00EDE900607CC4 /* JSONUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0341C00EDE900607CC4 /* JSONUtilitiesTests.swift */; };
@@ -38,6 +40,8 @@
 /* Begin PBXFileReference section */
 		4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_with_missing_raw_array.json; sourceTree = "<group>"; };
 		4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_with_missing_nested_array.json; sourceTree = "<group>"; };
+		4F8ADC591C020CA0008FD528 /* MockParentClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockParentClass.swift; sourceTree = "<group>"; };
+		4F8ADC5B1C0210EF008FD528 /* MockChildClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockChildClass.swift; sourceTree = "<group>"; };
 		4FE3C0251C00EDE900607CC4 /* JSONUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONUtilities.h; sourceTree = "<group>"; };
 		4FE3C02A1C00EDE900607CC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,6 +141,8 @@
 			children = (
 				4FE3C0571C00EF1700607CC4 /* MockParentStruct.swift */,
 				4FE3C0591C00EF3A00607CC4 /* MockChildStruct.swift */,
+				4F8ADC591C020CA0008FD528 /* MockParentClass.swift */,
+				4F8ADC5B1C0210EF008FD528 /* MockChildClass.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -265,8 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8ADC5A1C020CA1008FD528 /* MockParentClass.swift in Sources */,
 				4FE3C0551C00EEE800607CC4 /* JSONDecoderTests.swift in Sources */,
 				4FE3C0581C00EF1700607CC4 /* MockParentStruct.swift in Sources */,
+				4F8ADC5C1C0210EF008FD528 /* MockChildClass.swift in Sources */,
 				4FE3C05C1C00F05700607CC4 /* JSONFilenames.swift in Sources */,
 				4FE3C0351C00EDE900607CC4 /* JSONUtilitiesTests.swift in Sources */,
 				4FE3C05A1C00EF3A00607CC4 /* MockChildStruct.swift in Sources */,

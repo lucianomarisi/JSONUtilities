@@ -12,6 +12,7 @@ import XCTest
 class JSONDecoderTests: XCTestCase {
   
   let expectedChildStruct = MockChildStruct(string: "stringValue", integer: 1, double: 1.2, bool: true)
+  let expectedChildClass = MockChildClass(string: "stringValue", integer: 1, double: 1.2, bool: true)
 
   lazy var testBundle : NSBundle = {
     return NSBundle(forClass: self.dynamicType)
@@ -26,7 +27,7 @@ class JSONDecoderTests: XCTestCase {
     }
   }
   
-  func testCorrectDecodingForMandatoryJSON() {
+  func testCorrectDecodingForMandatoryJSONOnStruct() {
     do {
       let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correct, bundle: testBundle)
       let mockJSONParent = try MockParentStruct(jsonDictionary: jsonDictionary)
@@ -72,6 +73,54 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertTrue(false)
     }
   }
+  
+  func testCorrectDecodingForMandatoryJSONOnClass() {
+    do {
+      let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correct, bundle: testBundle)
+      let mockJSONParent = try MockParentClass(jsonDictionary: jsonDictionary)
+      XCTAssertEqual(mockJSONParent.mandatoryString, "stringValue")
+      XCTAssertEqual(mockJSONParent.mandatoryInt, 1)
+      XCTAssertEqual(mockJSONParent.mandatoryDouble, 1.2)
+      XCTAssertEqual(mockJSONParent.mandatoryBool, true)
+      XCTAssertEqual(mockJSONParent.mandatoryCustomJSONObject, expectedChildClass)
+      
+      XCTAssertEqual(mockJSONParent.optionalExistingString, "stringValue")
+      XCTAssertEqual(mockJSONParent.optionalExistingInt, 1)
+      XCTAssertEqual(mockJSONParent.optionalExistingDouble, 1.2)
+      XCTAssertEqual(mockJSONParent.optionalExistingBool, true)
+      XCTAssertEqual(mockJSONParent.optionalExistingCustomJSONObject, expectedChildClass)
+      
+      XCTAssertEqual(mockJSONParent.optionalMissingString, nil)
+      XCTAssertEqual(mockJSONParent.optionalMissingInt, nil)
+      XCTAssertEqual(mockJSONParent.optionalMissingDouble, nil)
+      XCTAssertEqual(mockJSONParent.optionalMissingBool, nil)
+      XCTAssertEqual(mockJSONParent.optionalMissingCustomJSONObject, nil)
+      
+      XCTAssertEqual(mockJSONParent.mandatoryArrayString, ["1","2"])
+      XCTAssertEqual(mockJSONParent.mandatoryArrayInt, [1,2])
+      XCTAssertEqual(mockJSONParent.mandatoryArrayDouble, [1.1, 1.2])
+      XCTAssertEqual(mockJSONParent.mandatoryArrayBool, [true, false])
+      XCTAssertEqual(mockJSONParent.mandatoryArrayCustomJSONObject, [expectedChildClass, expectedChildClass])
+      
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayString!, ["1","2"])
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayInt!, [1,2])
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayDouble!, [1.1, 1.2])
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayBool!, [true, false])
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayCustomJSONObject!, [expectedChildClass, expectedChildClass])
+      
+      XCTAssert(mockJSONParent.optionalMissingArrayString == nil)
+      XCTAssert(mockJSONParent.optionalMissingArrayInt == nil)
+      XCTAssert(mockJSONParent.optionalMissingArrayDouble == nil)
+      XCTAssert(mockJSONParent.optionalMissingArrayBool == nil)
+      XCTAssert(mockJSONParent.optionalMissingArrayCustomJSONObject == nil)
+      
+    } catch let error as DecodingError {
+      XCTAssertEqual(error.description, "ParseError: stringKey")
+    } catch {
+      XCTAssertTrue(false)
+    }
+  }
+
   
   func testIncorrectDecodingForMandatoryJSONRawType() {
     do {
