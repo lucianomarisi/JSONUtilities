@@ -9,6 +9,7 @@
 import Foundation
 
 public typealias JSONDictionary = [String : AnyObject]
+public typealias JSONArray = [AnyObject]
 
 /**
  Loading .json file error

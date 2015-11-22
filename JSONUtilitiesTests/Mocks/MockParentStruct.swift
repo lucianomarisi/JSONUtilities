@@ -17,6 +17,12 @@ struct MockMandatoryParent {
   let double: Double
   let bool: Bool
   let nestedObject: MockMandatoryChild
+  let optionalNestedObject: MockMandatoryChild?
+  let incorrectKeyNestedObject: MockMandatoryChild?
+
+  let nestedObjectsArray: [MockMandatoryChild]
+  let optionalNestedObjectsArray: [MockMandatoryChild]?
+
   let stringArray: [String]
   let integerArray: [Int]
   
@@ -27,6 +33,10 @@ struct MockMandatoryParent {
     double = try decoder.decode("doubleKey")
     bool = try decoder.decode("boolKey")
     nestedObject = try decoder.decode("nestedObjectKey")
+    optionalNestedObject = decoder.decode("nestedObjectKey")
+    incorrectKeyNestedObject = decoder.decode("incorrectKeyNestedObject")
+    nestedObjectsArray = try decoder.decode("nestedObjectsArrayKey")
+    optionalNestedObjectsArray = decoder.decode("optionalNestedObjectsArray")
     stringArray = try decoder.decode("stringArrayKey")
     integerArray = try decoder.decode("integerArrayKey")
   }

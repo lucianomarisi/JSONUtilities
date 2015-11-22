@@ -9,6 +9,20 @@
     "doubleKey" : 1.2,
     "boolKey" : true
   },
+  "nestedObjectsArrayKey" : [
+                             {
+                             "stringKey" : "stringValue",
+                             "integerKey" : 1,
+                             "doubleKey" : 1.2,
+                             "boolKey" : true
+                             },
+                             {
+                             "stringKey" : "stringValue",
+                             "integerKey" : 1,
+                             "doubleKey" : 1.2,
+                             "boolKey" : true
+                             }
+                             ],
   "stringArrayKey": ["1", "2"],
   "integerArrayKey": [1, 2]
 }

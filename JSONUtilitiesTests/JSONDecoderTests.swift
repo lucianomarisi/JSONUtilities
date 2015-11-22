@@ -39,6 +39,8 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertEqual(nestedStruct.integer, 1)
       XCTAssertEqual(nestedStruct.double, 1.2)
       XCTAssertEqual(nestedStruct.bool, true)
+    } catch let error as DecodingError {
+      XCTAssertEqual(error.description, "ParseError: stringKey")
     } catch {
       XCTAssertTrue(false)
     }

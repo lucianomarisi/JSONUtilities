@@ -25,11 +25,11 @@ public enum DecodingError: ErrorType {
 }
 
 public protocol JSONRawType {}
-extension String : JSONRawType {}
 extension Int : JSONRawType {}
 extension Double : JSONRawType {}
+extension Float : JSONRawType {}
+extension String : JSONRawType {}
 extension Bool : JSONRawType {}
-extension Array : JSONRawType {}
 
 /**
  *  Use the Decodable protocol to support nested JSON objects
@@ -49,61 +49,98 @@ public protocol Decodable {
 
 public class JSONDecoder {
   
-  /// Holds the dictionary for decoded
-  let dictionary : JSONDictionary
-  
+  /// Holds the dictionary for decoding
+  private let dictionary : JSONDictionary
+
   /**
    Designated initializer for the JSONDecoder
    
    - parameter jsonDictionary: The JSON dictionary to parse
-   
-   - returns: An instatiated JSONDecoder
    */
   public init(jsonDictionary: JSONDictionary) {
     self.dictionary = jsonDictionary
   }
   
-  /**
-   Decodes a mandatory JSON value
-   
-   - parameter key: The JSON key
-   
-   - throws: A decoding error if the key is not found
-   
-   - returns: The decoded value from the inferred type
-   */
+  /// Decode a mandatory JSON raw type
   public func decode<T : JSONRawType>(key: String) throws -> T {
+
     guard let value = dictionary[key] as? T else {
       throw DecodingError.Mandatory(key: key)
     }
     return value
   }
   
-  /**
-   Decodes an optional JSON value
-   
-   - parameter key: The JSON key
-   
-   - returns: The decoded object from the inferred type if it exists otherwise nil
-   */
+  /// Decode an optional JSON raw type
   public func decode<T : JSONRawType>(key: String) -> T? {
     return dictionary[key] as? T
   }
   
-  /**
-   Decode a Decodable struct or class
-   
-   - parameter key: The JSON key
-   
-   - throws: A decoding error if the key is not found
-   
-   - returns: The decoded object from the inferred type
-   */
+  /// Decode an Array of mandatory JSON raw types
+  public func decode<T>(key: String) throws -> [T] {
+    guard let value = dictionary[key] as? [T] else {
+      throw DecodingError.Mandatory(key: key)
+    }
+    return value
+  }
+  
+  /// Decode an Array of optional JSON raw types
+  public func decode<T>(key: String) -> [T]? {
+    return dictionary[key] as? [T]
+  }
+  
+  // MARK: Decodable types
+  
+  /// Decode an Array of mandatory Decodable objects
+  public func decode<T : Decodable>(key: String) throws -> [T] {
+    return objectsArray(try JSONArrayForKey(key))
+  }
+  
+  /// Decode an Array of optional Decodable objects
+  public func decode<T : Decodable>(key: String) -> [T]? {
+    guard let jsonArray = try? JSONArrayForKey(key) else {
+      return nil
+    }
+    return objectsArray(jsonArray)
+  }
+  
+  /// Decode a mandatory Decodable object
   public func decode<T : Decodable>(key: String) throws -> T {
-    
+    return try T(jsonDictionary: JSONDictionaryForKey(key))
+  }
+  
+  /// Decode an optional Decodable object
+  public func decode<T : Decodable>(key: String) -> T? {
+    return try? T(jsonDictionary: JSONDictionaryForKey(key))
+  }
+  
+  // MARK: JSONDictionary and JSONArray creation
+  
+  private func JSONDictionaryForKey(key: String) throws -> JSONDictionary {
     guard let jsonDictionary = dictionary[key] as? JSONDictionary else {
       throw DecodingError.Mandatory(key: key)
     }
-    return try T(jsonDictionary: jsonDictionary)
+    return jsonDictionary
+  }
+  
+  private func JSONArrayForKey(key: String) throws -> JSONArray {
+    guard let jsonArray = dictionary[key] as? JSONArray else {
+      throw DecodingError.Mandatory(key: key)
+    }
+    return jsonArray
+  }
+  
+  // MARK: JSONArray decoding
+  
+  private func objectsArray<T : Decodable>(jsonArray: JSONArray) -> [T] {
+    var temporaryArray = [T]()
+    
+    for jsonObject in jsonArray where (jsonObject as? JSONDictionary) != nil {
+      if let castedJsonObject = jsonObject as? JSONDictionary {
+        if let decodedObject = try? T(jsonDictionary: castedJsonObject) {
+          temporaryArray.append(decodedObject)
+        }
+      }
+    }
+    return temporaryArray
   }
 }
