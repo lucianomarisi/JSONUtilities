@@ -1,8 +1,6 @@
 {
-  "stringKey" : "stringValue",
-  "integerKey" : 1,
-  "doubleKey" : 1.2,
-  "boolKey" : true,
-  "stringArrayKey": ["1", "2"],
-  "integerArrayKey": [1, 2]
+  "mandatoryStringKey" : "stringValue",
+  "mandatoryIntKey" : 1,
+  "mandatoryDoubleKey" : 1.2,
+  "mandatoryBoolKey" : true
 }

@@ -1,28 +1,31 @@
 {
-  "stringKey" : "stringValue",
-  "integerKey" : 1,
-  "doubleKey" : 1.2,
-  "boolKey" : true,
-  "nestedObjectKey" : {
+  "mandatoryStringKey" : "stringValue",
+  "mandatoryIntKey" : 1,
+  "mandatoryDoubleKey" : 1.2,
+  "mandatoryBoolKey" : true,
+  "mandatoryCustomJSONObjectKey" : {
     "stringKey" : "stringValue",
     "integerKey" : 1,
     "doubleKey" : 1.2,
     "boolKey" : true
   },
-  "nestedObjectsArrayKey" : [
-                             {
-                             "stringKey" : "stringValue",
-                             "integerKey" : 1,
-                             "doubleKey" : 1.2,
-                             "boolKey" : true
-                             },
-                             {
-                             "stringKey" : "stringValue",
-                             "integerKey" : 1,
-                             "doubleKey" : 1.2,
-                             "boolKey" : true
-                             }
-                             ],
-  "stringArrayKey": ["1", "2"],
-  "integerArrayKey": [1, 2]
+  
+  "mandatoryArrayStringKey": ["1", "2"],
+  "mandatoryArrayIntKey": [1, 2],
+  "mandatoryArrayDoubleKey": [1.1, 1.2],
+  "mandatoryArrayBoolKey": [true, false],
+  "mandatoryArrayCustomJSONObjectKey" : [
+                                         {
+                                         "stringKey" : "stringValue",
+                                         "integerKey" : 1,
+                                         "doubleKey" : 1.2,
+                                         "boolKey" : true
+                                         },
+                                         {
+                                         "stringKey" : "stringValue",
+                                         "integerKey" : 1,
+                                         "doubleKey" : 1.2,
+                                         "boolKey" : true
+                                         }
+                                         ]
 }

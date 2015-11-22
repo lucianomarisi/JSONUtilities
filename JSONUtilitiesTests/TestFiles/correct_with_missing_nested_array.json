@@ -1,0 +1,17 @@
+{
+  "mandatoryStringKey" : "stringValue",
+  "mandatoryIntKey" : 1,
+  "mandatoryDoubleKey" : 1.2,
+  "mandatoryBoolKey" : true,
+  "mandatoryCustomJSONObjectKey" : {
+    "stringKey" : "stringValue",
+    "integerKey" : 1,
+    "doubleKey" : 1.2,
+    "boolKey" : true
+  },
+  
+  "mandatoryArrayStringKey": ["1", "2"],
+  "mandatoryArrayIntKey": [1, 2],
+  "mandatoryArrayDoubleKey": [1.1, 1.2],
+  "mandatoryArrayBoolKey": [true, false]
+}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F8ADC561C01F02B008FD528 /* correct_with_missing_raw_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */; };
+		4F8ADC581C01F100008FD528 /* correct_with_missing_nested_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */; };
 		4FE3C0291C00EDE900607CC4 /* JSONUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FE3C0301C00EDE900607CC4 /* JSONUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE3C0251C00EDE900607CC4 /* JSONUtilities.framework */; };
 		4FE3C0351C00EDE900607CC4 /* JSONUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0341C00EDE900607CC4 /* JSONUtilitiesTests.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_with_missing_raw_array.json; sourceTree = "<group>"; };
+		4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_with_missing_nested_array.json; sourceTree = "<group>"; };
 		4FE3C0251C00EDE900607CC4 /* JSONUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONUtilities.h; sourceTree = "<group>"; };
 		4FE3C02A1C00EDE900607CC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,8 +121,10 @@
 			isa = PBXGroup;
 			children = (
 				4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */,
-				4FE3C04A1C00EED400607CC4 /* correct.json */,
 				4FE3C04B1C00EED400607CC4 /* correct_without_nested_object.json */,
+				4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */,
+				4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */,
+				4FE3C04A1C00EED400607CC4 /* correct.json */,
 				4FE3C04C1C00EED400607CC4 /* invalid.json */,
 				4FE3C04D1C00EED400607CC4 /* array.json */,
 				4FE3C04E1C00EED400607CC4 /* empty.json */,
@@ -233,8 +239,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8ADC581C01F100008FD528 /* correct_with_missing_nested_array.json in Resources */,
 				4FE3C04F1C00EED400607CC4 /* correct.json in Resources */,
 				4FE3C0511C00EED400607CC4 /* invalid.json in Resources */,
+				4F8ADC561C01F02B008FD528 /* correct_with_missing_raw_array.json in Resources */,
 				4FE3C0501C00EED400607CC4 /* correct_without_nested_object.json in Resources */,
 				4FE3C0521C00EED400607CC4 /* array.json in Resources */,
 				4FE3C0531C00EED400607CC4 /* empty.json in Resources */,
@@ -441,6 +449,7 @@
 				4FE3C03B1C00EDE900607CC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4FE3C03C1C00EDE900607CC4 /* Build configuration list for PBXNativeTarget "JSONUtilitiesTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +458,7 @@
 				4FE3C03E1C00EDE900607CC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
