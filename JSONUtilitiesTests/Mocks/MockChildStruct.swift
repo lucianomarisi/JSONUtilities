@@ -10,7 +10,7 @@ import Foundation
 
 @testable import JSONUtilities
 
-struct MockMandatoryChild : Decodable {
+struct MockChildStruct : Decodable {
   let string: String
   let integer: Int
   let double: Double
@@ -24,3 +24,24 @@ struct MockMandatoryChild : Decodable {
     bool = try decoder.decode("boolKey")
   }
 }
+
+// MARK: Extensions necessary for testing
+
+extension MockChildStruct {
+  init(string: String, integer: Int, double: Double, bool: Bool) {
+    self.string = string
+    self.integer = integer
+    self.double = double
+    self.bool = bool
+  }
+}
+
+extension MockChildStruct : Equatable {}
+  
+func == (lhs: MockChildStruct, rhs: MockChildStruct) -> Bool {
+  return lhs.string == rhs.string &&
+         lhs.integer == rhs.integer &&
+         lhs.double == rhs.double &&
+         lhs.bool == rhs.bool
+}
+

@@ -12,45 +12,45 @@ import Foundation
 
 private let randomKey = "asdfghj"
 
-struct MockMandatoryParent {
+struct MockParentStruct {
   
   // Mark: JSON raw types and custom objects properties
   let mandatoryString: String
   let mandatoryInt: Int
   let mandatoryDouble: Double
   let mandatoryBool: Bool
-  let mandatoryCustomJSONObject: MockMandatoryChild
+  let mandatoryCustomJSONObject: MockChildStruct
 
   let optionalExistingString: String?
   let optionalExistingInt: Int?
   let optionalExistingDouble: Double?
   let optionalExistingBool: Bool?
-  let optionalExistingCustomJSONObject: MockMandatoryChild?
+  let optionalExistingCustomJSONObject: MockChildStruct?
 
   let optionalMissingString: String?
   let optionalMissingInt: Int?
   let optionalMissingDouble: Double?
   let optionalMissingBool: Bool?
-  let optionalMissingCustomJSONObject: MockMandatoryChild?
+  let optionalMissingCustomJSONObject: MockChildStruct?
   
   // Mark: Array properties
   let mandatoryArrayString: [String]
   let mandatoryArrayInt: [Int]
   let mandatoryArrayDouble: [Double]
   let mandatoryArrayBool: [Bool]
-  let mandatoryArrayCustomJSONObject: [MockMandatoryChild]
+  let mandatoryArrayCustomJSONObject: [MockChildStruct]
   
   let optionalExistingArrayString: [String]?
   let optionalExistingArrayInt: [Int]?
   let optionalExistingArrayDouble: [Double]?
   let optionalExistingArrayBool: [Bool]?
-  let optionalExistingArrayCustomJSONObject: [MockMandatoryChild]?
+  let optionalExistingArrayCustomJSONObject: [MockChildStruct]?
   
   let optionalMissingArrayString: [String]?
   let optionalMissingArrayInt: [Int]?
   let optionalMissingArrayDouble: [Double]?
   let optionalMissingArrayBool: [Bool]?
-  let optionalMissingArrayCustomJSONObject: [MockMandatoryChild]?
+  let optionalMissingArrayCustomJSONObject: [MockChildStruct]?
   
   
   init(jsonDictionary: JSONDictionary) throws {
@@ -90,26 +90,5 @@ struct MockMandatoryParent {
     optionalMissingArrayDouble = decoder.decode(randomKey)
     optionalMissingArrayBool = decoder.decode(randomKey)
     optionalMissingArrayCustomJSONObject = decoder.decode(randomKey)
-  }
-}
-
-struct OptionalMockJSONStructure {
-  let string: String?
-  let integer: Int?
-  let double: Double?
-  let bool: Bool?
-  let nestedObject: MockMandatoryChild?
-  let stringArray: [String]?
-  let integerArray: [Int]?
-  
-  init(jsonDictionary: JSONDictionary) {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
-    string = decoder.decode("stringKey")
-    integer = decoder.decode("integerKey")
-    double = decoder.decode("doubleKey")
-    bool = decoder.decode("boolKey")
-    nestedObject = try? decoder.decode("nestedObjectKey")
-    stringArray = decoder.decode("stringArrayKey")
-    integerArray = decoder.decode("integerArrayKey")
   }
 }
