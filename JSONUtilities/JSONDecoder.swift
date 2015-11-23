@@ -16,7 +16,7 @@ import Foundation
 public enum DecodingError: ErrorType {
   case Mandatory(key: String)
   
-  var description: String {
+  public var description: String {
     switch self {
     case .Mandatory(let key):
       return "ParseError: \(key)"
