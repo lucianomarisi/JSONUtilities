@@ -83,10 +83,10 @@ struct Person {
    
   init(jsonDictionary: JSONDictionary) throws {
     let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
-    name = try personDecoder.decode("name")
-    age = try personDecoder.decode("age")
-    weight = try personDecoder.decode("weight")
-    profession = personDecoder.decode("profession")
+    name = try decoder.decode("name")
+    age = try decoder.decode("age")
+    weight = try decoder.decode("weight")
+    profession = decoder.decode("profession")
   }
   
 }
