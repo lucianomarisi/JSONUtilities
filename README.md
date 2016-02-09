@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/lucianomarisi/JSONUtilities.svg?branch=master)](https://travis-ci.org/lucianomarisi/JSONUtilities)
 [![](https://img.shields.io/cocoapods/v/JSONUtilities.svg)](https://cocoapods.org/pods/JSONUtilities)
 [![](https://img.shields.io/cocoapods/p/JSONUtilities.svg?style=flat)](https://cocoapods.org/pods/JSONUtilities)
+[![codecov.io](http://codecov.io/github/lucianomarisi/JSONUtilities/coverage.svg?branch=master)](http://codecov.io/github/lucianomarisi/JSONUtilities?branch=master)
 
 
 Easily load JSON objects and decode them into structs or classes. The `JSONDecoder` infers the type from the constant or variable definition to decode meaning no casting is needed.
