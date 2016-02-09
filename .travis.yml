@@ -1,6 +1,6 @@
 language: objective-c
 osx_image: xcode7.2
 script:
-  - xctool test -project JSONUtilities.xcodeproj -scheme JSONUtilities build test -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES | xcpretty --color
+  - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator9.2 -destination "OS=9.2,name=iPad 2" test -enableCodeCoverage YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
