@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'JSONUtilities'
-  spec.version      = '1.0.1'
+  spec.version      = '1.0.2'
   spec.license      = { :type => 'MIT', :text => <<-LICENSE
     The MIT License (MIT)
 
@@ -22,5 +22,8 @@ Pod::Spec.new do |spec|
   }
   spec.source_files = 'JSONUtilities/**/*.swift'
   spec.ios.deployment_target = '8.0'
+  spec.tvos.deployment_target = '9.0'
+  spec.osx.deployment_target = '10.10'
+  spec.watchos.deployment_target = '2.0'
 end
 
