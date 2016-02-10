@@ -8,6 +8,8 @@
 
 Easily load JSON objects and decode them into structs or classes. The `JSONDecoder` infers the type from the constant or variable definition to decode meaning no casting is needed.
 
+- Check out the `JSONUtilitiesExample.playground` for a working example
+
 ## Installation
 
 Either
@@ -79,10 +81,10 @@ let profession: String? = personDecoder.decode("profession") // Optional decodin
 ```swift
 struct Person {
 
-  let name: String
-  let age: Int
-  let weight: Double
-  let profession: String?
+  let name : String
+  let age : Int
+  let weight : Double
+  let profession : String?
    
   init(jsonDictionary: JSONDictionary) throws {
     let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
@@ -98,10 +100,10 @@ struct Person {
 ```swift
 class Person {
 
-  let name: String
-  let age: Int
-  let weight: Double
-  let profession: String?
+  let name : String
+  let age : Int
+  let weight : Double
+  let profession : String?
 
   init(name: String,
     	  age: Int,
@@ -149,7 +151,7 @@ Consider a company JSON object:
 }
 ```
 
-The `Company` struct can decode an array of `Person` structs/classes that conform to the `Decodable`
+The `Company` struct can decode an array of `Person` structs/classes by making `Person` conform to the `Decodable` protocol
 
 ```swift
 struct Company {
