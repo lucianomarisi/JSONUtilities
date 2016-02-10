@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'JSONUtilities'
-  spec.version      = '1.0.2'
+  spec.version      = '1.0.3'
   spec.license      = { :type => 'MIT', :text => <<-LICENSE
     The MIT License (MIT)
 
