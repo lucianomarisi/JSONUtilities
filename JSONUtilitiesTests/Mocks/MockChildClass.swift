@@ -32,7 +32,6 @@ final class MockChildClass {
 
 extension MockChildClass : Decodable {
   convenience init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     self.init(
       string : try jsonDictionary.jsonKey("stringKey"),
       integer : try jsonDictionary.jsonKey("integerKey"),

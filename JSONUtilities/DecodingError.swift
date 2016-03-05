@@ -14,13 +14,10 @@ import Foundation
  - Mandatory: The key that failed the decoding
  */
 public enum DecodingError: ErrorType {
-  case Mandatory(key: String)
   case MandatoryLiteral(key: StringLiteralConvertible)
   
   public var description: String {
     switch self {
-    case .Mandatory(let key):
-      return "ParseError: \(key)"
     case .MandatoryLiteral(let key):
       return "ParseError: \(key)"
     }

@@ -19,7 +19,6 @@ struct MockChildStruct {
 
 extension MockChildStruct : Decodable {
   init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     string = try jsonDictionary.jsonKey("stringKey")
     integer = try jsonDictionary.jsonKey("integerKey")
     double = try jsonDictionary.jsonKey("doubleKey")

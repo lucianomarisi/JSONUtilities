@@ -123,7 +123,6 @@ extension MockParentClass {
   
   // Convenience initializer used instead of designated because swift does not support partially initiated classes
   convenience init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     self.init(
       mandatoryString : try jsonDictionary.jsonKey("mandatoryStringKey"),
       mandatoryInt : try jsonDictionary.jsonKey("mandatoryIntKey"),
