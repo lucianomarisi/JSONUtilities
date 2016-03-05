@@ -6,9 +6,8 @@ struct Company {
   let employees : [Person]
   
   init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
-    name = try decoder.decode("name")
-    employees = try decoder.decode("employees")
+    name = try jsonDictionary.jsonKey("name")
+    employees = try jsonDictionary.jsonKey("employees")
   }
 }
 
@@ -19,9 +18,8 @@ struct Person : Decodable {
   let age : Int
   
   init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
-    name = try decoder.decode("name")
-    age = try decoder.decode("age")
+    name = try jsonDictionary.jsonKey("name")
+    age = try jsonDictionary.jsonKey("age")
   }
   
 }
@@ -34,20 +32,3 @@ do {
   print(company.employees.first!.age)
   
 } catch {}
-
-extension Bool {
-  
-  init(string: String) {
-    switch string {
-    case "true":
-      self.init(true)
-    default:
-      self.init(false)
-    }
-  }
-  
-}
-
-Bool(string: "true")
-
-
