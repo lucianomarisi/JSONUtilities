@@ -6,7 +6,7 @@
 [![codecov.io](http://codecov.io/github/lucianomarisi/JSONUtilities/coverage.svg?branch=master)](http://codecov.io/github/lucianomarisi/JSONUtilities?branch=master)
 
 
-Easily load JSON objects and decode them into structs or classes. The `JSONDecoder` infers the type from the constant or variable definition to decode meaning no casting is needed.
+Easily load JSON objects and decode them into structs or classes. The `jsonKey(_:)` function infers the type from the constant or variable definition to decode meaning no casting is needed.
 
 - Check out the `JSONUtilitiesExample.playground` for a working example
 
@@ -69,11 +69,10 @@ Consider a JSON object that represents a person:
 
 ```swift
 let jsonDictionary = try JSONDictionary.fromFile("person.json")
-let personDecoder = try JSONDecoder(jsonDictionary: jsonDictionary)
-let name: String = try personDecoder.decode("name")
-let age: Int = try personDecoder.decode("age")
-let weight: Int = try personDecoder.decode("weight")
-let profession: String? = personDecoder.decode("profession") // Optional decoding
+let name: String = try jsonDictionary.jsonKey("name")
+let age: Int = try jsonDictionary.jsonKey("age")
+let weight: Int = try jsonDictionary.jsonKey("weight")
+let profession: String? = jsonDictionary.jsonKey("profession") // Optional decoding
 ```
 
 ### Decode structs or classes
@@ -87,11 +86,10 @@ struct Person {
   let profession : String?
    
   init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
-    name = try decoder.decode("name")
-    age = try decoder.decode("age")
-    weight = try decoder.decode("weight")
-    profession = decoder.decode("profession")
+    name = try jsonDictionary.jsonKey("name")
+    age = try jsonDictionary.jsonKey("age")
+    weight = try jsonDictionary.jsonKey("weight")
+    profession = jsonDictionary.jsonKey("profession")
   }
   
 }
@@ -117,12 +115,11 @@ class Person {
   
   // Need a convenience initializer on a class because Swift does not allow to throw on a designated initializer
   convenience init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     self.init(
-      name : try decoder.decode("name"),
-      age : try decoder.decode("age"),
-      weight : try decoder.decode("weight"),
-      profession : try decoder.decode("profession")
+      name : try jsonDictionary.jsonKey("name"),
+      age : try jsonDictionary.jsonKey("age"),
+      weight : try jsonDictionary.jsonKey("weight"),
+      profession : try jsonDictionary.jsonKey("profession")
     )
   }
   
@@ -159,9 +156,8 @@ struct Company {
   let employees: [Person]
   
   init(jsonDictionary: JSONDictionary) throws {
-    let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
-    name = try decoder.decode("name")
-    employees = try decoder.decode("employees")
+    name = try jsonDictionary.jsonKey("name")
+    employees = try jsonDictionary.jsonKey("employees")
   }
 }
 ```
