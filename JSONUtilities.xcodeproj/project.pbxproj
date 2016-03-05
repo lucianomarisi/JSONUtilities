@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F6C6A3D1C8B9D4900CD6821 /* Dictionary+JSONKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6C6A3C1C8B9D4900CD6821 /* Dictionary+JSONKey.swift */; };
+		4F6C6A3F1C8BA0B200CD6821 /* DecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6C6A3E1C8BA0B200CD6821 /* DecodingError.swift */; };
 		4F8ADC561C01F02B008FD528 /* correct_with_missing_raw_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */; };
 		4F8ADC581C01F100008FD528 /* correct_with_missing_nested_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */; };
 		4F8ADC5A1C020CA1008FD528 /* MockParentClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8ADC591C020CA0008FD528 /* MockParentClass.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F6C6A3C1C8B9D4900CD6821 /* Dictionary+JSONKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSONKey.swift"; sourceTree = "<group>"; };
+		4F6C6A3E1C8BA0B200CD6821 /* DecodingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingError.swift; sourceTree = "<group>"; };
 		4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_with_missing_raw_array.json; sourceTree = "<group>"; };
 		4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_with_missing_nested_array.json; sourceTree = "<group>"; };
 		4F8ADC591C020CA0008FD528 /* MockParentClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockParentClass.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 				4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */,
 				4FE3C03F1C00EE5000607CC4 /* JSONFileLoading.swift */,
 				4FE3C0411C00EE6B00607CC4 /* JSONDecoder.swift */,
+				4F6C6A3E1C8BA0B200CD6821 /* DecodingError.swift */,
+				4F6C6A3C1C8B9D4900CD6821 /* Dictionary+JSONKey.swift */,
 				4FE3C02A1C00EDE900607CC4 /* Info.plist */,
 			);
 			path = JSONUtilities;
@@ -262,6 +268,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F6C6A3D1C8B9D4900CD6821 /* Dictionary+JSONKey.swift in Sources */,
+				4F6C6A3F1C8BA0B200CD6821 /* DecodingError.swift in Sources */,
 				4FE3C0421C00EE6B00607CC4 /* JSONDecoder.swift in Sources */,
 				4FE3C0401C00EE5000607CC4 /* JSONFileLoading.swift in Sources */,
 			);

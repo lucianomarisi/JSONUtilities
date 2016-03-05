@@ -1,5 +1,5 @@
 //
-//  JSONDecoder.swift
+//  r.swift
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 21/11/2015.
@@ -7,29 +7,6 @@
 //
 
 import Foundation
-
-/**
- Decoding error for mandatory keys
- 
- - Mandatory: The key that failed the decoding
- */
-public enum DecodingError: ErrorType {
-  case Mandatory(key: String)
-  
-  public var description: String {
-    switch self {
-    case .Mandatory(let key):
-      return "ParseError: \(key)"
-    }
-  }
-}
-
-public protocol JSONRawType {}
-extension Int : JSONRawType {}
-extension Double : JSONRawType {}
-extension Float : JSONRawType {}
-extension String : JSONRawType {}
-extension Bool : JSONRawType {}
 
 /**
  *  Use the Decodable protocol to support nested JSON objects

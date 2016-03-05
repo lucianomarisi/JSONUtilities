@@ -125,41 +125,41 @@ extension MockParentClass {
   convenience init(jsonDictionary: JSONDictionary) throws {
     let decoder = JSONDecoder(jsonDictionary: jsonDictionary)
     self.init(
-      mandatoryString : try decoder.decode("mandatoryStringKey"),
-      mandatoryInt : try decoder.decode("mandatoryIntKey"),
-      mandatoryDouble : try decoder.decode("mandatoryDoubleKey"),
-      mandatoryBool : try decoder.decode("mandatoryBoolKey"),
-      mandatoryCustomJSONObject : try decoder.decode("mandatoryCustomJSONObjectKey"),
+      mandatoryString : try jsonDictionary.jsonKey("mandatoryStringKey"),
+      mandatoryInt : try jsonDictionary.jsonKey("mandatoryIntKey"),
+      mandatoryDouble : try jsonDictionary.jsonKey("mandatoryDoubleKey"),
+      mandatoryBool : try jsonDictionary.jsonKey("mandatoryBoolKey"),
+      mandatoryCustomJSONObject : try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey"),
       
-      optionalExistingString : decoder.decode("mandatoryStringKey"),
-      optionalExistingInt : decoder.decode("mandatoryIntKey"),
-      optionalExistingDouble : decoder.decode("mandatoryDoubleKey"),
-      optionalExistingBool : decoder.decode("mandatoryBoolKey"),
-      optionalExistingCustomJSONObject : decoder.decode("mandatoryCustomJSONObjectKey"),
+      optionalExistingString : jsonDictionary.jsonKey("mandatoryStringKey"),
+      optionalExistingInt : jsonDictionary.jsonKey("mandatoryIntKey"),
+      optionalExistingDouble : jsonDictionary.jsonKey("mandatoryDoubleKey"),
+      optionalExistingBool : jsonDictionary.jsonKey("mandatoryBoolKey"),
+      optionalExistingCustomJSONObject : jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey"),
       
-      optionalMissingString : decoder.decode(randomKey),
-      optionalMissingInt : decoder.decode(randomKey),
-      optionalMissingDouble : decoder.decode(randomKey),
-      optionalMissingBool : decoder.decode(randomKey),
-      optionalMissingCustomJSONObject : decoder.decode(randomKey),
+      optionalMissingString : jsonDictionary.jsonKey(randomKey),
+      optionalMissingInt : jsonDictionary.jsonKey(randomKey),
+      optionalMissingDouble : jsonDictionary.jsonKey(randomKey),
+      optionalMissingBool : jsonDictionary.jsonKey(randomKey),
+      optionalMissingCustomJSONObject : jsonDictionary.jsonKey(randomKey),
       
-      mandatoryArrayString : try decoder.decode("mandatoryArrayStringKey"),
-      mandatoryArrayInt : try decoder.decode("mandatoryArrayIntKey"),
-      mandatoryArrayDouble : try decoder.decode("mandatoryArrayDoubleKey"),
-      mandatoryArrayBool : try decoder.decode("mandatoryArrayBoolKey"),
-      mandatoryArrayCustomJSONObject : try decoder.decode("mandatoryArrayCustomJSONObjectKey"),
+      mandatoryArrayString : try jsonDictionary.jsonKey("mandatoryArrayStringKey"),
+      mandatoryArrayInt : try jsonDictionary.jsonKey("mandatoryArrayIntKey"),
+      mandatoryArrayDouble : try jsonDictionary.jsonKey("mandatoryArrayDoubleKey"),
+      mandatoryArrayBool : try jsonDictionary.jsonKey("mandatoryArrayBoolKey"),
+      mandatoryArrayCustomJSONObject : try jsonDictionary.jsonKey("mandatoryArrayCustomJSONObjectKey"),
       
-      optionalExistingArrayString : decoder.decode("mandatoryArrayStringKey"),
-      optionalExistingArrayInt : decoder.decode("mandatoryArrayIntKey"),
-      optionalExistingArrayDouble : decoder.decode("mandatoryArrayDoubleKey"),
-      optionalExistingArrayBool : decoder.decode("mandatoryArrayBoolKey"),
-      optionalExistingArrayCustomJSONObject : decoder.decode("mandatoryArrayCustomJSONObjectKey"),
+      optionalExistingArrayString : jsonDictionary.jsonKey("mandatoryArrayStringKey"),
+      optionalExistingArrayInt : jsonDictionary.jsonKey("mandatoryArrayIntKey"),
+      optionalExistingArrayDouble : jsonDictionary.jsonKey("mandatoryArrayDoubleKey"),
+      optionalExistingArrayBool : jsonDictionary.jsonKey("mandatoryArrayBoolKey"),
+      optionalExistingArrayCustomJSONObject : jsonDictionary.jsonKey("mandatoryArrayCustomJSONObjectKey"),
       
-      optionalMissingArrayString : decoder.decode(randomKey),
-      optionalMissingArrayInt : decoder.decode(randomKey),
-      optionalMissingArrayDouble : decoder.decode(randomKey),
-      optionalMissingArrayBool : decoder.decode(randomKey),
-      optionalMissingArrayCustomJSONObject : decoder.decode(randomKey)
+      optionalMissingArrayString : jsonDictionary.jsonKey(randomKey),
+      optionalMissingArrayInt : jsonDictionary.jsonKey(randomKey),
+      optionalMissingArrayDouble : jsonDictionary.jsonKey(randomKey),
+      optionalMissingArrayBool : jsonDictionary.jsonKey(randomKey),
+      optionalMissingArrayCustomJSONObject : jsonDictionary.jsonKey(randomKey)
     )
   }
 }

@@ -34,3 +34,20 @@ do {
   print(company.employees.first!.age)
   
 } catch {}
+
+extension Bool {
+  
+  init(string: String) {
+    switch string {
+    case "true":
+      self.init(true)
+    default:
+      self.init(false)
+    }
+  }
+  
+}
+
+Bool(string: "true")
+
+
