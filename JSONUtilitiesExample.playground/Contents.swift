@@ -32,3 +32,43 @@ do {
   print(company.employees.first!.age)
   
 } catch {}
+
+
+class City {
+  
+  let name: String
+  
+  init(name: String) {
+    self.name = name
+  }
+  
+  init?(jsonDictionary: JSONDictionary) {
+    do {
+      name = try jsonDictionary.jsonKey("name")
+    } catch {
+      name = ""
+      return nil
+    }
+  }
+  
+  convenience init(throwingJSONDictionary: JSONDictionary) throws {
+    self.init(
+      name : try throwingJSONDictionary.jsonKey("name")
+    )
+  }
+}
+
+let validRawVehicleDictionary = ["name": "London"]
+let validCity = City(jsonDictionary: validRawVehicleDictionary)
+print(validCity?.name)
+
+
+let invalidRawVehicleDictionary = ["afe": "London"]
+let invalidCity = City(jsonDictionary: invalidRawVehicleDictionary)
+print(invalidCity?.name)
+
+do {
+  let invalidCity = try City(throwingJSONDictionary: invalidRawVehicleDictionary)
+} catch {
+  print(error)
+}
