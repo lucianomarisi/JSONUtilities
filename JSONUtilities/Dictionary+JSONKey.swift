@@ -21,7 +21,7 @@ extension Dictionary where Key: StringLiteralConvertible {
   public func jsonKey<ReturnType : JSONRawType>(key: Key) throws -> ReturnType {
     
     guard let value = self[key] as? ReturnType else {
-      throw DecodingError.MandatoryLiteral(key: key)
+      throw DecodingError.MandatoryKeyNotFound(key: key)
     }
     return value
   }
@@ -34,7 +34,7 @@ extension Dictionary where Key: StringLiteralConvertible {
   /// Decode an Array of mandatory JSON raw types
   public func jsonKey<ReturnType>(key: Key) throws -> [ReturnType] {
     guard let value = self[key] as? [ReturnType] else {
-      throw DecodingError.MandatoryLiteral(key: key)
+      throw DecodingError.MandatoryKeyNotFound(key: key)
     }
     return value
   }
@@ -73,14 +73,14 @@ extension Dictionary where Key: StringLiteralConvertible {
   
   private func JSONDictionaryForKey(key: Key) throws -> JSONDictionary {
     guard let jsonDictionary = self[key] as? JSONDictionary else {
-      throw DecodingError.MandatoryLiteral(key: key)
+      throw DecodingError.MandatoryKeyNotFound(key: key)
     }
     return jsonDictionary
   }
   
   private func JSONArrayForKey(key: Key) throws -> JSONArray {
     guard let jsonArray = self[key] as? JSONArray else {
-      throw DecodingError.MandatoryLiteral(key: key)
+      throw DecodingError.MandatoryKeyNotFound(key: key)
     }
     return jsonArray
   }

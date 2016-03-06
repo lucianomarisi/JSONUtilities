@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.1
+
+- Renamed `MandatoryLiteral` enum in `DecodingError` to `MandatoryKeyNotFound` for clarity
+
 ## 2.0.0
 
 - API now uses a functional approach.
