@@ -13,14 +13,31 @@ import Foundation
  
  - Mandatory: The key that failed the decoding
  */
-public enum DecodingError<KeyType: StringLiteralConvertible>: ErrorType {
+public enum DecodingError<KeyType: StringLiteralConvertible>: ErrorType, CustomStringConvertible {
   case MandatoryKeyNotFound(key: KeyType)
   
   public var description: String {
     switch self {
     case .MandatoryKeyNotFound(let key):
-      return "ParseError: \(key)"
+      return "MandatoryKeyNotFound: \(key)"
     }
-    
   }
+  
+}
+
+/**
+ Error used when a json value fails to be transformed
+ 
+ - CouldNotTransformJSONValue: The value that failed to be transformed
+ */
+public enum TranformableError<ValueType: JSONRawType>: ErrorType, CustomStringConvertible {
+  case CouldNotTransformJSONValue(value: ValueType)
+  
+  public var description: String {
+    switch self {
+    case .CouldNotTransformJSONValue(let value):
+      return "CouldNotTransformJSONValue: \(value)"
+    }
+  }
+  
 }
