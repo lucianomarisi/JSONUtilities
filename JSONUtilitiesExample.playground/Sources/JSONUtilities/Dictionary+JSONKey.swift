@@ -100,5 +100,31 @@ extension Dictionary where Key: StringLiteralConvertible {
     
     return decodedArray
   }
+  
+  // MARK: Transformable types
+  
+  /// Decode a custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) throws -> TransformableType {
+    
+    guard let jsonValue = self[key] as? TransformableType.JSONType else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    
+    guard let transformedValue = TransformableType.fromJSONValue(jsonValue) else {
+      throw TranformableError.CouldNotTransformJSONValue(value: jsonValue)
+    }
+    
+    return transformedValue
+  }
+  
+  /// Optionally decode a custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) -> TransformableType? {
+    
+    guard let jsonValue = self[key] as? TransformableType.JSONType else {
+      return nil
+    }
+    
+    return TransformableType.fromJSONValue(jsonValue)
+  }
 
 }

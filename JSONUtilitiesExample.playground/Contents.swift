@@ -72,3 +72,29 @@ do {
 } catch {
   print(error)
 }
+
+
+enum State {
+  case Normal
+  case Selected
+}
+
+extension State : Transformable {
+
+  typealias JSONType = String
+  
+  static func fromJSONValue(jsonValue: String) -> State? {
+    switch jsonValue.lowercaseString {
+    case "normal":
+      return .Normal
+    case "selected":
+      return.Selected
+    default:
+      return nil
+    }
+    
+  }
+  
+}
+let jsonDictionary = ["state": "normal"]
+let stateNormal: State = try! jsonDictionary.jsonKey("state")
