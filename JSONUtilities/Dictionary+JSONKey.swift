@@ -15,7 +15,11 @@ extension Float : JSONRawType {}
 extension String : JSONRawType {}
 extension Bool : JSONRawType {}
 
-extension Dictionary where Key: StringLiteralConvertible {
+// Simple protocol used to extend a JSONDictionary
+public protocol StringProtocol {}
+extension String: StringProtocol {}
+
+extension Dictionary where Key: StringProtocol {
   
   /// Decode a mandatory JSON raw type
   public func jsonKey<ReturnType : JSONRawType>(key: Key) throws -> ReturnType {

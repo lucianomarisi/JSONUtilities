@@ -67,7 +67,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssert(mockJSONParent.optionalMissingArrayBool == nil)
       XCTAssert(mockJSONParent.optionalMissingArrayCustomJSONObject == nil)
      
-    } catch let error as DecodingError<String> {
+    } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: stringKey")
     } catch {
       XCTAssertTrue(false)
@@ -114,7 +114,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssert(mockJSONParent.optionalMissingArrayBool == nil)
       XCTAssert(mockJSONParent.optionalMissingArrayCustomJSONObject == nil)
       
-    } catch let error as DecodingError<String> {
+    } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: stringKey")
     } catch {
       XCTAssertTrue(false)
@@ -127,7 +127,7 @@ class JSONDecoderTests: XCTestCase {
       let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.empty, bundle: testBundle)
       let _ = try MockParentStruct(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
-    } catch let error as DecodingError<String> {
+    } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryStringKey")
     } catch {
       XCTAssertTrue(false)
@@ -139,7 +139,7 @@ class JSONDecoderTests: XCTestCase {
       let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correctWithoutRawArray, bundle: testBundle)
       let _ = try MockParentStruct(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
-    } catch let error as DecodingError<String> {
+    } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayStringKey")
     } catch {
       XCTAssertTrue(false)
@@ -151,7 +151,7 @@ class JSONDecoderTests: XCTestCase {
       let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correctWithoutNested, bundle: testBundle)
       let _ = try MockParentStruct(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
-    } catch let error as DecodingError<String> {
+    } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryCustomJSONObjectKey")
     } catch {
       XCTAssertTrue(false)
@@ -163,7 +163,7 @@ class JSONDecoderTests: XCTestCase {
       let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correctWithoutNestedArray, bundle: testBundle)
       let _ = try MockParentStruct(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
-    } catch let error as DecodingError<String> {
+    } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayCustomJSONObjectKey")
     } catch {
       XCTAssertTrue(false)

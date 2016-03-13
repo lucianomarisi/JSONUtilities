@@ -13,8 +13,8 @@ import Foundation
  
  - Mandatory: The key that failed the decoding
  */
-public enum DecodingError<KeyType: StringLiteralConvertible>: ErrorType, CustomStringConvertible {
-  case MandatoryKeyNotFound(key: KeyType)
+public enum DecodingError: ErrorType, CustomStringConvertible {
+  case MandatoryKeyNotFound(key: StringProtocol)
   
   public var description: String {
     switch self {
