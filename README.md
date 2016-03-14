@@ -161,3 +161,22 @@ struct Company {
   }
 }
 ```
+
+### Support custom types by conforming to `Transformable`
+
+Any type can extend the `Transformable` protocol in order to allow decoding. For example extending `NSURL`:
+
+```swift
+extension NSURL : Transformable {
+
+  public typealias JSONType = String
+  
+  public static func fromJSONValue(jsonValue: String) -> Self? {
+    return self.init(string: jsonValue)
+  }
+  
+}
+
+let urlDictionary = ["url": "www.google.com"]
+let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
+```

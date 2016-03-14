@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.0
+
+- Added `Tranformable` protocol to support decoding for custom types
+
 ## 2.0.1
 
 - Renamed `MandatoryLiteral` enum in `DecodingError` to `MandatoryKeyNotFound` for clarity

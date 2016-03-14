@@ -1,3 +1,4 @@
+import Foundation
 
 // Simple example playground to see the loading and decoding of a JSON file
 
@@ -98,3 +99,18 @@ extension State : Transformable {
 }
 let jsonDictionary = ["state": "normal"]
 let stateNormal: State = try! jsonDictionary.jsonKey("state")
+
+
+
+extension NSURL : Transformable {
+  public typealias JSONType = String
+  
+  public static func fromJSONValue(jsonValue: String) -> Self? {
+    return self.init(string: jsonValue)
+  }
+  
+}
+let urlDictionary = ["url": "www.google.com"]
+let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
+
+
