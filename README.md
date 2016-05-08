@@ -31,6 +31,7 @@ OR
 - `Float`
 - `String`
 - `Bool`
+- `[String : AnyObject]`
 
 ### Array of JSON raw types:
 
@@ -40,6 +41,7 @@ OR
 - `[String]`
 - `[Bool]`
 
+
 ### Custom JSON objects and custom JSON object arrays
 
 e.g. if `MyClass` and `MyStruct` conform to `Decodable` protocol
@@ -48,9 +50,6 @@ e.g. if `MyClass` and `MyStruct` conform to `Decodable` protocol
 - [`MyClass`]
 - `MyStruct`
 - [`MyStruct`]
-
-
-**Note: Raw dictionaries are intentionally not supported, i.e. `[String : T]`**
 
 
 ## Examples
@@ -104,9 +103,9 @@ class Person {
   let profession : String?
 
   init(name: String,
-    	  age: Int,
-       weight: Double
-       profession: String?) {
+        age: Int,
+     weight: Double
+ profession: String?) {
     self.name = name
     self.age = age
     self.weight = weight
