@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.0
+
+- Added support for decoding a raw JSON dictionary and an array of raw JSON dictionary, i.e. `[String : AnyObject]` and `[[String : AnyObject]]`
+
 ## 2.1.0
 
 - Added `Tranformable` protocol to support decoding for custom types
