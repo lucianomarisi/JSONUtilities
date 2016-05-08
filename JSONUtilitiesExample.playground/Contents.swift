@@ -28,7 +28,7 @@ struct Person : Decodable {
 do {
   let jsonDictionary = try JSONDictionary.fromFile("example")
   let company = try Company(jsonDictionary: jsonDictionary)
-  
+  let rawEmployees : [JSONDictionary] = try jsonDictionary.jsonKey("employees")
   print(company.name)
   print(company.employees.first!.age)
   
@@ -112,5 +112,14 @@ extension NSURL : Transformable {
 }
 let urlDictionary = ["url": "www.google.com"]
 let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
+
+let rawDictionary : JSONDictionary = ["rootKey":
+  [
+    "stringKey": "value",
+    "numberKey": 1
+  ]
+]
+
+let decodedRawDictionary : JSONDictionary = try rawDictionary.jsonKey("rootKey")
 
 
