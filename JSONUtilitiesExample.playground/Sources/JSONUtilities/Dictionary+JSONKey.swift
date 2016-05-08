@@ -15,7 +15,13 @@ extension Float : JSONRawType {}
 extension String : JSONRawType {}
 extension Bool : JSONRawType {}
 
-extension Dictionary where Key: StringLiteralConvertible {
+// Simple protocol used to extend a JSONDictionary
+public protocol StringProtocol {}
+extension String: StringProtocol {}
+
+extension Dictionary where Key: StringProtocol {
+  
+  // MARK: JSONRawType type
   
   /// Decode a mandatory JSON raw type
   public func jsonKey<ReturnType : JSONRawType>(key: Key) throws -> ReturnType {
@@ -31,6 +37,8 @@ extension Dictionary where Key: StringLiteralConvertible {
     return self[key] as? ReturnType
   }
   
+  // MARK: [JSONRawType] type
+  
   /// Decode an Array of mandatory JSON raw types
   public func jsonKey<ReturnType>(key: Key) throws -> [ReturnType] {
     guard let value = self[key] as? [ReturnType] else {
@@ -44,7 +52,51 @@ extension Dictionary where Key: StringLiteralConvertible {
     return self[key] as? [ReturnType]
   }
   
+  // MARK: [String: AnyObject] type
+  
+  /// Decodes as a raw Dictionary with a mandatory key
+  public func jsonKey(key: Key) throws -> JSONDictionary {
+    
+    guard let value = self[key] as? JSONDictionary else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    return value
+  }
+
+  /// Decodes as a raw dictionary with an optional key
+  public func jsonKey(key: Key) -> JSONDictionary? {
+    return self[key] as? JSONDictionary
+  }
+  
+  // MARK: [[String: AnyObject]] type
+  
+  /// Decodes as a raw dictionary array with a mandatory key
+  public func jsonKey(key: Key) throws -> [JSONDictionary] {
+    
+    guard let value = self[key] as? [JSONDictionary] else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    return value
+  }
+  
+  /// Decodes as a raw ictionary array with an optional key
+  public func jsonKey(key: Key) -> [JSONDictionary]? {
+    return self[key] as? [JSONDictionary]
+  }
+  
   // MARK: Decodable types
+  
+  /// Decode a mandatory Decodable object
+  public func jsonKey<ReturnType : Decodable>(key: Key) throws -> ReturnType {
+    return try ReturnType(jsonDictionary: JSONDictionaryForKey(key))
+  }
+  
+  /// Decode an optional Decodable object
+  public func jsonKey<ReturnType : Decodable>(key: Key) -> ReturnType? {
+    return try? ReturnType(jsonDictionary: JSONDictionaryForKey(key))
+  }
+  
+  // MARK: [Decodable] types
   
   /// Decode an Array of mandatory Decodable objects
   public func jsonKey<ReturnType : Decodable>(key: Key) throws -> [ReturnType] {
@@ -59,14 +111,30 @@ extension Dictionary where Key: StringLiteralConvertible {
     return decodableObjectsArray(jsonArray)
   }
   
-  /// Decode a mandatory Decodable object
-  public func jsonKey<ReturnType : Decodable>(key: Key) throws -> ReturnType {
-    return try ReturnType(jsonDictionary: JSONDictionaryForKey(key))
+  // MARK: Transformable types
+  
+  /// Decode a custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) throws -> TransformableType {
+    
+    guard let jsonValue = self[key] as? TransformableType.JSONType else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    
+    guard let transformedValue = TransformableType.fromJSONValue(jsonValue) else {
+      throw TranformableError.CouldNotTransformJSONValue(value: jsonValue)
+    }
+    
+    return transformedValue
   }
   
-  /// Decode an optional Decodable object
-  public func jsonKey<ReturnType : Decodable>(key: Key) -> ReturnType? {
-    return try? ReturnType(jsonDictionary: JSONDictionaryForKey(key))
+  /// Optionally decode a custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) -> TransformableType? {
+    
+    guard let jsonValue = self[key] as? TransformableType.JSONType else {
+      return nil
+    }
+    
+    return TransformableType.fromJSONValue(jsonValue)
   }
   
   // MARK: JSONDictionary and JSONArray creation
@@ -99,32 +167,6 @@ extension Dictionary where Key: StringLiteralConvertible {
     }
     
     return decodedArray
-  }
-  
-  // MARK: Transformable types
-  
-  /// Decode a custom raw types with a mandatory key
-  public func jsonKey<TransformableType : Transformable>(key: Key) throws -> TransformableType {
-    
-    guard let jsonValue = self[key] as? TransformableType.JSONType else {
-      throw DecodingError.MandatoryKeyNotFound(key: key)
-    }
-    
-    guard let transformedValue = TransformableType.fromJSONValue(jsonValue) else {
-      throw TranformableError.CouldNotTransformJSONValue(value: jsonValue)
-    }
-    
-    return transformedValue
-  }
-  
-  /// Optionally decode a custom raw types with a mandatory key
-  public func jsonKey<TransformableType : Transformable>(key: Key) -> TransformableType? {
-    
-    guard let jsonValue = self[key] as? TransformableType.JSONType else {
-      return nil
-    }
-    
-    return TransformableType.fromJSONValue(jsonValue)
   }
 
 }

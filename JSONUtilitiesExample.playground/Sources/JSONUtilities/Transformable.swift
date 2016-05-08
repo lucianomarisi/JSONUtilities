@@ -14,7 +14,7 @@ import Foundation
 public protocol Transformable {
   
   /// The type of the raw JSON value that will be decoded to be transformed
-  typealias JSONType: JSONRawType
+  associatedtype JSONType: JSONRawType
   
   /**
    Create a type from a JSON value
