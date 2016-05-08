@@ -40,6 +40,7 @@ OR
 - `[Float]`
 - `[String]`
 - `[Bool]`
+- `[[String : AnyObject]]`
 
 
 ### Custom JSON objects and custom JSON object arrays

@@ -19,18 +19,21 @@ struct MockParentStruct {
   let mandatoryInt: Int
   let mandatoryDouble: Double
   let mandatoryBool: Bool
+  let mandatoryWeakDictionaryKey: JSONDictionary
   let mandatoryCustomJSONObject: MockChildStruct
 
   let optionalExistingString: String?
   let optionalExistingInt: Int?
   let optionalExistingDouble: Double?
   let optionalExistingBool: Bool?
+  let optionalExistingWeakDictionaryKey: JSONDictionary?
   let optionalExistingCustomJSONObject: MockChildStruct?
 
   let optionalMissingString: String?
   let optionalMissingInt: Int?
   let optionalMissingDouble: Double?
   let optionalMissingBool: Bool?
+  let optionalMissingWeakDictionaryKey: JSONDictionary?
   let optionalMissingCustomJSONObject: MockChildStruct?
   
   // Mark: Array properties
@@ -38,24 +41,23 @@ struct MockParentStruct {
   let mandatoryArrayInt: [Int]
   let mandatoryArrayDouble: [Double]
   let mandatoryArrayBool: [Bool]
-  let mandatoryWeakDictionaryKey: [String: AnyObject]
+  let mandatoryWeakDictionaryArrayKey: [JSONDictionary]
   let mandatoryArrayCustomJSONObject: [MockChildStruct]
   
   let optionalExistingArrayString: [String]?
   let optionalExistingArrayInt: [Int]?
   let optionalExistingArrayDouble: [Double]?
   let optionalExistingArrayBool: [Bool]?
-  let optionalExistingWeakDictionaryKey: [String: AnyObject]?
+  let optionalExistingWeakDictionaryArrayKey: [JSONDictionary]?
   let optionalExistingArrayCustomJSONObject: [MockChildStruct]?
   
   let optionalMissingArrayString: [String]?
   let optionalMissingArrayInt: [Int]?
   let optionalMissingArrayDouble: [Double]?
   let optionalMissingArrayBool: [Bool]?
-  let optionalMissingWeakDictionaryKey: [String: AnyObject]?
+  let optionalMissingWeakDictionaryArrayKey: [JSONDictionary]?
   let optionalMissingArrayCustomJSONObject: [MockChildStruct]?
   
-
 }
 
 
@@ -65,39 +67,42 @@ extension MockParentStruct {
     mandatoryInt = try jsonDictionary.jsonKey("mandatoryIntKey")
     mandatoryDouble = try jsonDictionary.jsonKey("mandatoryDoubleKey")
     mandatoryBool = try jsonDictionary.jsonKey("mandatoryBoolKey")
+    mandatoryWeakDictionaryKey = try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     mandatoryCustomJSONObject = try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     
     optionalExistingString = jsonDictionary.jsonKey("mandatoryStringKey")
     optionalExistingInt = jsonDictionary.jsonKey("mandatoryIntKey")
     optionalExistingDouble = jsonDictionary.jsonKey("mandatoryDoubleKey")
     optionalExistingBool = jsonDictionary.jsonKey("mandatoryBoolKey")
+    optionalExistingWeakDictionaryKey = jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     optionalExistingCustomJSONObject = jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     
     optionalMissingString = jsonDictionary.jsonKey(randomKey)
     optionalMissingInt = jsonDictionary.jsonKey(randomKey)
     optionalMissingDouble = jsonDictionary.jsonKey(randomKey)
     optionalMissingBool = jsonDictionary.jsonKey(randomKey)
+    optionalMissingWeakDictionaryKey = jsonDictionary.jsonKey(randomKey)
     optionalMissingCustomJSONObject = jsonDictionary.jsonKey(randomKey)
     
     mandatoryArrayString = try jsonDictionary.jsonKey("mandatoryArrayStringKey")
     mandatoryArrayInt = try jsonDictionary.jsonKey("mandatoryArrayIntKey")
     mandatoryArrayDouble = try jsonDictionary.jsonKey("mandatoryArrayDoubleKey")
     mandatoryArrayBool = try jsonDictionary.jsonKey("mandatoryArrayBoolKey")
-    mandatoryWeakDictionaryKey = try jsonDictionary.jsonKey("mandatoryWeakDictionaryKey")
+    mandatoryWeakDictionaryArrayKey = try jsonDictionary.jsonKey("mandatoryArrayCustomJSONObjectKey")
     mandatoryArrayCustomJSONObject = try jsonDictionary.jsonKey("mandatoryArrayCustomJSONObjectKey")
     
     optionalExistingArrayString = jsonDictionary.jsonKey("mandatoryArrayStringKey")
     optionalExistingArrayInt = jsonDictionary.jsonKey("mandatoryArrayIntKey")
     optionalExistingArrayDouble = jsonDictionary.jsonKey("mandatoryArrayDoubleKey")
     optionalExistingArrayBool = jsonDictionary.jsonKey("mandatoryArrayBoolKey")
-    optionalExistingWeakDictionaryKey = jsonDictionary.jsonKey("mandatoryWeakDictionaryKey")
+    optionalExistingWeakDictionaryArrayKey = jsonDictionary.jsonKey("mandatoryArrayCustomJSONObjectKey")
     optionalExistingArrayCustomJSONObject = jsonDictionary.jsonKey("mandatoryArrayCustomJSONObjectKey")
     
     optionalMissingArrayString = jsonDictionary.jsonKey(randomKey)
     optionalMissingArrayInt = jsonDictionary.jsonKey(randomKey)
     optionalMissingArrayDouble = jsonDictionary.jsonKey(randomKey)
     optionalMissingArrayBool = jsonDictionary.jsonKey(randomKey)
-    optionalMissingWeakDictionaryKey = jsonDictionary.jsonKey(randomKey)
+    optionalMissingWeakDictionaryArrayKey = jsonDictionary.jsonKey(randomKey)
     optionalMissingArrayCustomJSONObject = jsonDictionary.jsonKey(randomKey)
   }
 }
