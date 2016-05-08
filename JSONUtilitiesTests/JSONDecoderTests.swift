@@ -164,7 +164,7 @@ class JSONDecoderTests: XCTestCase {
       let _ = try MockParentStruct(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayCustomJSONObjectKey")
+      XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryWeakDictionaryKey")
     } catch {
       XCTAssertTrue(false)
     }

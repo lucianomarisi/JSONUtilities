@@ -30,5 +30,9 @@
                                          {
                                          "randomTypeObject" : 123
                                          }
-                                         ]
+                                         ],
+  "mandatoryWeakDictionaryKey" : {
+    "stringKey": "value",
+    "boolKey" : true
+  }
 }
