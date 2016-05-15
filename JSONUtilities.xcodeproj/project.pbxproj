@@ -25,7 +25,7 @@
 		4FE3C04F1C00EED400607CC4 /* correct.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04A1C00EED400607CC4 /* correct.json */; };
 		4FE3C0501C00EED400607CC4 /* correct_without_nested_object.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04B1C00EED400607CC4 /* correct_without_nested_object.json */; };
 		4FE3C0511C00EED400607CC4 /* invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04C1C00EED400607CC4 /* invalid.json */; };
-		4FE3C0521C00EED400607CC4 /* array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04D1C00EED400607CC4 /* array.json */; };
+		4FE3C0521C00EED400607CC4 /* root_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04D1C00EED400607CC4 /* root_array.json */; };
 		4FE3C0531C00EED400607CC4 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04E1C00EED400607CC4 /* empty.json */; };
 		4FE3C0551C00EEE800607CC4 /* JSONDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */; };
 		4FE3C05C1C00F05700607CC4 /* JSONFilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */; };
@@ -63,7 +63,7 @@
 		4FE3C04A1C00EED400607CC4 /* correct.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct.json; sourceTree = "<group>"; };
 		4FE3C04B1C00EED400607CC4 /* correct_without_nested_object.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct_without_nested_object.json; sourceTree = "<group>"; };
 		4FE3C04C1C00EED400607CC4 /* invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = invalid.json; sourceTree = "<group>"; };
-		4FE3C04D1C00EED400607CC4 /* array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = array.json; sourceTree = "<group>"; };
+		4FE3C04D1C00EED400607CC4 /* root_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = root_array.json; sourceTree = "<group>"; };
 		4FE3C04E1C00EED400607CC4 /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
 		4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoderTests.swift; sourceTree = "<group>"; };
 		4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFilenames.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */,
-				4FE3C04D1C00EED400607CC4 /* array.json */,
+				4FE3C04D1C00EED400607CC4 /* root_array.json */,
 				4FE3C04A1C00EED400607CC4 /* correct.json */,
 				4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */,
 				4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */,
@@ -294,7 +294,7 @@
 				4FE3C0511C00EED400607CC4 /* invalid.json in Resources */,
 				4F8ADC561C01F02B008FD528 /* correct_with_missing_raw_array.json in Resources */,
 				4FE3C0501C00EED400607CC4 /* correct_without_nested_object.json in Resources */,
-				4FE3C0521C00EED400607CC4 /* array.json in Resources */,
+				4FE3C0521C00EED400607CC4 /* root_array.json in Resources */,
 				4FE3C0531C00EED400607CC4 /* empty.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

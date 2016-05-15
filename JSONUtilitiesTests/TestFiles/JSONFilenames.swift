@@ -16,6 +16,6 @@ struct JSONFilename {
   static let correctWithoutRawArray = "correct_with_missing_raw_array"
   static let missing = "missing"
   static let invalid = "invalid"
-  static let array = "array"
+  static let rootArray = "root_array"
 }
 

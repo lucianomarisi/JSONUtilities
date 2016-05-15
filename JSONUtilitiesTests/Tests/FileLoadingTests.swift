@@ -12,35 +12,37 @@ import XCTest
 class FileLoadingTests: XCTestCase {
   
   func testLoadingJSONFile() {
-    do {
-      try JSONDictionary.fromFile(JSONFilename.correct, bundle: testBundle)
-    } catch {
-      XCTAssertTrue(false)
-    }
+    try! JSONDictionary.fromFile(JSONFilename.correct, bundle: testBundle)
   }
   
   func testLoadingJSONFileLoadingFailed() {
-    do {
+    expectError(.FileLoadingFailed) {
       try JSONDictionary.fromFile(JSONFilename.missing, bundle: testBundle)
-    } catch let error {
-      XCTAssert(error as! JSONUtilsError == .FileLoadingFailed)
     }
   }
   
   func testLoadingJSONFileDeserializationFailed() {
-    do {
+    expectError(.FileDeserializationFailed) {
       try JSONDictionary.fromFile(JSONFilename.invalid, bundle: testBundle)
-    } catch let error {
-      XCTAssert(error as! JSONUtilsError == .FileDeserializationFailed)
     }
   }
 
   func testLoadingJSONFileNotAJSONDictionary() {
-    do {
-      try JSONDictionary.fromFile(JSONFilename.array, bundle: testBundle)
-    } catch let error {
-      XCTAssert(error as! JSONUtilsError == .FileNotAJSONDictionary)
+    expectError(.FileNotAJSONDictionary) {
+      try JSONDictionary.fromFile(JSONFilename.rootArray, bundle: testBundle)
     }
+  }
+  
+  // MARK: Helpers
+  
+  private func expectError(expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, @noescape block: (() throws -> Void) ) {
+    do {
+      try block()
+    } catch let error {
+      XCTAssert(error as! JSONUtilsError == expectedError, file: file, line: line)
+      return
+    }
+    XCTFail("No error thrown, expected: \(expectedError)", file: file, line: line)
   }
   
 }
