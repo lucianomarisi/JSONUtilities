@@ -1,17 +1,18 @@
 //
-//  MockParentClass.swift
+//  MockParent.swift
 //  JSONUtilities
 //
-//  Created by Luciano Marisi on 22/11/2015.
-//  Copyright © 2015 TechBrewers LTD. All rights reserved.
+//  Created by Luciano Marisi on 15/05/2016.
+//  Copyright © 2016 TechBrewers LTD. All rights reserved.
 //
 
 import Foundation
+
 @testable import JSONUtilities
 
 private let randomKey = "asdfghj"
 
-final class MockParentClass {
+struct MockParent {
   
   // Mark: JSON raw types and custom objects properties
   let mandatoryString: String
@@ -19,21 +20,21 @@ final class MockParentClass {
   let mandatoryDouble: Double
   let mandatoryBool: Bool
   let mandatoryWeakDictionaryKey: JSONDictionary
-  let mandatoryCustomJSONObject: MockChildClass
+  let mandatoryCustomJSONObject: MockChild
   
   let optionalExistingString: String?
   let optionalExistingInt: Int?
   let optionalExistingDouble: Double?
   let optionalExistingBool: Bool?
   let optionalExistingWeakDictionaryKey: JSONDictionary?
-  let optionalExistingCustomJSONObject: MockChildClass?
+  let optionalExistingCustomJSONObject: MockChild?
   
   let optionalMissingString: String?
   let optionalMissingInt: Int?
   let optionalMissingDouble: Double?
   let optionalMissingBool: Bool?
   let optionalMissingWeakDictionaryKey: JSONDictionary?
-  let optionalMissingCustomJSONObject: MockChildClass?
+  let optionalMissingCustomJSONObject: MockChild?
   
   // Mark: Array properties
   let mandatoryArrayString: [String]
@@ -41,23 +42,22 @@ final class MockParentClass {
   let mandatoryArrayDouble: [Double]
   let mandatoryArrayBool: [Bool]
   let mandatoryWeakDictionaryArrayKey: [JSONDictionary]
-  let mandatoryArrayCustomJSONObject: [MockChildClass]
+  let mandatoryArrayCustomJSONObject: [MockChild]
   
   let optionalExistingArrayString: [String]?
   let optionalExistingArrayInt: [Int]?
   let optionalExistingArrayDouble: [Double]?
   let optionalExistingArrayBool: [Bool]?
   let optionalExistingWeakDictionaryArrayKey: [JSONDictionary]?
-  let optionalExistingArrayCustomJSONObject: [MockChildClass]?
+  let optionalExistingArrayCustomJSONObject: [MockChild]?
   
   let optionalMissingArrayString: [String]?
   let optionalMissingArrayInt: [Int]?
   let optionalMissingArrayDouble: [Double]?
   let optionalMissingArrayBool: [Bool]?
   let optionalMissingWeakDictionaryArrayKey: [JSONDictionary]?
-  let optionalMissingArrayCustomJSONObject: [MockChildClass]?
+  let optionalMissingArrayCustomJSONObject: [MockChild]?
   
-
   init(jsonDictionary: JSONDictionary) throws {
     mandatoryString = try jsonDictionary.jsonKey("mandatoryStringKey")
     mandatoryInt = try jsonDictionary.jsonKey("mandatoryIntKey")

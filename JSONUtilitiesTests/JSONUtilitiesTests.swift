@@ -10,10 +10,6 @@ import XCTest
 @testable import JSONUtilities
 
 class JSONUtilitiesTests: XCTestCase {
-    
-  lazy var testBundle : NSBundle = {
-    return NSBundle(forClass: self.dynamicType)
-  }()
   
   func testLoadingJSONFile() {
     do {
