@@ -22,30 +22,24 @@ class FileLoadingTests: XCTestCase {
   func testLoadingJSONFileLoadingFailed() {
     do {
       try JSONDictionary.fromFile(JSONFilename.missing, bundle: testBundle)
-    } catch JSONUtilsError.FileLoadingFailed {
-      XCTAssertTrue(true)
-    } catch {
-      XCTAssertTrue(false)
+    } catch let error {
+      XCTAssert(error as! JSONUtilsError == .FileLoadingFailed)
     }
   }
   
   func testLoadingJSONFileDeserializationFailed() {
     do {
       try JSONDictionary.fromFile(JSONFilename.invalid, bundle: testBundle)
-    } catch JSONUtilsError.FileDeserializationFailed {
-      XCTAssertTrue(true)
-    } catch {
-      XCTAssertTrue(false)
+    } catch let error {
+      XCTAssert(error as! JSONUtilsError == .FileDeserializationFailed)
     }
   }
-  
+
   func testLoadingJSONFileNotAJSONDictionary() {
     do {
       try JSONDictionary.fromFile(JSONFilename.array, bundle: testBundle)
-    } catch JSONUtilsError.FileNotAJSONDictionary {
-      XCTAssertTrue(true)
-    } catch {
-      XCTAssertTrue(false)
+    } catch let error {
+      XCTAssert(error as! JSONUtilsError == .FileNotAJSONDictionary)
     }
   }
   

@@ -88,6 +88,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F05C4F11CE88C02003D4718 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */,
+				4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */,
+				4F0842021C96143500C28467 /* TransformableTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		4F316CC41CE8869E007F9241 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +112,14 @@
 			children = (
 				4FE3C02A1C00EDE900607CC4 /* Info.plist */,
 				4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		4F316CC81CE88BA6007F9241 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3C0361C00EDE900607CC4 /* Info.plist */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -141,12 +159,10 @@
 			isa = PBXGroup;
 			children = (
 				4F316CC41CE8869E007F9241 /* Helpers */,
+				4F316CC81CE88BA6007F9241 /* Metadata */,
 				4FE3C0561C00EF0D00607CC4 /* Mocks */,
 				4FE3C0431C00EEB200607CC4 /* TestFiles */,
-				4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */,
-				4FE3C0361C00EDE900607CC4 /* Info.plist */,
-				4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */,
-				4F0842021C96143500C28467 /* TransformableTests.swift */,
+				4F05C4F11CE88C02003D4718 /* Tests */,
 			);
 			path = JSONUtilitiesTests;
 			sourceTree = "<group>";
@@ -453,7 +469,7 @@
 		4FE3C03D1C00EDE900607CC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = JSONUtilitiesTests/Info.plist;
+				INFOPLIST_FILE = JSONUtilitiesTests/Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.TechBrewers-LTD.JSONUtilitiesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -463,7 +479,7 @@
 		4FE3C03E1C00EDE900607CC4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = JSONUtilitiesTests/Info.plist;
+				INFOPLIST_FILE = JSONUtilitiesTests/Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.TechBrewers-LTD.JSONUtilitiesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
