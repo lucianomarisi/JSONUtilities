@@ -1,6 +1,6 @@
 //
-//  JSONUtilitiesTests.swift
-//  JSONUtilitiesTests
+//  FileLoadingTests.swift
+//  FileLoadingTests
 //
 //  Created by Luciano Marisi on 21/11/2015.
 //  Copyright © 2015 TechBrewers LTD. All rights reserved.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import JSONUtilities
 
-class JSONUtilitiesTests: XCTestCase {
+class FileLoadingTests: XCTestCase {
   
   func testLoadingJSONFile() {
     do {

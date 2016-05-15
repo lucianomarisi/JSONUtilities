@@ -20,7 +20,7 @@
 		4F8ADC581C01F100008FD528 /* correct_with_missing_nested_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */; };
 		4FE3C0291C00EDE900607CC4 /* JSONUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FE3C0301C00EDE900607CC4 /* JSONUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE3C0251C00EDE900607CC4 /* JSONUtilities.framework */; };
-		4FE3C0351C00EDE900607CC4 /* JSONUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0341C00EDE900607CC4 /* JSONUtilitiesTests.swift */; };
+		4FE3C0351C00EDE900607CC4 /* FileLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */; };
 		4FE3C0401C00EE5000607CC4 /* JSONFileLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C03F1C00EE5000607CC4 /* JSONFileLoading.swift */; };
 		4FE3C04F1C00EED400607CC4 /* correct.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04A1C00EED400607CC4 /* correct.json */; };
 		4FE3C0501C00EED400607CC4 /* correct_without_nested_object.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04B1C00EED400607CC4 /* correct_without_nested_object.json */; };
@@ -57,7 +57,7 @@
 		4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONUtilities.h; sourceTree = "<group>"; };
 		4FE3C02A1C00EDE900607CC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FE3C02F1C00EDE900607CC4 /* JSONUtilitiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONUtilitiesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4FE3C0341C00EDE900607CC4 /* JSONUtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtilitiesTests.swift; sourceTree = "<group>"; };
+		4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingTests.swift; sourceTree = "<group>"; };
 		4FE3C0361C00EDE900607CC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FE3C03F1C00EE5000607CC4 /* JSONFileLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFileLoading.swift; sourceTree = "<group>"; };
 		4FE3C04A1C00EED400607CC4 /* correct.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = correct.json; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		4FE3C0331C00EDE900607CC4 /* JSONUtilitiesTests */ = {
 			isa = PBXGroup;
 			children = (
-				4FE3C0341C00EDE900607CC4 /* JSONUtilitiesTests.swift */,
+				4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */,
 				4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */,
 				4F0842021C96143500C28467 /* TransformableTests.swift */,
 				4F316CC41CE8869E007F9241 /* Helpers */,
@@ -298,7 +298,7 @@
 				4FE3C0551C00EEE800607CC4 /* JSONDecoderTests.swift in Sources */,
 				4F316CC11CE88599007F9241 /* MockParent.swift in Sources */,
 				4FE3C05C1C00F05700607CC4 /* JSONFilenames.swift in Sources */,
-				4FE3C0351C00EDE900607CC4 /* JSONUtilitiesTests.swift in Sources */,
+				4FE3C0351C00EDE900607CC4 /* FileLoadingTests.swift in Sources */,
 				4F0842031C96143500C28467 /* TransformableTests.swift in Sources */,
 				4F316CC61CE88898007F9241 /* XCTestCase+Additions.swift in Sources */,
 				4F0F85FB1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift in Sources */,
