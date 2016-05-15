@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 @testable import JSONUtilities
 
 struct MockChild {

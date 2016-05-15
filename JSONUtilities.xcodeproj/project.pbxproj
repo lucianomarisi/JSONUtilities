@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4F05C4F41CE89191003D4718 /* InlineDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F05C4F31CE89191003D4718 /* InlineDecodingTests.swift */; };
+		4F05C4F61CE8C50F003D4718 /* MockSimpleChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F05C4F51CE8C50F003D4718 /* MockSimpleChild.swift */; };
+		4F05C4F81CE8C518003D4718 /* MockSimpleParent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F05C4F71CE8C518003D4718 /* MockSimpleParent.swift */; };
 		4F0842011C96136000C28467 /* Transformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0842001C96136000C28467 /* Transformable.swift */; };
 		4F0842031C96143500C28467 /* TransformableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0842021C96143500C28467 /* TransformableTests.swift */; };
 		4F0F85FB1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F85FA1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift */; };
@@ -44,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		4F05C4F31CE89191003D4718 /* InlineDecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineDecodingTests.swift; sourceTree = "<group>"; };
+		4F05C4F51CE8C50F003D4718 /* MockSimpleChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSimpleChild.swift; sourceTree = "<group>"; };
+		4F05C4F71CE8C518003D4718 /* MockSimpleParent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSimpleParent.swift; sourceTree = "<group>"; };
 		4F0842001C96136000C28467 /* Transformable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transformable.swift; sourceTree = "<group>"; };
 		4F0842021C96143500C28467 /* TransformableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformableTests.swift; sourceTree = "<group>"; };
 		4F0F85FA1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equatable.swift"; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 			children = (
 				4F316CC21CE885C8007F9241 /* MockChild.swift */,
 				4F316CC01CE88599007F9241 /* MockParent.swift */,
+				4F05C4F51CE8C50F003D4718 /* MockSimpleChild.swift */,
+				4F05C4F71CE8C518003D4718 /* MockSimpleParent.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -332,9 +338,11 @@
 				4F316CC31CE885C8007F9241 /* MockChild.swift in Sources */,
 				4FE3C0551C00EEE800607CC4 /* JSONDecoderTests.swift in Sources */,
 				4F316CC11CE88599007F9241 /* MockParent.swift in Sources */,
+				4F05C4F81CE8C518003D4718 /* MockSimpleParent.swift in Sources */,
 				4FE3C05C1C00F05700607CC4 /* JSONFilenames.swift in Sources */,
 				4FE3C0351C00EDE900607CC4 /* FileLoadingTests.swift in Sources */,
 				4F05C4F41CE89191003D4718 /* InlineDecodingTests.swift in Sources */,
+				4F05C4F61CE8C50F003D4718 /* MockSimpleChild.swift in Sources */,
 				4F0842031C96143500C28467 /* TransformableTests.swift in Sources */,
 				4F316CC61CE88898007F9241 /* XCTestCase+Additions.swift in Sources */,
 				4F0F85FB1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift in Sources */,

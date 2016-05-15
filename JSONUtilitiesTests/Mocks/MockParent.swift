@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 @testable import JSONUtilities
 
 private let randomKey = "asdfghj"
