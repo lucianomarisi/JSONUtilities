@@ -156,17 +156,13 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONArray decoding
   
   private func decodableObjectsArray<ReturnType : Decodable>(jsonArray: JSONArray) -> [ReturnType] {
-    var decodedArray = [ReturnType]()
-    
-    for jsonObject in jsonArray {
-      guard let castedJsonObject = jsonObject as? JSONDictionary,
-        let jsonKeydObject = try? ReturnType(jsonDictionary: castedJsonObject) else {
-          continue
+    return jsonArray.flatMap {
+      guard let castedJsonObject = $0 as? JSONDictionary else {
+        return nil
       }
-      decodedArray.append(jsonKeydObject)
+      
+      return try? ReturnType(jsonDictionary: castedJsonObject)
     }
-    
-    return decodedArray
   }
 
 }
