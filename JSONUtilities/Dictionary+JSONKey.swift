@@ -68,22 +68,6 @@ extension Dictionary where Key: StringProtocol {
     return self[key] as? JSONDictionary
   }
   
-  // MARK: [[String: AnyObject]] type
-  
-  /// Decodes as a raw dictionary array with a mandatory key
-  public func jsonKey(key: Key) throws -> [JSONDictionary] {
-    
-    guard let value = self[key] as? [JSONDictionary] else {
-      throw DecodingError.MandatoryKeyNotFound(key: key)
-    }
-    return value
-  }
-  
-  /// Decodes as a raw ictionary array with an optional key
-  public func jsonKey(key: Key) -> [JSONDictionary]? {
-    return self[key] as? [JSONDictionary]
-  }
-  
   // MARK: Decodable types
   
   /// Decode a mandatory Decodable object
