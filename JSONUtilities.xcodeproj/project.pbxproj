@@ -94,7 +94,16 @@
 				4F0F85FA1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift */,
 				4F316CC51CE88898007F9241 /* XCTestCase+Additions.swift */,
 			);
-			name = Helpers;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4F316CC71CE889EE007F9241 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				4FE3C02A1C00EDE900607CC4 /* Info.plist */,
+				4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */,
+			);
+			path = Metadata;
 			sourceTree = "<group>";
 		};
 		4FE3C01B1C00EDE900607CC4 = {
@@ -118,13 +127,12 @@
 		4FE3C0271C00EDE900607CC4 /* JSONUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */,
-				4FE3C03F1C00EE5000607CC4 /* JSONFileLoading.swift */,
+				4F316CC71CE889EE007F9241 /* Metadata */,
 				4F6C6A401C8BA12700CD6821 /* Decodable.swift */,
-				4F0842001C96136000C28467 /* Transformable.swift */,
 				4F6C6A3E1C8BA0B200CD6821 /* DecodingError.swift */,
 				4F6C6A3C1C8B9D4900CD6821 /* Dictionary+JSONKey.swift */,
-				4FE3C02A1C00EDE900607CC4 /* Info.plist */,
+				4FE3C03F1C00EE5000607CC4 /* JSONFileLoading.swift */,
+				4F0842001C96136000C28467 /* Transformable.swift */,
 			);
 			path = JSONUtilities;
 			sourceTree = "<group>";
@@ -132,13 +140,13 @@
 		4FE3C0331C00EDE900607CC4 /* JSONUtilitiesTests */ = {
 			isa = PBXGroup;
 			children = (
-				4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */,
-				4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */,
-				4F0842021C96143500C28467 /* TransformableTests.swift */,
 				4F316CC41CE8869E007F9241 /* Helpers */,
-				4FE3C0361C00EDE900607CC4 /* Info.plist */,
 				4FE3C0561C00EF0D00607CC4 /* Mocks */,
 				4FE3C0431C00EEB200607CC4 /* TestFiles */,
+				4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */,
+				4FE3C0361C00EDE900607CC4 /* Info.plist */,
+				4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */,
+				4F0842021C96143500C28467 /* TransformableTests.swift */,
 			);
 			path = JSONUtilitiesTests;
 			sourceTree = "<group>";
@@ -147,13 +155,13 @@
 			isa = PBXGroup;
 			children = (
 				4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */,
-				4FE3C04B1C00EED400607CC4 /* correct_without_nested_object.json */,
-				4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */,
-				4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */,
-				4FE3C04A1C00EED400607CC4 /* correct.json */,
-				4FE3C04C1C00EED400607CC4 /* invalid.json */,
 				4FE3C04D1C00EED400607CC4 /* array.json */,
+				4FE3C04A1C00EED400607CC4 /* correct.json */,
+				4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */,
+				4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */,
+				4FE3C04B1C00EED400607CC4 /* correct_without_nested_object.json */,
 				4FE3C04E1C00EED400607CC4 /* empty.json */,
+				4FE3C04C1C00EED400607CC4 /* invalid.json */,
 			);
 			path = TestFiles;
 			sourceTree = "<group>";
@@ -161,8 +169,8 @@
 		4FE3C0561C00EF0D00607CC4 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				4F316CC01CE88599007F9241 /* MockParent.swift */,
 				4F316CC21CE885C8007F9241 /* MockChild.swift */,
+				4F316CC01CE88599007F9241 /* MockParent.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -413,7 +421,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = JSONUtilities/Info.plist;
+				INFOPLIST_FILE = JSONUtilities/Metadata/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -432,7 +440,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = JSONUtilities/Info.plist;
+				INFOPLIST_FILE = JSONUtilities/Metadata/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
