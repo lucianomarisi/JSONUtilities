@@ -24,7 +24,7 @@ public enum JSONUtilsError: ErrorType {
   case FileNotAJSONDictionary
 }
 
-public extension DictionaryLiteralConvertible where Self.Key == String, Self.Value == AnyObject {
+public extension Dictionary where Key: StringProtocol, Value: AnyObject {
   
   /**
    Load a JSONDictionary from a file
