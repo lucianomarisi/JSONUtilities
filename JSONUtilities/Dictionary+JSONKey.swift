@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Protocol used for defining the valid JSON types, i.e. Int, Double, Float, String and Bool
 public protocol JSONRawType {}
 extension Int : JSONRawType {}
 extension Double : JSONRawType {}
@@ -136,6 +137,34 @@ extension Dictionary where Key: StringProtocol {
     }
     
     return TransformableType.fromJSONValue(jsonValue)
+  }
+  
+  // MARK: [Transformable] types
+  
+  /// Decode an array of custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) throws -> [TransformableType] {
+    
+    guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    
+    return jsonValues.flatMap {
+      TransformableType.fromJSONValue($0)
+    }
+
+  }
+
+  /// Optionally decode an array custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) -> [TransformableType]? {
+    
+    guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
+      return nil
+    }
+    
+    return jsonValues.flatMap {
+      TransformableType.fromJSONValue($0)
+    }
+    
   }
   
   // MARK: JSONDictionary and JSONArray creation

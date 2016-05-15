@@ -9,6 +9,17 @@
 import XCTest
 @testable import JSONUtilities
 
+extension NSURL : Transformable {
+  public typealias JSONType = String
+  
+  public static func fromJSONValue(jsonValue: String) -> Self? {
+    return self.init(string: jsonValue)
+  }
+  
+}
+
+private let invalidKey = "invalidKey"
+
 class TransformableTests: XCTestCase {
 
   func testDecodedAndTransformNSURL() {
@@ -35,22 +46,34 @@ class TransformableTests: XCTestCase {
     let jsonDictionary = ["url": "url"]
     
     do {
-      let _ : NSURL = try jsonDictionary.jsonKey("invalid_key")
+      let _ : NSURL = try jsonDictionary.jsonKey(invalidKey)
     } catch let error {
-      XCTAssertEqual("\(error)", "MandatoryKeyNotFound: invalid_key")
+      XCTAssertEqual("\(error)", "MandatoryKeyNotFound: \(invalidKey)")
     }
     
-    let urlFromMissingKey : NSURL? = jsonDictionary.jsonKey("invalid_key")
+    let urlFromMissingKey : NSURL? = jsonDictionary.jsonKey(invalidKey)
     XCTAssertNil(urlFromMissingKey)
   }
-
-}
-
-extension NSURL : Transformable {
-  public typealias JSONType = String
   
-  public static func fromJSONValue(jsonValue: String) -> Self? {
-    return self.init(string: jsonValue)
+  func testTransformableArray() {
+    let expectedURLStrings = ["www.google.com", "www.apple.com"]
+    let expectedURLs = expectedURLStrings.flatMap{ NSURL(string: $0) }
+    let jsonDictionary = ["urls": expectedURLStrings]
+    let decodedURLs: [NSURL] = try! jsonDictionary.jsonKey("urls")
+    XCTAssertEqual(decodedURLs, expectedURLs)
+    
+    do {
+      let _ : [NSURL] = try jsonDictionary.jsonKey(invalidKey)
+    } catch let error {
+      XCTAssertEqual("\(error)", "MandatoryKeyNotFound: \(invalidKey)")
+    }
+    
+    let decodedOptionalURLs: [NSURL]? = jsonDictionary.jsonKey("urls")
+    XCTAssertEqual(decodedOptionalURLs!, expectedURLs)
+    
+    let decodedMissingURLs: [NSURL]? = jsonDictionary.jsonKey(invalidKey)
+    XCTAssertNil(decodedMissingURLs)
   }
   
 }
+
