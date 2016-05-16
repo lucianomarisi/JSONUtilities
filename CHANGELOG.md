@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.3.0
+
+- Added support for decoding an array of `Tranformable` values
+
 ## 2.2.0
 
 - Added support for decoding a raw JSON dictionary and an array of raw JSON dictionary, i.e. `[String : AnyObject]` and `[[String : AnyObject]]`
