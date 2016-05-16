@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Protocol used for defining the valid JSON types, i.e. Int, Double, Float, String and Bool
 public protocol JSONRawType {}
 extension Int : JSONRawType {}
 extension Double : JSONRawType {}
@@ -40,7 +41,7 @@ extension Dictionary where Key: StringProtocol {
   // MARK: [JSONRawType] type
   
   /// Decode an Array of mandatory JSON raw types
-  public func jsonKey<ReturnType>(key: Key) throws -> [ReturnType] {
+  public func jsonKey<ReturnType : JSONRawType>(key: Key) throws -> [ReturnType] {
     guard let value = self[key] as? [ReturnType] else {
       throw DecodingError.MandatoryKeyNotFound(key: key)
     }
@@ -48,7 +49,7 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Decode an Array of optional JSON raw types
-  public func jsonKey<ReturnType>(key: Key) -> [ReturnType]? {
+  public func jsonKey<ReturnType : JSONRawType>(key: Key) -> [ReturnType]? {
     return self[key] as? [ReturnType]
   }
   
@@ -83,6 +84,7 @@ extension Dictionary where Key: StringProtocol {
   public func jsonKey(key: Key) -> [JSONDictionary]? {
     return self[key] as? [JSONDictionary]
   }
+
   
   // MARK: Decodable types
   
@@ -137,6 +139,34 @@ extension Dictionary where Key: StringProtocol {
     return TransformableType.fromJSONValue(jsonValue)
   }
   
+  // MARK: [Transformable] types
+  
+  /// Decode an array of custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) throws -> [TransformableType] {
+    
+    guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    
+    return jsonValues.flatMap {
+      TransformableType.fromJSONValue($0)
+    }
+
+  }
+
+  /// Optionally decode an array custom raw types with a mandatory key
+  public func jsonKey<TransformableType : Transformable>(key: Key) -> [TransformableType]? {
+    
+    guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
+      return nil
+    }
+    
+    return jsonValues.flatMap {
+      TransformableType.fromJSONValue($0)
+    }
+    
+  }
+  
   // MARK: JSONDictionary and JSONArray creation
   
   private func JSONDictionaryForKey(key: Key) throws -> JSONDictionary {
@@ -156,17 +186,13 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONArray decoding
   
   private func decodableObjectsArray<ReturnType : Decodable>(jsonArray: JSONArray) -> [ReturnType] {
-    var decodedArray = [ReturnType]()
-    
-    for jsonObject in jsonArray {
-      guard let castedJsonObject = jsonObject as? JSONDictionary,
-        let jsonKeydObject = try? ReturnType(jsonDictionary: castedJsonObject) else {
-          continue
+    return jsonArray.flatMap {
+      guard let castedJsonObject = $0 as? JSONDictionary else {
+        return nil
       }
-      decodedArray.append(jsonKeydObject)
+      
+      return try? ReturnType(jsonDictionary: castedJsonObject)
     }
-    
-    return decodedArray
   }
 
 }

@@ -97,9 +97,9 @@ extension State : Transformable {
   }
   
 }
-let jsonDictionary = ["state": "normal"]
+let jsonDictionary = ["state": "normal", "states": ["normal", "selected"]]
 let stateNormal: State = try! jsonDictionary.jsonKey("state")
-
+let multipleStates : [State] = try! jsonDictionary.jsonKey("states")
 
 
 extension NSURL : Transformable {
@@ -112,6 +112,9 @@ extension NSURL : Transformable {
 }
 let urlDictionary = ["url": "www.google.com"]
 let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
+let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
+let urls: [NSURL] = try! urlsDictionary.jsonKey("urls") // [www.google.com, www.yahoo.com]
+
 
 let rawDictionary : JSONDictionary = ["rootKey":
   [

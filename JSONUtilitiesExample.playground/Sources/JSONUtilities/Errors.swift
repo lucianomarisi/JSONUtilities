@@ -1,5 +1,5 @@
 //
-//  DecodingError.swift
+//  Errors.swift
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 05/03/2016.
