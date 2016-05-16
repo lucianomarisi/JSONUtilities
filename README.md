@@ -180,3 +180,10 @@ extension NSURL : Transformable {
 let urlDictionary = ["url": "www.google.com"]
 let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
 ```
+
+It's also possible to have an array of `Transformable` values, for example:
+
+```swift
+let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
+let urls: [NSURL] = try! urlsDictionary.jsonKey("urls") // [www.google.com, www.yahoo.com]
+```
