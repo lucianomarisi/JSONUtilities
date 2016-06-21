@@ -35,8 +35,8 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    
    - returns: An initilized JSONDictionary
    */
-  public static func fromFile(_ filename: String) throws -> JSONDictionary {
-    return try fromFile(filename, bundle: Bundle.main())
+  public static func from(filename: String) throws -> JSONDictionary {
+    return try from(filename: filename, bundle: Bundle.main())
   }
   
   /**
@@ -50,12 +50,12 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    - returns: An initilized JSONDictionary
    */
   @discardableResult
-  static func fromFile(_ filename: String, bundle: Bundle) throws -> JSONDictionary {
+  static func from(filename: String, bundle: Bundle) throws -> JSONDictionary {
     guard let jsonURL = bundle.urlForResource(filename, withExtension: "json"),
       let jsonData = try? Data(contentsOf: jsonURL) else {
         throw JSONUtilsError.fileLoadingFailed
     }
-    return try fromData(jsonData)
+    return try from(jsonData: jsonData)
   }
   
   /**
@@ -67,7 +67,7 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    
    - returns: An initilized JSONDictionary
    */
-  public static func fromData(_ jsonData: Data) throws -> JSONDictionary {
+  public static func from(jsonData: Data) throws -> JSONDictionary {
     guard let deserializedJSON = try? JSONSerialization.jsonObject(with: jsonData, options:JSONSerialization.ReadingOptions.mutableContainers) else {
       throw JSONUtilsError.fileDeserializationFailed
     }

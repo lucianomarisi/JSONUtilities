@@ -21,7 +21,7 @@ class JSONDecoderTests: XCTestCase {
 
   func testFailedMainBundle() {
     do {
-      let _ = try JSONDictionary.fromFile(JSONFilename.correct)
+      let _ = try JSONDictionary.from(filename: JSONFilename.correct)
       XCTAssertTrue(false)
     } catch {
       XCTAssertTrue(true)
@@ -30,7 +30,7 @@ class JSONDecoderTests: XCTestCase {
   
   func testCorrectDecodingForMandatoryJSONOnParentWithChild() {
     do {
-      let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correct, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
       let mockJSONParent = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertEqual(mockJSONParent.mandatoryString, "stringValue")
       XCTAssertEqual(mockJSONParent.mandatoryInt, 1)
@@ -83,7 +83,7 @@ class JSONDecoderTests: XCTestCase {
   
   func testIncorrectDecodingForMandatoryJSONRawType() {
     do {
-      let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.empty, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.empty, bundle: testBundle)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
@@ -95,7 +95,7 @@ class JSONDecoderTests: XCTestCase {
   
   func testIncorrectDecodingForMandatoryJSONRawTypeArray() {
     do {
-      let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correctWithoutRawArray, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correctWithoutRawArray, bundle: testBundle)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
@@ -107,7 +107,7 @@ class JSONDecoderTests: XCTestCase {
   
   func testIncorrectDecodingForMandatoryJSONNestedObject() {
     do {
-      let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correctWithoutNested, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correctWithoutNested, bundle: testBundle)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
@@ -119,7 +119,7 @@ class JSONDecoderTests: XCTestCase {
   
   func testIncorrectDecodingForMandatoryJSONNestedObjectArray() {
     do {
-      let jsonDictionary = try JSONDictionary.fromFile(JSONFilename.correctWithoutNestedArray, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correctWithoutNestedArray, bundle: testBundle)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {

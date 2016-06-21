@@ -14,30 +14,30 @@ typealias NoEscapeFunction = (@noescape () throws -> Void)
 class FileLoadingTests: XCTestCase {
   
   func testLoadingJSONFile() {
-    try! JSONDictionary.fromFile(JSONFilename.correct, bundle: testBundle)
+    try! JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
   }
   
   func testLoadingJSONFileLoadingFailed() {
     expectError(.fileLoadingFailed) {
-      try JSONDictionary.fromFile(JSONFilename.missing, bundle: self.testBundle)
+      try JSONDictionary.from(filename: JSONFilename.missing, bundle: self.testBundle)
     }
   }
   
   func testLoadingJSONFileDeserializationFailed() {
     expectError(.fileDeserializationFailed) {
-      try JSONDictionary.fromFile(JSONFilename.invalid, bundle: self.testBundle)
+      try JSONDictionary.from(filename: JSONFilename.invalid, bundle: self.testBundle)
     }
   }
 
   func testLoadingJSONFileNotAJSONDictionary() {
     expectError(.fileNotAJSONDictionary) {
-      try JSONDictionary.fromFile(JSONFilename.rootArray, bundle: self.testBundle)
+      try JSONDictionary.from(filename: JSONFilename.rootArray, bundle: self.testBundle)
     }
   }
   
   // MARK: Helpers
   
-  private func expectError(_ expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, block: NoEscapeFunction) {
+  private func expectError(_ expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, block: NoEscapeFunction ) {
     do {
       try block()
     } catch let error {
