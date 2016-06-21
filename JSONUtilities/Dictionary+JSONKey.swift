@@ -116,7 +116,7 @@ extension Dictionary where Key: StringProtocol {
   // MARK: Transformable types
   
   /// Decode a custom raw types with a mandatory key
-  public func jsonKey<TransformableType : Transformable>(_ key: Key) throws -> TransformableType {
+  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) throws -> TransformableType {
     
     guard let jsonValue = self[key] as? TransformableType.JSONType else {
       throw DecodingError.mandatoryKeyNotFound(key: key)
@@ -130,7 +130,7 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Optionally decode a custom raw types with a mandatory key
-  public func jsonKey<TransformableType : Transformable>(_ key: Key) -> TransformableType? {
+  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) -> TransformableType? {
     
     guard let jsonValue = self[key] as? TransformableType.JSONType else {
       return nil
@@ -142,7 +142,7 @@ extension Dictionary where Key: StringProtocol {
   // MARK: [Transformable] types
   
   /// Decode an array of custom raw types with a mandatory key
-  public func jsonKey<TransformableType : Transformable>(_ key: Key) throws -> [TransformableType] {
+  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) throws -> [TransformableType] {
     
     guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
       throw DecodingError.mandatoryKeyNotFound(key: key)
@@ -155,7 +155,7 @@ extension Dictionary where Key: StringProtocol {
   }
 
   /// Optionally decode an array custom raw types with a mandatory key
-  public func jsonKey<TransformableType : Transformable>(_ key: Key) -> [TransformableType]? {
+  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) -> [TransformableType]? {
     
     guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
       return nil

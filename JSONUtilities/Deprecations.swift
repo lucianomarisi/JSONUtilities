@@ -21,3 +21,9 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
   }
   
 }
+
+@available(*, deprecated:3.0.0, renamed: "JSONPrimitiveConvertible")
+public protocol Transformable {
+  associatedtype JSONType: JSONRawType
+  static func fromJSONValue(_ jsonValue: JSONType) -> Self?
+}

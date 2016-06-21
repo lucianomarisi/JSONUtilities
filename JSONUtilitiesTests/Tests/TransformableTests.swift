@@ -9,7 +9,7 @@
 import XCTest
 @testable import JSONUtilities
 
-extension URL : Transformable {
+extension URL : JSONPrimitiveConvertible {
   public typealias JSONType = String
   
   public static func fromJSONValue(_ jsonValue: String) -> URL? {

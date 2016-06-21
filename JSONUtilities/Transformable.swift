@@ -9,9 +9,9 @@
 import Foundation
 
 /**
- *  Protocol used to support raw type other than JSON types, e.g. NSURL
+ *  Protocol used to support raw primitive types other than object types, e.g. NSURL
  */
-public protocol Transformable {
+public protocol JSONPrimitiveConvertible {
   
   /// The type of the raw JSON value that will be decoded to be transformed
   associatedtype JSONType: JSONRawType
