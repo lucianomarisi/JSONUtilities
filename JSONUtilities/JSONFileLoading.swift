@@ -18,10 +18,10 @@ public typealias JSONArray = [AnyObject]
  - FileDeserializationFailed: NSJSONSerialization failed to deserialize the file
  - FileNotAJSONDictionary:    The .json does not contain a JSON object (i.e [String: AnyObject]) as a top level object
  */
-public enum JSONUtilsError: ErrorType {
-  case FileLoadingFailed
-  case FileDeserializationFailed
-  case FileNotAJSONDictionary
+public enum JSONUtilsError: ErrorProtocol {
+  case fileLoadingFailed
+  case fileDeserializationFailed
+  case fileNotAJSONDictionary
 }
 
 public extension Dictionary where Key: StringProtocol, Value: AnyObject {
@@ -35,8 +35,8 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    
    - returns: An initilized JSONDictionary
    */
-  public static func fromFile(filename: String) throws -> JSONDictionary {
-    return try fromFile(filename, bundle: NSBundle.mainBundle())
+  public static func fromFile(_ filename: String) throws -> JSONDictionary {
+    return try fromFile(filename, bundle: Bundle.main())
   }
   
   /**
@@ -49,10 +49,11 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    
    - returns: An initilized JSONDictionary
    */
-  static func fromFile(filename: String, bundle: NSBundle) throws -> JSONDictionary {
-    guard let jsonURL = bundle.URLForResource(filename, withExtension: "json"),
-      let jsonData = NSData(contentsOfURL: jsonURL) else {
-        throw JSONUtilsError.FileLoadingFailed
+  @discardableResult
+  static func fromFile(_ filename: String, bundle: Bundle) throws -> JSONDictionary {
+    guard let jsonURL = bundle.urlForResource(filename, withExtension: "json"),
+      let jsonData = try? Data(contentsOf: jsonURL) else {
+        throw JSONUtilsError.fileLoadingFailed
     }
     return try fromData(jsonData)
   }
@@ -66,13 +67,13 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    
    - returns: An initilized JSONDictionary
    */
-  public static func fromData(jsonData: NSData) throws -> JSONDictionary {
-    guard let deserializedJSON = try? NSJSONSerialization.JSONObjectWithData(jsonData, options:NSJSONReadingOptions.MutableContainers) else {
-      throw JSONUtilsError.FileDeserializationFailed
+  public static func fromData(_ jsonData: Data) throws -> JSONDictionary {
+    guard let deserializedJSON = try? JSONSerialization.jsonObject(with: jsonData, options:JSONSerialization.ReadingOptions.mutableContainers) else {
+      throw JSONUtilsError.fileDeserializationFailed
     }
     
     guard let jsonDictionary: JSONDictionary = deserializedJSON as? JSONDictionary else {
-      throw JSONUtilsError.FileNotAJSONDictionary
+      throw JSONUtilsError.fileNotAJSONDictionary
     }
     return jsonDictionary
   }

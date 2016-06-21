@@ -23,5 +23,5 @@ public protocol Transformable {
    
    - returns: An initialized type if succesful or nil
    */
-  static func fromJSONValue(jsonValue: JSONType) -> Self?
+  static func fromJSONValue(_ jsonValue: JSONType) -> Self?
 }

@@ -43,7 +43,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: JSONDictionary = try dictionary.jsonKey(randomKey)
     } catch let error {
-      let expectedError = DecodingError.MandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
       let actualError = error as! DecodingError
       XCTAssert(actualError == expectedError)
     }
@@ -83,7 +83,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: [JSONDictionary] = try dictionary.jsonKey(randomKey)
     } catch let error {
-      let expectedError = DecodingError.MandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
       let actualError = error as! DecodingError
       XCTAssert(actualError == expectedError)
     }
@@ -100,7 +100,7 @@ class InlineDecodingTests: XCTestCase {
   
   // MARK: Helpers
   
-  private func expectDecodeType<ExpectedType: protocol<JSONRawType, Equatable>>(expectedValue: ExpectedType, file: StaticString = #file, line: UInt = #line) {
+  private func expectDecodeType<ExpectedType: protocol<JSONRawType, Equatable>>(_ expectedValue: ExpectedType, file: StaticString = #file, line: UInt = #line) {
     
     let dictionary = ["key": expectedValue]
     let decodedValue: ExpectedType = try! dictionary.jsonKey("key")
@@ -112,7 +112,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: ExpectedType = try dictionary.jsonKey(randomKey)
     } catch let error {
-      let expectedError = DecodingError.MandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
       let actualError = error as! DecodingError
       XCTAssert(actualError == expectedError, file: file, line: line)
     }
@@ -121,7 +121,7 @@ class InlineDecodingTests: XCTestCase {
     XCTAssertNil(decodedMissingInt)
   }
 
-  private func expectDecodeTypeArray<ExpectedType: protocol<JSONRawType, Equatable>>(expectedValue: [ExpectedType], file: StaticString = #file, line: UInt = #line) {
+  private func expectDecodeTypeArray<ExpectedType: protocol<JSONRawType, Equatable>>(_ expectedValue: [ExpectedType], file: StaticString = #file, line: UInt = #line) {
     
     let dictionary = ["key": expectedValue]
     let decodedValue: [ExpectedType] = try! dictionary.jsonKey("key")
@@ -133,7 +133,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: [ExpectedType] = try dictionary.jsonKey(randomKey)
     } catch let error {
-      let expectedError = DecodingError.MandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
       let actualError = error as! DecodingError
       XCTAssert(actualError == expectedError, file: file, line: line)
     }

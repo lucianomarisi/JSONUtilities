@@ -9,10 +9,10 @@
 import XCTest
 @testable import JSONUtilities
 
-extension NSURL : Transformable {
+extension URL : Transformable {
   public typealias JSONType = String
   
-  public static func fromJSONValue(jsonValue: String) -> Self? {
+  public static func fromJSONValue(_ jsonValue: String) -> URL? {
     return self.init(string: jsonValue)
   }
   
@@ -24,19 +24,19 @@ class TransformableTests: XCTestCase {
 
   func testDecodedAndTransformNSURL() {
     let urlString = "www.google.com"
-    let expectedURL = NSURL(string: urlString)
+    let expectedURL = URL(string: urlString)
     let jsonDictionary = [
       "url": urlString,
       "invalid_url": "±"
     ]
     
-    let mandatoryTransformedURL : NSURL = try! jsonDictionary.jsonKey("url")
+    let mandatoryTransformedURL : URL = try! jsonDictionary.jsonKey("url")
     XCTAssertEqual(expectedURL, mandatoryTransformedURL)
-    let optionalTransformedURL : NSURL? = jsonDictionary.jsonKey("url")
+    let optionalTransformedURL : URL? = jsonDictionary.jsonKey("url")
     XCTAssertEqual(expectedURL, optionalTransformedURL)
     
     do {
-      let _ : NSURL = try jsonDictionary.jsonKey("invalid_url")
+      let _ : URL = try jsonDictionary.jsonKey("invalid_url")
     } catch let error {
       XCTAssertEqual("\(error)", "CouldNotTransformJSONValue: ±")
     }
@@ -46,32 +46,32 @@ class TransformableTests: XCTestCase {
     let jsonDictionary = ["url": "url"]
     
     do {
-      let _ : NSURL = try jsonDictionary.jsonKey(invalidKey)
+      let _ : URL = try jsonDictionary.jsonKey(invalidKey)
     } catch let error {
       XCTAssertEqual("\(error)", "MandatoryKeyNotFound: \(invalidKey)")
     }
     
-    let urlFromMissingKey : NSURL? = jsonDictionary.jsonKey(invalidKey)
+    let urlFromMissingKey : URL? = jsonDictionary.jsonKey(invalidKey)
     XCTAssertNil(urlFromMissingKey)
   }
   
   func testTransformableArray() {
     let expectedURLStrings = ["www.google.com", "www.apple.com"]
-    let expectedURLs = expectedURLStrings.flatMap{ NSURL(string: $0) }
+    let expectedURLs = expectedURLStrings.flatMap{ URL(string: $0) }
     let jsonDictionary = ["urls": expectedURLStrings]
-    let decodedURLs: [NSURL] = try! jsonDictionary.jsonKey("urls")
+    let decodedURLs: [URL] = try! jsonDictionary.jsonKey("urls")
     XCTAssertEqual(decodedURLs, expectedURLs)
     
     do {
-      let _ : [NSURL] = try jsonDictionary.jsonKey(invalidKey)
+      let _ : [URL] = try jsonDictionary.jsonKey(invalidKey)
     } catch let error {
       XCTAssertEqual("\(error)", "MandatoryKeyNotFound: \(invalidKey)")
     }
     
-    let decodedOptionalURLs: [NSURL]? = jsonDictionary.jsonKey("urls")
+    let decodedOptionalURLs: [URL]? = jsonDictionary.jsonKey("urls")
     XCTAssertEqual(decodedOptionalURLs!, expectedURLs)
     
-    let decodedMissingURLs: [NSURL]? = jsonDictionary.jsonKey(invalidKey)
+    let decodedMissingURLs: [URL]? = jsonDictionary.jsonKey(invalidKey)
     XCTAssertNil(decodedMissingURLs)
   }
   

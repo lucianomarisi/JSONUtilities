@@ -10,8 +10,8 @@ import XCTest
 
 extension XCTestCase {
   
-  var testBundle: NSBundle {
-    return NSBundle(forClass: self.dynamicType)
+  var testBundle: Bundle {
+    return Bundle(for: self.dynamicType)
   }
   
 }

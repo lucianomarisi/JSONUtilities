@@ -9,23 +9,23 @@
 import Foundation
 
 public func ==(lhs: [String: AnyObject], rhs: [String: AnyObject] ) -> Bool {
-  return NSDictionary(dictionary: lhs).isEqualToDictionary(rhs)
+  return NSDictionary(dictionary: lhs).isEqual(to: rhs)
 }
 
 public func ==(lhs: [String: AnyObject]?, rhs: [String: AnyObject]? ) -> Bool {
   guard let lhs = lhs, rhs = rhs else { return false }
-  return NSDictionary(dictionary: lhs).isEqualToDictionary(rhs)
+  return NSDictionary(dictionary: lhs).isEqual(to: rhs)
 }
 
 public func ==(lhs: [[String: AnyObject]], rhs: [[String: AnyObject]] ) -> Bool {
   let lhsArray = NSArray(array: lhs)
   let rhsArray = NSArray(array: rhs)
-  return lhsArray.isEqualToArray(rhsArray as [AnyObject])
+  return lhsArray.isEqual(to: rhsArray as [AnyObject])
 }
 
 public func ==(lhs: [[String: AnyObject]]?, rhs: [[String: AnyObject]]? ) -> Bool {
   guard let lhs = lhs, rhs = rhs else { return false }
   let lhsArray = NSArray(array: lhs)
   let rhsArray = NSArray(array: rhs)
-  return lhsArray.isEqualToArray(rhsArray as [AnyObject])
+  return lhsArray.isEqual(to: rhsArray as [AnyObject])
 }

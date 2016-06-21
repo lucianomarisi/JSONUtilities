@@ -9,6 +9,8 @@
 import XCTest
 @testable import JSONUtilities
 
+typealias NoEscapeFunction = (@noescape () throws -> Void)
+
 class FileLoadingTests: XCTestCase {
   
   func testLoadingJSONFile() {
@@ -16,26 +18,26 @@ class FileLoadingTests: XCTestCase {
   }
   
   func testLoadingJSONFileLoadingFailed() {
-    expectError(.FileLoadingFailed) {
-      try JSONDictionary.fromFile(JSONFilename.missing, bundle: testBundle)
+    expectError(.fileLoadingFailed) {
+      try JSONDictionary.fromFile(JSONFilename.missing, bundle: self.testBundle)
     }
   }
   
   func testLoadingJSONFileDeserializationFailed() {
-    expectError(.FileDeserializationFailed) {
-      try JSONDictionary.fromFile(JSONFilename.invalid, bundle: testBundle)
+    expectError(.fileDeserializationFailed) {
+      try JSONDictionary.fromFile(JSONFilename.invalid, bundle: self.testBundle)
     }
   }
 
   func testLoadingJSONFileNotAJSONDictionary() {
-    expectError(.FileNotAJSONDictionary) {
-      try JSONDictionary.fromFile(JSONFilename.rootArray, bundle: testBundle)
+    expectError(.fileNotAJSONDictionary) {
+      try JSONDictionary.fromFile(JSONFilename.rootArray, bundle: self.testBundle)
     }
   }
   
   // MARK: Helpers
   
-  private func expectError(expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, @noescape block: (() throws -> Void) ) {
+  private func expectError(_ expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, block: NoEscapeFunction) {
     do {
       try block()
     } catch let error {

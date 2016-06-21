@@ -13,12 +13,12 @@ import Foundation
  
  - Mandatory: The key that failed the decoding
  */
-public enum DecodingError: ErrorType, CustomStringConvertible {
-  case MandatoryKeyNotFound(key: StringProtocol)
+public enum DecodingError: ErrorProtocol, CustomStringConvertible {
+  case mandatoryKeyNotFound(key: StringProtocol)
   
   public var description: String {
     switch self {
-    case .MandatoryKeyNotFound(let key):
+    case .mandatoryKeyNotFound(let key):
       return "MandatoryKeyNotFound: \(key)"
     }
   }
@@ -30,12 +30,12 @@ public enum DecodingError: ErrorType, CustomStringConvertible {
  
  - CouldNotTransformJSONValue: The value that failed to be transformed
  */
-public enum TranformableError<ValueType: JSONRawType>: ErrorType, CustomStringConvertible {
-  case CouldNotTransformJSONValue(value: ValueType)
+public enum TranformableError<ValueType: JSONRawType>: ErrorProtocol, CustomStringConvertible {
+  case couldNotTransformJSONValue(value: ValueType)
   
   public var description: String {
     switch self {
-    case .CouldNotTransformJSONValue(let value):
+    case .couldNotTransformJSONValue(let value):
       return "CouldNotTransformJSONValue: \(value)"
     }
   }
