@@ -16,7 +16,7 @@ struct MockChild {
   let bool: Bool
 }
 
-extension MockChild : Decodable {
+extension MockChild : JSONObjectConvertible {
   init(jsonDictionary: JSONDictionary) throws {
     string = try jsonDictionary.jsonKey("stringKey")
     integer = try jsonDictionary.jsonKey("integerKey")

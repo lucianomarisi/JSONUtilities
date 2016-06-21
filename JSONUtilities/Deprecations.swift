@@ -27,3 +27,8 @@ public protocol Transformable {
   associatedtype JSONType: JSONRawType
   static func fromJSONValue(_ jsonValue: JSONType) -> Self?
 }
+
+@available(*, deprecated:3.0.0, renamed: "JSONObjectConvertible")
+public protocol Decodable {
+  init(jsonDictionary: JSONDictionary) throws
+}

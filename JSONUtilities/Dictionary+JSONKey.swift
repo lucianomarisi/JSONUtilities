@@ -89,24 +89,24 @@ extension Dictionary where Key: StringProtocol {
   // MARK: Decodable types
   
   /// Decode a mandatory Decodable object
-  public func jsonKey<ReturnType : Decodable>(_ key: Key) throws -> ReturnType {
+  public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) throws -> ReturnType {
     return try ReturnType(jsonDictionary: JSONDictionaryForKey(key))
   }
   
   /// Decode an optional Decodable object
-  public func jsonKey<ReturnType : Decodable>(_ key: Key) -> ReturnType? {
+  public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) -> ReturnType? {
     return try? ReturnType(jsonDictionary: JSONDictionaryForKey(key))
   }
   
   // MARK: [Decodable] types
   
   /// Decode an Array of mandatory Decodable objects
-  public func jsonKey<ReturnType : Decodable>(_ key: Key) throws -> [ReturnType] {
+  public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) throws -> [ReturnType] {
     return decodableObjectsArray(try JSONArrayForKey(key))
   }
   
   /// Decode an Array of optional Decodable objects
-  public func jsonKey<ReturnType : Decodable>(_ key: Key) -> [ReturnType]? {
+  public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) -> [ReturnType]? {
     guard let jsonArray = try? JSONArrayForKey(key) else {
       return nil
     }
@@ -185,7 +185,7 @@ extension Dictionary where Key: StringProtocol {
   
   // MARK: JSONArray decoding
   
-  private func decodableObjectsArray<ReturnType : Decodable>(_ jsonArray: JSONArray) -> [ReturnType] {
+  private func decodableObjectsArray<ReturnType : JSONObjectConvertible>(_ jsonArray: JSONArray) -> [ReturnType] {
     return jsonArray.flatMap {
       guard let castedJsonObject = $0 as? JSONDictionary else {
         return nil

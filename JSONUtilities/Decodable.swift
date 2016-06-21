@@ -11,7 +11,7 @@ import Foundation
 /**
  *  Use the Decodable protocol to support nested JSON objects
  */
-public protocol Decodable {
+public protocol JSONObjectConvertible {
   /**
    Creates a instance of struct or class from a JSONDictionary
    

@@ -13,7 +13,7 @@ struct MockSimpleParent {
   let children: [MockSimpleChild]
 }
 
-extension MockSimpleParent: Decodable {
+extension MockSimpleParent: JSONObjectConvertible {
   
   init(jsonDictionary: JSONDictionary) throws {
     children = try jsonDictionary.jsonKey("children")
