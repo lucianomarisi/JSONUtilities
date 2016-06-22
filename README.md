@@ -53,7 +53,23 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 - [`MyStruct`]
 
 
-## Examples
+## Examples of JSON loading
+
+### From file
+
+```swift
+let filename = "myjsonfile"
+let dictionary: [String: AnyObject] = try JSONDictionary.from(filename: filename)
+```
+
+### From data
+
+```swift
+let data: Data = ...
+let dictionary: [String: AnyObject] = try JSONDictionary.from(jsonData: data)
+```
+
+## Examples of JSON decoding
 
 Consider a JSON object that represents a person:
 

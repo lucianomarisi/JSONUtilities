@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.0
+
+- Added support for Swift 3
+- Renamed `Transformable` protocol to `JSONPrimitiveConvertible`
+- Renamed `Decodable` protocol to `JSONObjectConvertible`
+- Renamed JSONDictionary loading functions:
+	-  `fromFile(_:)` to `from(filename:)`
+	-  `fromData(_:)` to `from(jsonData:)`
+
 ## 2.3.0
 
 - Added support for decoding an array of `Tranformable` values
