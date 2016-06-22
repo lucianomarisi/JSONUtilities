@@ -45,7 +45,7 @@ OR
 
 ### Custom JSON objects and custom JSON object arrays
 
-e.g. if `MyClass` and `MyStruct` conform to `Decodable` protocol
+e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 
 - `MyClass`
 - [`MyClass`]
@@ -126,7 +126,7 @@ class Person {
 }
 ```
 
-### Decode nested structs or classes by conforming to the Decodable protocol
+### Decode nested structs or classes by conforming to the JSONObjectConvertible protocol
 
 Consider a company JSON object:
 
@@ -148,7 +148,7 @@ Consider a company JSON object:
 }
 ```
 
-The `Company` struct can decode an array of `Person` structs/classes by making `Person` conform to the `Decodable` protocol
+The `Company` struct can decode an array of `Person` structs/classes by making `Person` conform to the `JSONObjectConvertible` protocol
 
 ```swift
 struct Company {
@@ -162,12 +162,12 @@ struct Company {
 }
 ```
 
-### Support custom types by conforming to `Transformable`
+### Support custom primitive types by conforming to `JSONPrimitiveConvertible`
 
-Any type can extend the `Transformable` protocol in order to allow decoding. For example extending `NSURL`:
+Any type can extend the `JSONPrimitiveConvertible` protocol in order to allow decoding. For example extending `NSURL`:
 
 ```swift
-extension NSURL : Transformable {
+extension NSURL : JSONPrimitiveConvertible {
 
   public typealias JSONType = String
   
@@ -181,7 +181,7 @@ let urlDictionary = ["url": "www.google.com"]
 let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
 ```
 
-It's also possible to have an array of `Transformable` values, for example:
+It's also possible to have an array of `JSONPrimitiveConvertible` values, for example:
 
 ```swift
 let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
