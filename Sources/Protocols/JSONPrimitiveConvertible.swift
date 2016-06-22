@@ -1,5 +1,5 @@
 //
-//  Transformable.swift
+//  JSONPrimitiveConvertible.swift
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 13/03/2016.
