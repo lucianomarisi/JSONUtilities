@@ -266,6 +266,7 @@
 					4FE3C0241C00EDE900607CC4 = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 					4FE3C02E1C00EDE900607CC4 = {
 						CreatedOnToolsVersion = 7.1;
