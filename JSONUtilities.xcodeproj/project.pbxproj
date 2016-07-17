@@ -24,7 +24,7 @@
 		4F8ADC561C01F02B008FD528 /* correct_with_missing_raw_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */; };
 		4F8ADC581C01F100008FD528 /* correct_with_missing_nested_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */; };
 		4FD43DD41D3C2D4E00075410 /* BundleFileLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD43DD21D3C2D4100075410 /* BundleFileLoadingTests.swift */; };
-		4FD43DD71D3C2F8D00075410 /* JSONFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */; };
+		4FD43DD81D3C317800075410 /* JSONFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */; };
 		4FE3C0291C00EDE900607CC4 /* JSONUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE3C0281C00EDE900607CC4 /* JSONUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FE3C0301C00EDE900607CC4 /* JSONUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE3C0251C00EDE900607CC4 /* JSONUtilities.framework */; };
 		4FE3C0351C00EDE900607CC4 /* FileLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0341C00EDE900607CC4 /* FileLoadingTests.swift */; };
@@ -152,19 +152,19 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		4FD43DD51D3C2D7900075410 /* Non Swift Package Manager Tests */ = {
+		4FD43DD51D3C2D7900075410 /* NonSwiftPackageManagerTests */ = {
 			isa = PBXGroup;
 			children = (
 				4FD43DD21D3C2D4100075410 /* BundleFileLoadingTests.swift */,
 			);
-			path = "Non Swift Package Manager Tests";
+			path = NonSwiftPackageManagerTests;
 			sourceTree = "<group>";
 		};
 		4FE3C01B1C00EDE900607CC4 = {
 			isa = PBXGroup;
 			children = (
 				4F316CC71CE889EE007F9241 /* Metadata */,
-				4FD43DD51D3C2D7900075410 /* Non Swift Package Manager Tests */,
+				4FD43DD51D3C2D7900075410 /* NonSwiftPackageManagerTests */,
 				4FE3C0261C00EDE900607CC4 /* Products */,
 				4F47CDEF1D1B3C4800F95472 /* Sources */,
 				4FE3C0331C00EDE900607CC4 /* Tests */,
@@ -356,7 +356,7 @@
 				4F0842031C96143500C28467 /* TransformableTests.swift in Sources */,
 				4F316CC61CE88898007F9241 /* XCTestCase+Additions.swift in Sources */,
 				4F4339691D3C159900C64537 /* Dictionary+Equatable.swift in Sources */,
-				4FD43DD71D3C2F8D00075410 /* JSONFiles.swift in Sources */,
+				4FD43DD81D3C317800075410 /* JSONFiles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
