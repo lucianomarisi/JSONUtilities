@@ -18,24 +18,6 @@ class JSONDecoderTests: XCTestCase {
     ["doubleKey": 1.2, "integerKey": 1, "stringKey": "stringValue", "boolKey": true],
     ["randomTypeObject": 123]
     ]
-
-  func testLoadFromBundle() {
-    do {
-      let _ = try JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
-    } catch {
-      XCTFail("Unexpected error: \(error)")
-    }
-  }
-  
-  func testAttemptToLoadMissingFileFromBundle() {
-    do {
-      let _ = try JSONDictionary.from(filename: JSONFilename.missing, bundle: testBundle)
-    } catch let error as JSONUtilsError {
-      XCTAssertEqual(error, JSONUtilsError.couldNotFindFile)
-    } catch {
-      XCTFail("Unexpected error: \(error)")
-    }
-  }
   
   func testCorrectDecodingForMandatoryJSONOnParentWithChild() {
     do {

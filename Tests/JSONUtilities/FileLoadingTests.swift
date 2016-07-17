@@ -13,12 +13,29 @@ typealias NoEscapeFunction = (@noescape () throws -> Void)
 
 class FileLoadingTests: XCTestCase {
   
+//  func testLoadFromBundle() {
+//    do {
+//      let _ = try JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
+//    } catch {
+//      XCTFail("Unexpected error: \(error)")
+//    }
+//  }
+//  
+//  func testAttemptToLoadMissingFileFromBundle() {
+//    do {
+//      let _ = try JSONDictionary.from(filename: JSONFilename.missing, bundle: testBundle)
+//    } catch let error as JSONUtilsError {
+//      XCTAssertEqual(error, JSONUtilsError.couldNotFindFile)
+//    } catch {
+//      XCTFail("Unexpected error: \(error)")
+//    }
+//  }
+  
   func testLoadingJSONFile() {
     do {
       try JSONDictionary.from(url: JSONFilePath.correct)
-    } catch let error {
-      XCTFail("Failed with error: \(error)")
-      return
+    } catch {
+      XCTFail("Unexpected error: \(error)")
     }
   }
   
