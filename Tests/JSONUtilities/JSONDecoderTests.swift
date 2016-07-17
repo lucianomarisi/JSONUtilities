@@ -19,18 +19,27 @@ class JSONDecoderTests: XCTestCase {
     ["randomTypeObject": 123]
     ]
 
-  func testFailedMainBundle() {
+  func testLoadFromBundle() {
     do {
-      let _ = try JSONDictionary.from(filename: JSONFilename.correct)
-      XCTAssertTrue(false)
+      let _ = try JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
     } catch {
-      XCTAssertTrue(true)
+      XCTFail("Unexpected error: \(error)")
+    }
+  }
+  
+  func testAttemptToLoadMissingFileFromBundle() {
+    do {
+      let _ = try JSONDictionary.from(filename: JSONFilename.missing, bundle: testBundle)
+    } catch let error as JSONUtilsError {
+      XCTAssertEqual(error, JSONUtilsError.couldNotFindFile)
+    } catch {
+      XCTFail("Unexpected error: \(error)")
     }
   }
   
   func testCorrectDecodingForMandatoryJSONOnParentWithChild() {
     do {
-      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correct)
       let mockJSONParent = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertEqual(mockJSONParent.mandatoryString, "stringValue")
       XCTAssertEqual(mockJSONParent.mandatoryInt, 1)
@@ -77,55 +86,55 @@ class JSONDecoderTests: XCTestCase {
     } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: stringKey")
     } catch {
-      XCTAssertTrue(false)
+      XCTFail("Unexpected error: \(error)")
     }
   }
   
   func testIncorrectDecodingForMandatoryJSONRawType() {
     do {
-      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.empty, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.empty)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryStringKey")
     } catch {
-      XCTAssertTrue(false)
+      XCTFail("Unexpected error: \(error)")
     }
   }
   
   func testIncorrectDecodingForMandatoryJSONRawTypeArray() {
     do {
-      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correctWithoutRawArray, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutRawArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayStringKey")
     } catch {
-      XCTAssertTrue(false)
+      XCTFail("Unexpected error: \(error)")
     }
   }
   
   func testIncorrectDecodingForMandatoryJSONNestedObject() {
     do {
-      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correctWithoutNested, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNested)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryCustomJSONObjectKey")
     } catch {
-      XCTAssertTrue(false)
+      XCTFail("Unexpected error: \(error)")
     }
   }
   
   func testIncorrectDecodingForMandatoryJSONNestedObjectArray() {
     do {
-      let jsonDictionary = try JSONDictionary.from(filename: JSONFilename.correctWithoutNestedArray, bundle: testBundle)
+      let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNestedArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
       XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayCustomJSONObjectKey")
     } catch {
-      XCTAssertTrue(false)
+      XCTFail("Unexpected error: \(error)")
     }
   }
 }

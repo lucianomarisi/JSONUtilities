@@ -32,7 +32,7 @@
 		4FE3C0521C00EED400607CC4 /* root_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04D1C00EED400607CC4 /* root_array.json */; };
 		4FE3C0531C00EED400607CC4 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04E1C00EED400607CC4 /* empty.json */; };
 		4FE3C0551C00EEE800607CC4 /* JSONDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */; };
-		4FE3C05C1C00F05700607CC4 /* JSONFilenames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */; };
+		4FE3C05C1C00F05700607CC4 /* JSONFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +74,7 @@
 		4FE3C04D1C00EED400607CC4 /* root_array.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = root_array.json; sourceTree = "<group>"; };
 		4FE3C04E1C00EED400607CC4 /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
 		4FE3C0541C00EEE800607CC4 /* JSONDecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoderTests.swift; sourceTree = "<group>"; };
-		4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFilenames.swift; sourceTree = "<group>"; };
+		4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFiles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +180,7 @@
 		4FE3C0431C00EEB200607CC4 /* TestFiles */ = {
 			isa = PBXGroup;
 			children = (
-				4FE3C05B1C00F05700607CC4 /* JSONFilenames.swift */,
+				4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */,
 				4FE3C04A1C00EED400607CC4 /* correct.json */,
 				4F8ADC571C01F100008FD528 /* correct_with_missing_nested_array.json */,
 				4F8ADC551C01F02B008FD528 /* correct_with_missing_raw_array.json */,
@@ -338,7 +338,7 @@
 				4F43396B1D3C174000C64537 /* MockChild.swift in Sources */,
 				4F316CC11CE88599007F9241 /* MockParent.swift in Sources */,
 				4F05C4F81CE8C518003D4718 /* MockSimpleParent.swift in Sources */,
-				4FE3C05C1C00F05700607CC4 /* JSONFilenames.swift in Sources */,
+				4FE3C05C1C00F05700607CC4 /* JSONFiles.swift in Sources */,
 				4FE3C0351C00EDE900607CC4 /* FileLoadingTests.swift in Sources */,
 				4F05C4F41CE89191003D4718 /* InlineDecodingTests.swift in Sources */,
 				4F05C4F61CE8C50F003D4718 /* MockSimpleChild.swift in Sources */,

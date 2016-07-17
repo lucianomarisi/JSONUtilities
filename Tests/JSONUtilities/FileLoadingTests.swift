@@ -14,24 +14,29 @@ typealias NoEscapeFunction = (@noescape () throws -> Void)
 class FileLoadingTests: XCTestCase {
   
   func testLoadingJSONFile() {
-    try! JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
+    do {
+      try JSONDictionary.from(url: JSONFilePath.correct)
+    } catch let error {
+      XCTFail("Failed with error: \(error)")
+      return
+    }
   }
   
   func testLoadingJSONFileLoadingFailed() {
     expectError(.fileLoadingFailed) {
-      try JSONDictionary.from(filename: JSONFilename.missing, bundle: self.testBundle)
+      try JSONDictionary.from(url: JSONFilePath.missing)
     }
   }
   
   func testLoadingJSONFileDeserializationFailed() {
     expectError(.fileDeserializationFailed) {
-      try JSONDictionary.from(filename: JSONFilename.invalid, bundle: self.testBundle)
+      try JSONDictionary.from(url: JSONFilePath.invalid)
     }
   }
 
   func testLoadingJSONFileNotAJSONDictionary() {
     expectError(.fileNotAJSONDictionary) {
-      try JSONDictionary.from(filename: JSONFilename.rootArray, bundle: self.testBundle)
+      try JSONDictionary.from(url: JSONFilePath.rootArray)
     }
   }
   
@@ -41,7 +46,10 @@ class FileLoadingTests: XCTestCase {
     do {
       try block()
     } catch let error {
-      XCTAssert(error as! JSONUtilsError == expectedError, file: file, line: line)
+      XCTAssert(error is JSONUtilsError, file: file, line: line)
+      if let jsonUtilsError = error as? JSONUtilsError {
+        XCTAssertEqual(jsonUtilsError, expectedError, file: file, line: line)
+      }
       return
     }
     XCTFail("No error thrown, expected: \(expectedError)", file: file, line: line)

@@ -19,6 +19,7 @@ public typealias JSONArray = [AnyObject]
  - FileNotAJSONDictionary:    The .json does not contain a JSON object (i.e [String: AnyObject]) as a top level object
  */
 public enum JSONUtilsError: ErrorProtocol {
+  case couldNotFindFile
   case fileLoadingFailed
   case fileDeserializationFailed
   case fileNotAJSONDictionary
@@ -35,14 +36,17 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    
    - returns: An initilized JSONDictionary
    */
-  public static func from(filename: String) throws -> JSONDictionary {
-    return try from(filename: filename, bundle: .main)
+  public static func from(filename: String, bundle: Bundle = .main) throws -> JSONDictionary {
+    guard let url = bundle.urlForResource(filename, withExtension: "json") else {
+      throw JSONUtilsError.couldNotFindFile
+    }
+    return try from(url: url)
   }
   
   /**
    Load a JSONDictionary from a file
    
-   - parameter filename: The filename of the JSON file
+   - parameter url:      The url of the json fo;e
    - parameter bundle:   The NSBundle to be used
    
    - throws: Throws if a JSONDictionary cannot be created from the file
@@ -50,10 +54,9 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    - returns: An initilized JSONDictionary
    */
   @discardableResult
-  static func from(filename: String, bundle: Bundle) throws -> JSONDictionary {
-    guard let jsonURL = bundle.urlForResource(filename, withExtension: "json"),
-      let jsonData = try? Data(contentsOf: jsonURL) else {
-        throw JSONUtilsError.fileLoadingFailed
+  static func from(url: URL) throws -> JSONDictionary {
+    guard let jsonData = try? Data(contentsOf: url) else {
+      throw JSONUtilsError.fileLoadingFailed
     }
     return try from(jsonData: jsonData)
   }
