@@ -124,14 +124,14 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Decode a mandatory RawRepresentable
-  public func jsonKey<ReturnType : RawRepresentable>(key: Key) throws -> ReturnType {
+  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) throws -> ReturnType {
     
     guard let rawValue = self[key] as? ReturnType.RawValue else {
       throw DecodingError.MandatoryKeyNotFound(key: key)
     }
     
     guard let value = ReturnType(rawValue:rawValue) else {
-      throw DecodingError.MandatoryKeyNotFound(key: key)
+      throw DecodingError.MandatoryRawRepresentableHasIncorrectValue(rawRepresentable: ReturnType.self, rawValue: rawValue)
     }
     
     return value
