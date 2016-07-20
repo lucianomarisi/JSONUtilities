@@ -70,6 +70,32 @@ class InlineDecodingTests: XCTestCase {
     expectDecodeTypeArray(expectedBool)
   }
   
+  func testIncorrectEnum() {
+    
+    let dictionary = ["enum": "three"]
+    
+    do {
+      let _:MockParent.MockEnum = try dictionary.jsonKey("enumIncorrect")
+      XCTAssertThrowsError("Did not catch MandatoryKeyNotFound error")
+    }
+    catch let error {
+      let expectedError = DecodingError.MandatoryKeyNotFound(key: "enumIncorrect")
+      let actualError = error as! DecodingError
+      XCTAssert(expectedError == actualError)
+    }
+    
+    do {
+      let _:MockParent.MockEnum = try dictionary.jsonKey("enum")
+      XCTAssertThrowsError("Did not catch MandatoryRawRepresentableHasIncorrectValue error")
+    }
+    catch let error {
+      let expectedError = DecodingError.MandatoryRawRepresentableHasIncorrectValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
+      let actualError = error as! DecodingError
+      XCTAssert(expectedError == actualError)
+    }
+  }
+
+  
   func testDecodingOfJSONDictionaryArray() {
     
     let expectedValue: [JSONDictionary] = [["key1": "value1"], ["key2": "value2"]]

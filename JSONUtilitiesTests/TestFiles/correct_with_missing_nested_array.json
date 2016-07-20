@@ -13,5 +13,6 @@
   "mandatoryArrayStringKey": ["1", "2"],
   "mandatoryArrayIntKey": [1, 2],
   "mandatoryArrayDoubleKey": [1.1, 1.2],
-  "mandatoryArrayBoolKey": [true, false]
+  "mandatoryArrayBoolKey": [true, false],
+  "mandatoryEnum": "one"
 }

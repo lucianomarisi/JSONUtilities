@@ -38,6 +38,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertEqual(mockJSONParent.mandatoryBool, true)
       XCTAssertTrue(mockJSONParent.mandatoryWeakDictionaryKey == expectedDictionary)
       XCTAssertEqual(mockJSONParent.mandatoryCustomJSONObject, expectedChild)
+      XCTAssertEqual(mockJSONParent.mandatoryEnum, MockParent.MockEnum.one)
       
       XCTAssertEqual(mockJSONParent.optionalExistingString, "stringValue")
       XCTAssertEqual(mockJSONParent.optionalExistingInt, 1)
@@ -45,6 +46,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertEqual(mockJSONParent.optionalExistingBool, true)
       XCTAssertTrue(mockJSONParent.optionalExistingWeakDictionaryKey == expectedDictionary)
       XCTAssertEqual(mockJSONParent.optionalExistingCustomJSONObject, expectedChild)
+      XCTAssertEqual(mockJSONParent.optionalExistingEnum, MockParent.MockEnum.one)
       
       XCTAssertNil(mockJSONParent.optionalMissingString)
       XCTAssertNil(mockJSONParent.optionalMissingInt)
@@ -52,6 +54,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertNil(mockJSONParent.optionalMissingBool)
       XCTAssertNil(mockJSONParent.optionalMissingWeakDictionaryKey)
       XCTAssertNil(mockJSONParent.optionalMissingCustomJSONObject)
+      XCTAssertNil(mockJSONParent.optionalMissingEnum)
       
       XCTAssertEqual(mockJSONParent.mandatoryArrayString, ["1","2"])
       XCTAssertEqual(mockJSONParent.mandatoryArrayInt, [1,2])
