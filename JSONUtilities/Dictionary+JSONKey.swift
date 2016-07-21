@@ -113,6 +113,31 @@ extension Dictionary where Key: StringProtocol {
     return decodableObjectsArray(jsonArray)
   }
   
+  // MARK: Raw Representable
+  
+  /// Decode an optional RawRepresentable
+  public func jsonKey<ReturnType : RawRepresentable>(key: Key) -> ReturnType? {
+    guard let rawValue = self[key] as? ReturnType.RawValue else {
+      return nil
+    }
+    return ReturnType(rawValue:rawValue)
+  }
+  
+  /// Decode a mandatory RawRepresentable
+  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) throws -> ReturnType {
+    
+    guard let rawValue = self[key] as? ReturnType.RawValue else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    
+    guard let value = ReturnType(rawValue:rawValue) else {
+      throw DecodingError.MandatoryRawRepresentableHasIncorrectValue(rawRepresentable: ReturnType.self, rawValue: rawValue)
+    }
+    
+    return value
+  }
+
+  
   // MARK: Transformable types
   
   /// Decode a custom raw types with a mandatory key

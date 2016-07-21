@@ -13,6 +13,11 @@ private let randomKey = "asdfghj"
 
 struct MockParent {
   
+  enum MockEnum:String {
+    case one
+    case two
+  }
+  
   // Mark: JSON raw types and custom objects properties
   let mandatoryString: String
   let mandatoryInt: Int
@@ -20,6 +25,7 @@ struct MockParent {
   let mandatoryBool: Bool
   let mandatoryWeakDictionaryKey: JSONDictionary
   let mandatoryCustomJSONObject: MockChild
+  let mandatoryEnum:MockEnum
   
   let optionalExistingString: String?
   let optionalExistingInt: Int?
@@ -27,6 +33,7 @@ struct MockParent {
   let optionalExistingBool: Bool?
   let optionalExistingWeakDictionaryKey: JSONDictionary?
   let optionalExistingCustomJSONObject: MockChild?
+  let optionalExistingEnum:MockEnum?
   
   let optionalMissingString: String?
   let optionalMissingInt: Int?
@@ -34,6 +41,7 @@ struct MockParent {
   let optionalMissingBool: Bool?
   let optionalMissingWeakDictionaryKey: JSONDictionary?
   let optionalMissingCustomJSONObject: MockChild?
+  let optionalMissingEnum:MockEnum?
   
   // Mark: Array properties
   let mandatoryArrayString: [String]
@@ -64,6 +72,7 @@ struct MockParent {
     mandatoryBool = try jsonDictionary.jsonKey("mandatoryBoolKey")
     mandatoryWeakDictionaryKey = try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     mandatoryCustomJSONObject = try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
+    mandatoryEnum = try jsonDictionary.jsonKey("mandatoryEnum")
     
     optionalExistingString = jsonDictionary.jsonKey("mandatoryStringKey")
     optionalExistingInt = jsonDictionary.jsonKey("mandatoryIntKey")
@@ -71,6 +80,7 @@ struct MockParent {
     optionalExistingBool = jsonDictionary.jsonKey("mandatoryBoolKey")
     optionalExistingWeakDictionaryKey = jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     optionalExistingCustomJSONObject = jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
+    optionalExistingEnum = jsonDictionary.jsonKey("mandatoryEnum")
     
     optionalMissingString = jsonDictionary.jsonKey(randomKey)
     optionalMissingInt = jsonDictionary.jsonKey(randomKey)
@@ -78,6 +88,7 @@ struct MockParent {
     optionalMissingBool = jsonDictionary.jsonKey(randomKey)
     optionalMissingWeakDictionaryKey = jsonDictionary.jsonKey(randomKey)
     optionalMissingCustomJSONObject = jsonDictionary.jsonKey(randomKey)
+    optionalMissingEnum = jsonDictionary.jsonKey(randomKey)
     
     mandatoryArrayString = try jsonDictionary.jsonKey("mandatoryArrayStringKey")
     mandatoryArrayInt = try jsonDictionary.jsonKey("mandatoryArrayIntKey")
