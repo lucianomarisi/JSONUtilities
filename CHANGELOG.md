@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.4.0
+
+- Added suppport for `RawRepresentable` enums thanks to Yonas Kolb
+
 ## 2.3.0
 
 - Added support for decoding an array of `Tranformable` values
