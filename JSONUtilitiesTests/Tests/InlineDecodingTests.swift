@@ -94,7 +94,46 @@ class InlineDecodingTests: XCTestCase {
       XCTAssert(expectedError == actualError)
     }
   }
+  
+  func test_decodingMandatoryEnumArray_withKey() {
+    let dictionary: JSONDictionary = ["enums": ["one", "!@1", "two"]]
+    
+    let decodedEnums: [MockParent.MockEnum] = try! dictionary.jsonKey("enums")
+    
+    let expectedEnums: [MockParent.MockEnum] = [.one, .two]
+    XCTAssertEqual(decodedEnums, expectedEnums)
+  }
 
+  
+  func test_decodingOptionalEnumArray_withKey() {
+    let dictionary: JSONDictionary = ["enums": ["one", "!@1", "two"]]
+    
+    let decodedEnums: [MockParent.MockEnum]? = dictionary.jsonKey("enums")
+    
+    let expectedEnums: [MockParent.MockEnum] = [.one, .two]
+    XCTAssertEqual(decodedEnums!, expectedEnums)
+  }
+  
+  func test_decodingMandatoryEnumArray_withoutKey() {
+    let dictionary: JSONDictionary = ["enums": ["one", "!@1", "two"]]
+    
+    do {
+      let _: [MockParent.MockEnum] = try dictionary.jsonKey("invalid_key")
+      XCTFail("Error not thrown")
+    } catch {
+      let expectedError = DecodingError.MandatoryKeyNotFound(key: "invalid_key")
+      XCTAssert(error as! DecodingError == expectedError)
+    }
+
+  }
+  
+  func test_decodingOptionalEnumArray_withoutKey() {
+    let dictionary: JSONDictionary = ["enums": ["one", "!@1", "two"]]
+    
+    let decodedEnums: [MockParent.MockEnum]? = dictionary.jsonKey("invalid_key")
+    
+    XCTAssertNil(decodedEnums)
+  }
   
   func testDecodingOfJSONDictionaryArray() {
     

@@ -113,7 +113,7 @@ extension Dictionary where Key: StringProtocol {
     return decodableObjectsArray(jsonArray)
   }
   
-  // MARK: Raw Representable
+  // MARK: RawRepresentable type
   
   /// Decode an optional RawRepresentable
   public func jsonKey<ReturnType : RawRepresentable>(key: Key) -> ReturnType? {
@@ -136,9 +136,34 @@ extension Dictionary where Key: StringProtocol {
     
     return value
   }
-
   
-  // MARK: Transformable types
+  // MARK: [RawRepresentable] type
+  
+  /// Decode an array of custom RawRepresentable types with a mandatory key
+  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) throws -> [ReturnType] {
+    
+    guard let jsonValues = self[key] as? [ReturnType.RawValue] else {
+      throw DecodingError.MandatoryKeyNotFound(key: key)
+    }
+    
+    return jsonValues.flatMap {
+      ReturnType(rawValue:$0)
+    }
+  }
+  
+  /// Optionally decode an array of RawRepresentable types with a mandatory key
+  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) -> [ReturnType]? {
+    
+    guard let jsonValues = self[key] as? [ReturnType.RawValue] else {
+      return nil
+    }
+    
+    return jsonValues.flatMap {
+      ReturnType(rawValue:$0)
+    }
+  }
+  
+  // MARK: Transformable type
   
   /// Decode a custom raw types with a mandatory key
   public func jsonKey<TransformableType : Transformable>(key: Key) throws -> TransformableType {
@@ -164,7 +189,7 @@ extension Dictionary where Key: StringProtocol {
     return TransformableType.fromJSONValue(jsonValue)
   }
   
-  // MARK: [Transformable] types
+  // MARK: [Transformable] type
   
   /// Decode an array of custom raw types with a mandatory key
   public func jsonKey<TransformableType : Transformable>(key: Key) throws -> [TransformableType] {
