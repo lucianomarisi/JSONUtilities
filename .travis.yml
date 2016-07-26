@@ -4,4 +4,4 @@ script:
   - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator9.3 -destination "OS=9.3,name=iPad 2" test -enableCodeCoverage YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - pod lib lint JSONUtilities.podspec 
+  - pod spec lint JSONUtilities.podspec 

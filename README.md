@@ -42,6 +42,7 @@ OR
 - `[String]`
 - `[Bool]`
 - `[[String : AnyObject]]`
+- `[RawRepresentable]`
 
 ### Custom JSON objects and custom JSON object arrays
 
