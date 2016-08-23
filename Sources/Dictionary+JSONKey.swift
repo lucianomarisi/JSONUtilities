@@ -116,7 +116,7 @@ extension Dictionary where Key: StringProtocol {
   // MARK: RawRepresentable type
   
   /// Decode an optional RawRepresentable
-  public func jsonKey<ReturnType : RawRepresentable>(key: Key) -> ReturnType? {
+  public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) -> ReturnType? {
     guard let rawValue = self[key] as? ReturnType.RawValue else {
       return nil
     }
@@ -124,14 +124,14 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Decode a mandatory RawRepresentable
-  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) throws -> ReturnType {
+  public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) throws -> ReturnType where ReturnType.RawValue:JSONRawType {
     
     guard let rawValue = self[key] as? ReturnType.RawValue else {
-      throw DecodingError.MandatoryKeyNotFound(key: key)
+      throw DecodingError.mandatoryKeyNotFound(key: key)
     }
     
     guard let value = ReturnType(rawValue:rawValue) else {
-      throw DecodingError.MandatoryRawRepresentableHasIncorrectValue(rawRepresentable: ReturnType.self, rawValue: rawValue)
+      throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: ReturnType.self, rawValue: rawValue)
     }
     
     return value
@@ -140,10 +140,10 @@ extension Dictionary where Key: StringProtocol {
   // MARK: [RawRepresentable] type
   
   /// Decode an array of custom RawRepresentable types with a mandatory key
-  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) throws -> [ReturnType] {
+  public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) throws -> [ReturnType] where ReturnType.RawValue:JSONRawType {
     
     guard let jsonValues = self[key] as? [ReturnType.RawValue] else {
-      throw DecodingError.MandatoryKeyNotFound(key: key)
+      throw DecodingError.mandatoryKeyNotFound(key: key)
     }
     
     return jsonValues.flatMap {
@@ -152,7 +152,7 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Optionally decode an array of RawRepresentable types with a mandatory key
-  public func jsonKey<ReturnType : RawRepresentable where ReturnType.RawValue:JSONRawType>(key: Key) -> [ReturnType]? {
+  public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) -> [ReturnType]? where ReturnType.RawValue:JSONRawType {
     
     guard let jsonValues = self[key] as? [ReturnType.RawValue] else {
       return nil

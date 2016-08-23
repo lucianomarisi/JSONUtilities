@@ -79,7 +79,7 @@ class InlineDecodingTests: XCTestCase {
       XCTAssertThrowsError("Did not catch MandatoryKeyNotFound error")
     }
     catch let error {
-      let expectedError = DecodingError.MandatoryKeyNotFound(key: "enumIncorrect")
+      let expectedError = DecodingError.mandatoryKeyNotFound(key: "enumIncorrect")
       let actualError = error as! DecodingError
       XCTAssert(expectedError == actualError)
     }
@@ -89,7 +89,7 @@ class InlineDecodingTests: XCTestCase {
       XCTAssertThrowsError("Did not catch MandatoryRawRepresentableHasIncorrectValue error")
     }
     catch let error {
-      let expectedError = DecodingError.MandatoryRawRepresentableHasIncorrectValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
+      let expectedError = DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
       let actualError = error as! DecodingError
       XCTAssert(expectedError == actualError)
     }
@@ -121,7 +121,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [MockParent.MockEnum] = try dictionary.jsonKey("invalid_key")
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.MandatoryKeyNotFound(key: "invalid_key")
+      let expectedError = DecodingError.mandatoryKeyNotFound(key: "invalid_key")
       XCTAssert(error as! DecodingError == expectedError)
     }
 
