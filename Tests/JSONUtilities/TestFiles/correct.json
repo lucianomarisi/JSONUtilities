@@ -34,5 +34,6 @@
   "mandatoryWeakDictionaryKey" : {
     "stringKey": "value",
     "boolKey" : true
-  }
+  },
+  "mandatoryEnum": "one",
 }

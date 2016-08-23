@@ -9,6 +9,14 @@
 	-  `fromFile(_:)` to `from(filename:)`
 	-  `fromData(_:)` to `from(jsonData:)`
 
+## 2.5.0
+
+- Added suppport for decoding arrays of `RawRepresentable` enums, i.e. `[RawRepresentable]`
+
+## 2.4.0
+
+- Added suppport for `RawRepresentable` enums thanks to Yonas Kolb
+
 ## 2.3.0
 
 - Added support for decoding an array of `Tranformable` values

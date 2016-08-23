@@ -15,11 +15,14 @@ import Foundation
  */
 public enum DecodingError: Error, CustomStringConvertible {
   case mandatoryKeyNotFound(key: StringProtocol)
+  case mandatoryRawRepresentableHasIncorrectValue(rawRepresentable:Any, rawValue:JSONRawType)
   
   public var description: String {
     switch self {
     case .mandatoryKeyNotFound(let key):
       return "MandatoryKeyNotFound: \(key)"
+    case .mandatoryRawRepresentableHasIncorrectValue(let rawRepresentable, let rawValue):
+      return "MandatoryRawRepresentableHasIncorrectValue: \(rawRepresentable): \(rawValue)"
     }
   }
   

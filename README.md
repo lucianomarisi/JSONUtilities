@@ -32,6 +32,7 @@ OR
 - `String`
 - `Bool`
 - `[String : AnyObject]`
+- `RawRepresentable` enums
 
 ### Array of JSON raw types:
 
@@ -41,7 +42,7 @@ OR
 - `[String]`
 - `[Bool]`
 - `[[String : AnyObject]]`
-
+- `[RawRepresentable]`
 
 ### Custom JSON objects and custom JSON object arrays
 
