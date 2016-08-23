@@ -93,14 +93,14 @@ class InlineDecodingTests: XCTestCase {
   }
   
   func testSomeInvalidDecodableTypes() {
-    let parentDictionary = ["children" : ["john", ["name": "jane"]]]
+    let parentDictionary: JSONDictionary = ["children" : ["john", ["name": "jane"]]]
     let decodedParent: MockSimpleParent = try! MockSimpleParent(jsonDictionary: parentDictionary)
     XCTAssert(decodedParent.children.count == 1)
   }
   
   // MARK: Helpers
   
-  private func expectDecodeType<ExpectedType: protocol<JSONRawType, Equatable>>(_ expectedValue: ExpectedType, file: StaticString = #file, line: UInt = #line) {
+  fileprivate func expectDecodeType<ExpectedType: JSONRawType & Equatable>(_ expectedValue: ExpectedType, file: StaticString = #file, line: UInt = #line) {
     
     let dictionary = ["key": expectedValue]
     let decodedValue: ExpectedType = try! dictionary.jsonKey("key")
@@ -121,7 +121,7 @@ class InlineDecodingTests: XCTestCase {
     XCTAssertNil(decodedMissingInt)
   }
 
-  private func expectDecodeTypeArray<ExpectedType: protocol<JSONRawType, Equatable>>(_ expectedValue: [ExpectedType], file: StaticString = #file, line: UInt = #line) {
+  fileprivate func expectDecodeTypeArray<ExpectedType: JSONRawType & Equatable>(_ expectedValue: [ExpectedType], file: StaticString = #file, line: UInt = #line) {
     
     let dictionary = ["key": expectedValue]
     let decodedValue: [ExpectedType] = try! dictionary.jsonKey("key")

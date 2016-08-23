@@ -8,8 +8,8 @@
 
 import Foundation
 
-public typealias JSONDictionary = [String : AnyObject]
-public typealias JSONArray = [AnyObject]
+public typealias JSONDictionary = [String : Any]
+public typealias JSONArray = [Any]
 
 /**
  Loading .json file error
@@ -18,14 +18,14 @@ public typealias JSONArray = [AnyObject]
  - FileDeserializationFailed: NSJSONSerialization failed to deserialize the file
  - FileNotAJSONDictionary:    The .json does not contain a JSON object (i.e [String: AnyObject]) as a top level object
  */
-public enum JSONUtilsError: ErrorProtocol {
+public enum JSONUtilsError: Error {
   case couldNotFindFile
   case fileLoadingFailed
   case fileDeserializationFailed
   case fileNotAJSONDictionary
 }
 
-public extension Dictionary where Key: StringProtocol, Value: AnyObject {
+public extension Dictionary where Key: StringProtocol, Value: Any {
   
   /**
    Load a JSONDictionary from a file
@@ -37,7 +37,8 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
    - returns: An initilized JSONDictionary
    */
   public static func from(filename: String, bundle: Bundle = .main) throws -> JSONDictionary {
-    guard let url = bundle.urlForResource(filename, withExtension: "json") else {
+    bundle.url(forResource: filename, withExtension: "json")
+    guard let url = bundle.url(forResource: filename, withExtension: "json") else {
       throw JSONUtilsError.couldNotFindFile
     }
     return try from(url: url)

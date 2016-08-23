@@ -13,7 +13,7 @@ import Foundation
  
  - Mandatory: The key that failed the decoding
  */
-public enum DecodingError: ErrorProtocol, CustomStringConvertible {
+public enum DecodingError: Error, CustomStringConvertible {
   case mandatoryKeyNotFound(key: StringProtocol)
   
   public var description: String {
@@ -30,7 +30,7 @@ public enum DecodingError: ErrorProtocol, CustomStringConvertible {
  
  - CouldNotTransformJSONValue: The value that failed to be transformed
  */
-public enum TranformableError<ValueType: JSONRawType>: ErrorProtocol, CustomStringConvertible {
+public enum TranformableError<ValueType: JSONRawType>: Error, CustomStringConvertible {
   case couldNotTransformJSONValue(value: ValueType)
   
   public var description: String {

@@ -169,14 +169,14 @@ extension Dictionary where Key: StringProtocol {
   
   // MARK: JSONDictionary and JSONArray creation
   
-  private func JSONDictionaryForKey(_ key: Key) throws -> JSONDictionary {
+  fileprivate func JSONDictionaryForKey(_ key: Key) throws -> JSONDictionary {
     guard let jsonDictionary = self[key] as? JSONDictionary else {
       throw DecodingError.mandatoryKeyNotFound(key: key)
     }
     return jsonDictionary
   }
   
-  private func JSONArrayForKey(_ key: Key) throws -> JSONArray {
+  fileprivate func JSONArrayForKey(_ key: Key) throws -> JSONArray {
     guard let jsonArray = self[key] as? JSONArray else {
       throw DecodingError.mandatoryKeyNotFound(key: key)
     }
@@ -185,7 +185,7 @@ extension Dictionary where Key: StringProtocol {
   
   // MARK: JSONArray decoding
   
-  private func decodableObjectsArray<ReturnType : JSONObjectConvertible>(_ jsonArray: JSONArray) -> [ReturnType] {
+  fileprivate func decodableObjectsArray<ReturnType : JSONObjectConvertible>(_ jsonArray: JSONArray) -> [ReturnType] {
     return jsonArray.flatMap {
       guard let castedJsonObject = $0 as? JSONDictionary else {
         return nil

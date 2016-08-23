@@ -9,7 +9,7 @@
 import XCTest
 @testable import JSONUtilities
 
-typealias NoEscapeFunction = (@noescape () throws -> Void)
+typealias NoEscapeFunction = ( () throws -> Void)
 
 class FileLoadingTests: XCTestCase {
   
@@ -59,7 +59,7 @@ class FileLoadingTests: XCTestCase {
   
   // MARK: Helpers
   
-  private func expectError(_ expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, block: NoEscapeFunction ) {
+  fileprivate func expectError(_ expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, block: NoEscapeFunction ) {
     do {
       try block()
     } catch let error {

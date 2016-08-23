@@ -11,7 +11,7 @@ import XCTest
 extension XCTestCase {
   
   var testBundle: Bundle {
-    return Bundle(for: self.dynamicType)
+    return Bundle(for: type(of: self))
   }
   
 }
