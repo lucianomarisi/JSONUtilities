@@ -1,5 +1,5 @@
 //
-//  TransformableTests.swift
+//  JSONPrimitiveConvertibleTests.swift
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 13/03/2016.
@@ -20,7 +20,7 @@ extension URL : JSONPrimitiveConvertible {
 
 private let invalidKey = "invalidKey"
 
-class TransformableTests: XCTestCase {
+class JSONPrimitiveConvertibleTests: XCTestCase {
 
   func testDecodedAndTransformNSURL() {
     let urlString = "www.google.com"
@@ -55,7 +55,7 @@ class TransformableTests: XCTestCase {
     XCTAssertNil(urlFromMissingKey)
   }
   
-  func testTransformableArray() {
+  func testJSONPrimitiveConvertibleArray() {
     let expectedURLStrings = ["www.google.com", "www.apple.com"]
     let expectedURLs = expectedURLStrings.flatMap{ URL(string: $0) }
     let jsonDictionary = ["urls": expectedURLStrings]

@@ -166,13 +166,13 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONPrimitiveConvertible type
   
   /// Decode a custom raw types with a mandatory key
-  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) throws -> TransformableType {
+  public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) throws -> JSONPrimitiveConvertibleType {
     
-    guard let jsonValue = self[key] as? TransformableType.JSONType else {
+    guard let jsonValue = self[key] as? JSONPrimitiveConvertibleType.JSONType else {
       throw DecodingError.mandatoryKeyNotFound(key: key)
     }
     
-    guard let transformedValue = TransformableType.from(jsonValue: jsonValue) else {
+    guard let transformedValue = JSONPrimitiveConvertibleType.from(jsonValue: jsonValue) else {
       throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue as! String)
     }
     
@@ -180,39 +180,39 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Optionally decode a custom raw types with a mandatory key
-  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) -> TransformableType? {
+  public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) -> JSONPrimitiveConvertibleType? {
     
-    guard let jsonValue = self[key] as? TransformableType.JSONType else {
+    guard let jsonValue = self[key] as? JSONPrimitiveConvertibleType.JSONType else {
       return nil
     }
     
-    return TransformableType.from(jsonValue: jsonValue)
+    return JSONPrimitiveConvertibleType.from(jsonValue: jsonValue)
   }
   
-  // MARK: [Transformable] type
+  // MARK: [JSONPrimitiveConvertible] type
   
   /// Decode an array of custom raw types with a mandatory key
-  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) throws -> [TransformableType] {
+  public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) throws -> [JSONPrimitiveConvertibleType] {
     
-    guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
+    guard let jsonValues = self[key] as? [JSONPrimitiveConvertibleType.JSONType] else {
       throw DecodingError.mandatoryKeyNotFound(key: key)
     }
     
     return jsonValues.flatMap {
-      TransformableType.from(jsonValue: $0)
+      JSONPrimitiveConvertibleType.from(jsonValue: $0)
     }
 
   }
 
   /// Optionally decode an array custom raw types with a mandatory key
-  public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) -> [TransformableType]? {
+  public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) -> [JSONPrimitiveConvertibleType]? {
     
-    guard let jsonValues = self[key] as? [TransformableType.JSONType] else {
+    guard let jsonValues = self[key] as? [JSONPrimitiveConvertibleType.JSONType] else {
       return nil
     }
     
     return jsonValues.flatMap {
-      TransformableType.from(jsonValue:$0)
+      JSONPrimitiveConvertibleType.from(jsonValue:$0)
     }
     
   }
