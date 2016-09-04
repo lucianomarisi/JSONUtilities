@@ -163,7 +163,7 @@ extension Dictionary where Key: StringProtocol {
     }
   }
   
-  // MARK: Transformable type
+  // MARK: JSONPrimitiveConvertible type
   
   /// Decode a custom raw types with a mandatory key
   public func jsonKey<TransformableType : JSONPrimitiveConvertible>(_ key: Key) throws -> TransformableType {
