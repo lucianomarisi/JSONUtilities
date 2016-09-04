@@ -6,10 +6,14 @@ import JSONUtilities
 struct Company {
   let name : String
   let employees : [Person]
+  let referenceNumber: Int
+  let owner: Person
   
   init(jsonDictionary: JSONDictionary) throws {
     name = try jsonDictionary.jsonKeyPath("name")
     employees = try jsonDictionary.jsonKeyPath("employees")
+    referenceNumber = try jsonDictionary.jsonKeyPath("attributes.reference-number")
+    owner = try jsonDictionary.jsonKeyPath("attributes.owner")
   }
 }
 
@@ -32,8 +36,12 @@ do {
   let rawEmployees : [JSONDictionary] = try jsonDictionary.jsonKeyPath("employees")
   print(company.name)
   print(company.employees.first!.age)
-  
-} catch {}
+  print(company.referenceNumber)
+  print(company.owner)
+
+} catch {
+  print(error)
+}
 
 
 class City {

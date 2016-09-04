@@ -5,8 +5,9 @@
 [![](https://img.shields.io/cocoapods/p/JSONUtilities.svg?style=flat)](https://cocoapods.org/pods/JSONUtilities)
 [![codecov.io](http://codecov.io/github/lucianomarisi/JSONUtilities/coverage.svg?branch=master)](http://codecov.io/github/lucianomarisi/JSONUtilities?branch=master)
 [![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/JSONUtilities.svg?style=flat)](http://cocoadocs.org/docsets/JSONUtilities/)
+![Swift Version](https://img.shields.io/badge/swift-3.0-brightgreen.svg)
 
-Easily load JSON objects and decode them into structs or classes. The `jsonKey(_:)` function infers the type from the constant or variable definition to decode meaning no casting is needed.
+Easily load JSON objects and decode them into structs or classes. The `jsonKeyPath(_:)` function infers the type from the constant or variable definition to decode meaning no casting is needed. Both string keys and keypaths (keys separated by dots `.`) are supported when decoding JSON.
 
 - Check out the `Example.playground` inside the `JSONUtilities.xcodeproj` for a working example
 
@@ -31,7 +32,7 @@ OR
 - `Float`
 - `String`
 - `Bool`
-- `[String : AnyObject]`
+- `[String: AnyObject]`
 - `RawRepresentable` enums
 
 ### Array of JSON raw types:
@@ -41,7 +42,7 @@ OR
 - `[Float]`
 - `[String]`
 - `[Bool]`
-- `[[String : AnyObject]]`
+- `[[String: AnyObject]]`
 - `[RawRepresentable]`
 
 ### Custom JSON objects and custom JSON object arrays
@@ -85,59 +86,28 @@ Consider a JSON object that represents a person:
 ### Decode JSON inline
 
 ```swift
-let jsonDictionary = try JSONDictionary.fromFile("person.json")
-let name: String = try jsonDictionary.jsonKey("name")
-let age: Int = try jsonDictionary.jsonKey("age")
-let weight: Int = try jsonDictionary.jsonKey("weight")
-let profession: String? = jsonDictionary.jsonKey("profession") // Optional decoding
+let jsonDictionary = try JSONDictionary.from(filename: "person.json")
+let name: String = try jsonDictionary.jsonKeyPath("name")
+let age: Int = try jsonDictionary.jsonKeyPath("age")
+let weight: Int = try jsonDictionary.jsonKeyPath("weight")
+let profession: String? = jsonDictionary.jsonKeyPath("profession") // Optional decoding
 ```
 
 ### Decode structs or classes
 
 ```swift
-struct Person {
+struct Person { //OR class Person {
 
-  let name : String
-  let age : Int
-  let weight : Double
-  let profession : String?
+  let name: String
+  let age: Int
+  let weight: Double
+  let profession: String?
    
   init(jsonDictionary: JSONDictionary) throws {
-    name = try jsonDictionary.jsonKey("name")
-    age = try jsonDictionary.jsonKey("age")
-    weight = try jsonDictionary.jsonKey("weight")
-    profession = jsonDictionary.jsonKey("profession")
-  }
-  
-}
-```
-
-```swift
-class Person {
-
-  let name : String
-  let age : Int
-  let weight : Double
-  let profession : String?
-
-  init(name: String,
-        age: Int,
-     weight: Double
- profession: String?) {
-    self.name = name
-    self.age = age
-    self.weight = weight
-    self.profession = profession
-  }
-  
-  // Need a convenience initializer on a class because Swift does not allow to throw on a designated initializer
-  convenience init(jsonDictionary: JSONDictionary) throws {
-    self.init(
-      name : try jsonDictionary.jsonKey("name"),
-      age : try jsonDictionary.jsonKey("age"),
-      weight : try jsonDictionary.jsonKey("weight"),
-      profession : try jsonDictionary.jsonKey("profession")
-    )
+    name = try jsonDictionary.jsonKeyPath("name")
+    age = try jsonDictionary.jsonKeyPath("age")
+    weight = try jsonDictionary.jsonKeyPath("weight")
+    profession = jsonDictionary.jsonKeyPath("profession")
   }
   
 }
@@ -173,8 +143,8 @@ struct Company {
   let employees: [Person]
   
   init(jsonDictionary: JSONDictionary) throws {
-    name = try jsonDictionary.jsonKey("name")
-    employees = try jsonDictionary.jsonKey("employees")
+    name = try jsonDictionary.jsonKeyPath("name")
+    employees = try jsonDictionary.jsonKeyPath("employees")
   }
 }
 ```
@@ -184,23 +154,23 @@ struct Company {
 Any type can extend the `JSONPrimitiveConvertible` protocol in order to allow decoding. For example extending `NSURL`:
 
 ```swift
-extension NSURL : JSONPrimitiveConvertible {
+extension NSURL: JSONPrimitiveConvertible {
 
   public typealias JSONType = String
   
-  public static func fromJSONValue(jsonValue: String) -> Self? {
+  public static func from(jsonValue: String) -> Self? {
     return self.init(string: jsonValue)
   }
   
 }
 
 let urlDictionary = ["url": "www.google.com"]
-let url: NSURL = try! urlDictionary.jsonKey("url") // www.google.com
+let url: NSURL = try! urlDictionary.jsonKeyPath("url") // www.google.com
 ```
 
 It's also possible to have an array of `JSONPrimitiveConvertible` values, for example:
 
 ```swift
 let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
-let urls: [NSURL] = try! urlsDictionary.jsonKey("urls") // [www.google.com, www.yahoo.com]
+let urls: [NSURL] = try! urlsDictionary.jsonKeyPath("urls") // [www.google.com, www.yahoo.com]
 ```

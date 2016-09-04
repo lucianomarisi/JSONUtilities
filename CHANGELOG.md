@@ -2,7 +2,12 @@
 
 ## 3.0.0
 
-- Added support for Swift 3
+## New Features
+- Support for Swift 3
+- Keypath access in JSON dictionaries
+
+## API updates
+- Renamed function for accessing values `jsonKey(_:)` to `jsonKeyPath(_:)`
 - Renamed `Transformable` protocol to `JSONPrimitiveConvertible`
 - Renamed `Decodable` protocol to `JSONObjectConvertible`
 - Renamed JSONDictionary loading functions:
