@@ -35,6 +35,7 @@
 		4FE3C0521C00EED400607CC4 /* root_array.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04D1C00EED400607CC4 /* root_array.json */; };
 		4FE3C0531C00EED400607CC4 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04E1C00EED400607CC4 /* empty.json */; };
 		4FE3C0551C00EEE800607CC4 /* JSONDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */; };
+		4FF31F3B1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF31F3A1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		4FE3C04E1C00EED400607CC4 /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty.json; sourceTree = "<group>"; };
 		4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodingTests.swift; sourceTree = "<group>"; };
 		4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFiles.swift; sourceTree = "<group>"; };
+		4FF31F3A1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyPathTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				4F05C4F31CE89191003D4718 /* InlineDecodingTests.swift */,
 				4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */,
 				4F0842021C96143500C28467 /* JSONPrimitiveConvertibleTests.swift */,
+				4FF31F3A1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift */,
 			);
 			path = JSONUtilitiesTests;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				4F05C4F61CE8C50F003D4718 /* MockSimpleChild.swift in Sources */,
 				4F0842031C96143500C28467 /* JSONPrimitiveConvertibleTests.swift in Sources */,
 				4F316CC61CE88898007F9241 /* XCTestCase+Additions.swift in Sources */,
+				4FF31F3B1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift in Sources */,
 				4F4339691D3C159900C64537 /* Dictionary+Equatable.swift in Sources */,
 				4FD43DD81D3C317800075410 /* JSONFiles.swift in Sources */,
 			);
