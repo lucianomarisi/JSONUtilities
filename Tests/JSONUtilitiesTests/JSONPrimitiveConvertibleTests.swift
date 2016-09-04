@@ -30,13 +30,13 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
       "invalid_url": "±"
     ]
     
-    let mandatoryTransformedURL : URL = try! jsonDictionary.jsonKey("url")
+    let mandatoryTransformedURL : URL = try! jsonDictionary.jsonKeyPath("url")
     XCTAssertEqual(expectedURL, mandatoryTransformedURL)
-    let optionalTransformedURL : URL? = jsonDictionary.jsonKey("url")
+    let optionalTransformedURL : URL? = jsonDictionary.jsonKeyPath("url")
     XCTAssertEqual(expectedURL, optionalTransformedURL)
     
     do {
-      let _ : URL = try jsonDictionary.jsonKey("invalid_url")
+      let _ : URL = try jsonDictionary.jsonKeyPath("invalid_url")
     } catch let error {
       XCTAssertEqual("\(error)", "couldNotTransformJSONValue: ±")
     }
@@ -46,12 +46,12 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
     let jsonDictionary = ["url": "url"]
     
     do {
-      let _ : URL = try jsonDictionary.jsonKey(invalidKey)
+      let _ : URL = try jsonDictionary.jsonKeyPath(invalidKey)
     } catch let error {
       XCTAssertEqual("\(error)", "mandatoryKeyNotFound: \(invalidKey)")
     }
     
-    let urlFromMissingKey : URL? = jsonDictionary.jsonKey(invalidKey)
+    let urlFromMissingKey : URL? = jsonDictionary.jsonKeyPath(invalidKey)
     XCTAssertNil(urlFromMissingKey)
   }
   
@@ -59,19 +59,19 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
     let expectedURLStrings = ["www.google.com", "www.apple.com"]
     let expectedURLs = expectedURLStrings.flatMap{ URL(string: $0) }
     let jsonDictionary = ["urls": expectedURLStrings]
-    let decodedURLs: [URL] = try! jsonDictionary.jsonKey("urls")
+    let decodedURLs: [URL] = try! jsonDictionary.jsonKeyPath("urls")
     XCTAssertEqual(decodedURLs, expectedURLs)
     
     do {
-      let _ : [URL] = try jsonDictionary.jsonKey(invalidKey)
+      let _ : [URL] = try jsonDictionary.jsonKeyPath(invalidKey)
     } catch let error {
       XCTAssertEqual("\(error)", "mandatoryKeyNotFound: \(invalidKey)")
     }
     
-    let decodedOptionalURLs: [URL]? = jsonDictionary.jsonKey("urls")
+    let decodedOptionalURLs: [URL]? = jsonDictionary.jsonKeyPath("urls")
     XCTAssertEqual(decodedOptionalURLs!, expectedURLs)
     
-    let decodedMissingURLs: [URL]? = jsonDictionary.jsonKey(invalidKey)
+    let decodedMissingURLs: [URL]? = jsonDictionary.jsonKeyPath(invalidKey)
     XCTAssertNil(decodedMissingURLs)
   }
   
