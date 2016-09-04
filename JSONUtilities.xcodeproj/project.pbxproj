@@ -125,7 +125,15 @@
 			path = Metadata;
 			sourceTree = "<group>";
 		};
-		4F43396A1D3C16C400C64537 /* JSONUtilities */ = {
+		4F47CDEF1D1B3C4800F95472 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4F7429FC1D7CAE9E0027EAAD /* JSONUtilities */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		4F7429FB1D7CAE900027EAAD /* JSONUtilitiesTests */ = {
 			isa = PBXGroup;
 			children = (
 				4F316CC41CE8869E007F9241 /* Helpers */,
@@ -137,10 +145,10 @@
 				4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */,
 				4F0842021C96143500C28467 /* JSONPrimitiveConvertibleTests.swift */,
 			);
-			path = JSONUtilities;
+			path = JSONUtilitiesTests;
 			sourceTree = "<group>";
 		};
-		4F47CDEF1D1B3C4800F95472 /* Sources */ = {
+		4F7429FC1D7CAE9E0027EAAD /* JSONUtilities */ = {
 			isa = PBXGroup;
 			children = (
 				4F47CDF11D1B3C4800F95472 /* Deprecations.swift */,
@@ -150,7 +158,7 @@
 				4F037C281D1B406D0075FC5E /* JSONObjectConvertible.swift */,
 				4F037C291D1B406D0075FC5E /* JSONPrimitiveConvertible.swift */,
 			);
-			path = Sources;
+			path = JSONUtilities;
 			sourceTree = "<group>";
 		};
 		4FD43DD51D3C2D7900075410 /* NonSwiftPackageManagerTests */ = {
@@ -185,7 +193,7 @@
 		4FE3C0331C00EDE900607CC4 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4F43396A1D3C16C400C64537 /* JSONUtilities */,
+				4F7429FB1D7CAE900027EAAD /* JSONUtilitiesTests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -501,7 +509,7 @@
 		4FE3C03D1C00EDE900607CC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = Tests/JSONUtilities/Metadata/Info.plist;
+				INFOPLIST_FILE = Tests/JSONUtilitiesTests/Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.TechBrewers-LTD.JSONUtilitiesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -512,7 +520,7 @@
 		4FE3C03E1C00EDE900607CC4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = Tests/JSONUtilities/Metadata/Info.plist;
+				INFOPLIST_FILE = Tests/JSONUtilitiesTests/Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.TechBrewers-LTD.JSONUtilitiesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
