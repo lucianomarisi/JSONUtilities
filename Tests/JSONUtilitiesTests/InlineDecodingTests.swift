@@ -76,7 +76,7 @@ class InlineDecodingTests: XCTestCase {
     
     do {
       let _:MockParent.MockEnum = try dictionary.jsonKey("enumIncorrect")
-      XCTAssertThrowsError("Did not catch MandatoryKeyNotFound error")
+      XCTAssertThrowsError("Did not catch mandatoryKeyNotFound error")
     }
     catch let error {
       let expectedError = DecodingError.mandatoryKeyNotFound(key: "enumIncorrect")
@@ -86,7 +86,7 @@ class InlineDecodingTests: XCTestCase {
     
     do {
       let _:MockParent.MockEnum = try dictionary.jsonKey("enum")
-      XCTAssertThrowsError("Did not catch MandatoryRawRepresentableHasIncorrectValue error")
+      XCTAssertThrowsError("Did not catch mandatoryRawRepresentableHasIncorrectValue error")
     }
     catch let error {
       let expectedError = DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
@@ -168,14 +168,14 @@ class InlineDecodingTests: XCTestCase {
   fileprivate func expectDecodeType<ExpectedType: JSONRawType & Equatable>(_ expectedValue: ExpectedType, file: StaticString = #file, line: UInt = #line) {
     
     let dictionary = ["key": expectedValue]
-    let decodedValue: ExpectedType = try! dictionary.jsonKey("key")
+    let decodedValue: ExpectedType = try! dictionary.jsonKeyPath("key")
     XCTAssertEqual(decodedValue, expectedValue, file: file, line: line)
     
     let decodedOptionalInt: ExpectedType? = dictionary.jsonKey("key")
     XCTAssertEqual(decodedOptionalInt!, expectedValue, file: file, line: line)
     
     do {
-      let _: ExpectedType = try dictionary.jsonKey(randomKey)
+      let _: ExpectedType = try dictionary.jsonKeyPath(randomKey)
     } catch let error {
       let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
       let actualError = error as! DecodingError

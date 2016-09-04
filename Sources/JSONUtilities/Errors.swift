@@ -20,9 +20,9 @@ public enum DecodingError: Error, CustomStringConvertible {
   public var description: String {
     switch self {
     case .mandatoryKeyNotFound(let key):
-      return "MandatoryKeyNotFound: \(key)"
+      return "mandatoryKeyNotFound: \(key)"
     case .mandatoryRawRepresentableHasIncorrectValue(let rawRepresentable, let rawValue):
-      return "MandatoryRawRepresentableHasIncorrectValue: \(rawRepresentable): \(rawValue)"
+      return "mandatoryRawRepresentableHasIncorrectValue: \(rawRepresentable): \(rawValue)"
     }
   }
   
@@ -31,7 +31,7 @@ public enum DecodingError: Error, CustomStringConvertible {
 /**
  Error used when a json value fails to be transformed
  
- - CouldNotTransformJSONValue: The value that failed to be transformed
+ - couldNotTransformJSONValue: The value that failed to be transformed
  */
 public enum JSONPrimitiveConvertibleError<ValueType: JSONRawType>: Error, CustomStringConvertible {
   case couldNotTransformJSONValue(value: ValueType)
@@ -39,7 +39,7 @@ public enum JSONPrimitiveConvertibleError<ValueType: JSONRawType>: Error, Custom
   public var description: String {
     switch self {
     case .couldNotTransformJSONValue(let value):
-      return "CouldNotTransformJSONValue: \(value)"
+      return "couldNotTransformJSONValue: \(value)"
     }
   }
   

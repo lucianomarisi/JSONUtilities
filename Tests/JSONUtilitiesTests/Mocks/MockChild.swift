@@ -18,10 +18,10 @@ struct MockChild {
 
 extension MockChild : JSONObjectConvertible {
   init(jsonDictionary: JSONDictionary) throws {
-    string = try jsonDictionary.jsonKey("stringKey")
-    integer = try jsonDictionary.jsonKey("integerKey")
-    double = try jsonDictionary.jsonKey("doubleKey")
-    bool = try jsonDictionary.jsonKey("boolKey")
+    string = try jsonDictionary.jsonKeyPath("stringKey")
+    integer = try jsonDictionary.jsonKeyPath("integerKey")
+    double = try jsonDictionary.jsonKeyPath("doubleKey")
+    bool = try jsonDictionary.jsonKeyPath("boolKey")
   }
 }
 

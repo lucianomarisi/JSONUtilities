@@ -69,7 +69,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertNil(mockJSONParent.optionalMissingArrayCustomJSONObject)
       
     } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "MandatoryKeyNotFound: stringKey")
+      XCTAssertEqual(error.description, "mandatoryKeyNotFound: stringKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }
@@ -81,7 +81,7 @@ class JSONDecoderTests: XCTestCase {
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryStringKey")
+      XCTAssertEqual(error.description, "mandatoryKeyNotFound: mandatoryStringKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }
@@ -93,7 +93,7 @@ class JSONDecoderTests: XCTestCase {
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayStringKey")
+      XCTAssertEqual(error.description, "mandatoryKeyNotFound: mandatoryArrayStringKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }
@@ -105,7 +105,7 @@ class JSONDecoderTests: XCTestCase {
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryCustomJSONObjectKey")
+      XCTAssertEqual(error.description, "mandatoryKeyNotFound: mandatoryCustomJSONObjectKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }
@@ -117,7 +117,7 @@ class JSONDecoderTests: XCTestCase {
       let _ = try MockParent(jsonDictionary: jsonDictionary)
       XCTAssertTrue(false)
     } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "MandatoryKeyNotFound: mandatoryArrayCustomJSONObjectKey")
+      XCTAssertEqual(error.description, "mandatoryKeyNotFound: mandatoryArrayCustomJSONObjectKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }

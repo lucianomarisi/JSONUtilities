@@ -66,10 +66,10 @@ struct MockParent {
   let optionalMissingArrayCustomJSONObject: [MockChild]?
   
   init(jsonDictionary: JSONDictionary) throws {
-    mandatoryString = try jsonDictionary.jsonKey("mandatoryStringKey")
-    mandatoryInt = try jsonDictionary.jsonKey("mandatoryIntKey")
-    mandatoryDouble = try jsonDictionary.jsonKey("mandatoryDoubleKey")
-    mandatoryBool = try jsonDictionary.jsonKey("mandatoryBoolKey")
+    mandatoryString = try jsonDictionary.jsonKeyPath("mandatoryStringKey")
+    mandatoryInt = try jsonDictionary.jsonKeyPath("mandatoryIntKey")
+    mandatoryDouble = try jsonDictionary.jsonKeyPath("mandatoryDoubleKey")
+    mandatoryBool = try jsonDictionary.jsonKeyPath("mandatoryBoolKey")
     mandatoryWeakDictionaryKey = try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     mandatoryCustomJSONObject = try jsonDictionary.jsonKey("mandatoryCustomJSONObjectKey")
     mandatoryEnum = try jsonDictionary.jsonKey("mandatoryEnum")

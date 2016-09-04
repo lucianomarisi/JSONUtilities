@@ -22,6 +22,15 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
   
 }
 
+public extension Dictionary where Key: StringProtocol {
+  
+  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  public func jsonKey<ReturnType : JSONRawType>(_ key: Key) throws -> ReturnType {
+    return try jsonKeyPath(key)
+  }
+  
+}
+
 @available(*, deprecated:3.0.0, renamed: "JSONPrimitiveConvertible")
 public typealias Transformable = JSONPrimitiveConvertible
 
