@@ -16,7 +16,7 @@ public typealias JSONArray = [Any]
  
  - FileLoadingFailed:         The .json file URL could not be found or the file could not be loaded
  - FileDeserializationFailed: NSJSONSerialization failed to deserialize the file
- - FileNotAJSONDictionary:    The .json does not contain a JSON object (i.e [String: AnyObject]) as a top level object
+ - FileNotAJSONDictionary:    The .json does not contain a JSON object (i.e [String: Any]) as a top level object
  */
 public enum JSONUtilsError: Error {
   case couldNotFindFile

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Dictionary where Key: StringProtocol, Value: AnyObject {
+public extension Dictionary where Key: StringProtocol, Value: Any {
   
   @available(*, deprecated:3.0.0, renamed: "from(filename:)")
   public static func fromFile(_ filename: String) throws -> JSONDictionary {
@@ -23,7 +23,7 @@ public extension Dictionary where Key: StringProtocol, Value: AnyObject {
 }
 
 @available(*, deprecated:3.0.0, renamed: "JSONPrimitiveConvertible")
-typealias Transformable = JSONPrimitiveConvertible
+public typealias Transformable = JSONPrimitiveConvertible
 
 @available(*, deprecated:3.0.0, renamed: "JSONObjectConvertible")
-typealias Decodable = JSONObjectConvertible
+public typealias Decodable = JSONObjectConvertible

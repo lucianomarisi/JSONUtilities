@@ -53,7 +53,7 @@ extension Dictionary where Key: StringProtocol {
     return self[key] as? [ReturnType]
   }
   
-  // MARK: [String: AnyObject] type
+  // MARK: [String: Any] type
   
   /// Decodes as a raw Dictionary with a mandatory key
   public func jsonKey(_ key: Key) throws -> JSONDictionary {
@@ -69,7 +69,7 @@ extension Dictionary where Key: StringProtocol {
     return self[key] as? JSONDictionary
   }
   
-  // MARK: [[String: AnyObject]] type
+  // MARK: [[String: Any]] type
   
   /// Decodes as a raw dictionary array with a mandatory key
   public func jsonKey(_ key: Key) throws -> [JSONDictionary] {
