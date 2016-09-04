@@ -3,7 +3,7 @@
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 21/11/2015.
-//  Copyright © 2015 TechBrewers LTD. All rights reserved.
+//  Copyright © 2015 Luciano Marisi All rights reserved.
 //
 
 import Foundation

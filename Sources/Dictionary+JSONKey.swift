@@ -3,7 +3,7 @@
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 05/03/2016.
-//  Copyright © 2016 TechBrewers LTD. All rights reserved.
+//  Copyright © 2016 Luciano Marisi All rights reserved.
 //
 
 import Foundation
@@ -172,8 +172,8 @@ extension Dictionary where Key: StringProtocol {
       throw DecodingError.mandatoryKeyNotFound(key: key)
     }
     
-    guard let transformedValue = TransformableType.fromJSONValue(jsonValue) else {
-      throw TranformableError.couldNotTransformJSONValue(value: jsonValue)
+    guard let transformedValue = TransformableType.from(jsonValue: jsonValue) else {
+      throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue as! String)
     }
     
     return transformedValue
@@ -186,7 +186,7 @@ extension Dictionary where Key: StringProtocol {
       return nil
     }
     
-    return TransformableType.fromJSONValue(jsonValue)
+    return TransformableType.from(jsonValue: jsonValue)
   }
   
   // MARK: [Transformable] type
@@ -199,7 +199,7 @@ extension Dictionary where Key: StringProtocol {
     }
     
     return jsonValues.flatMap {
-      TransformableType.fromJSONValue($0)
+      TransformableType.from(jsonValue: $0)
     }
 
   }
@@ -212,7 +212,7 @@ extension Dictionary where Key: StringProtocol {
     }
     
     return jsonValues.flatMap {
-      TransformableType.fromJSONValue($0)
+      TransformableType.from(jsonValue:$0)
     }
     
   }

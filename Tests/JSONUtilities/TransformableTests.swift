@@ -3,7 +3,7 @@
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 13/03/2016.
-//  Copyright © 2016 TechBrewers LTD. All rights reserved.
+//  Copyright © 2016 Luciano Marisi All rights reserved.
 //
 
 import XCTest
@@ -12,7 +12,7 @@ import XCTest
 extension URL : JSONPrimitiveConvertible {
   public typealias JSONType = String
   
-  public static func fromJSONValue(_ jsonValue: String) -> URL? {
+  public static func from(jsonValue: String) -> URL? {
     return self.init(string: jsonValue)
   }
   

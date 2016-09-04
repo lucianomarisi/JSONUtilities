@@ -3,7 +3,7 @@
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 17/07/2016.
-//  Copyright © 2016 TechBrewers LTD. All rights reserved.
+//  Copyright © 2016 Luciano Marisi All rights reserved.
 //
 
 import XCTest

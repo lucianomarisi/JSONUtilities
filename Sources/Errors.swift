@@ -3,7 +3,7 @@
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 05/03/2016.
-//  Copyright © 2016 TechBrewers LTD. All rights reserved.
+//  Copyright © 2016 Luciano Marisi All rights reserved.
 //
 
 import Foundation
@@ -33,7 +33,7 @@ public enum DecodingError: Error, CustomStringConvertible {
  
  - CouldNotTransformJSONValue: The value that failed to be transformed
  */
-public enum TranformableError<ValueType: JSONRawType>: Error, CustomStringConvertible {
+public enum JSONPrimitiveConvertibleError<ValueType: JSONRawType>: Error, CustomStringConvertible {
   case couldNotTransformJSONValue(value: ValueType)
   
   public var description: String {
