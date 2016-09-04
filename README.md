@@ -8,7 +8,7 @@
 
 Easily load JSON objects and decode them into structs or classes. The `jsonKey(_:)` function infers the type from the constant or variable definition to decode meaning no casting is needed.
 
-- Check out the `JSONUtilitiesExample.playground` for a working example
+- Check out the `Example.playground` inside the `JSONUtilities.xcodeproj` for a working example
 
 ## Installation
 
