@@ -27,89 +27,89 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONRawType type
   
   /// Decode a mandatory JSON raw type
-  public func jsonKeyPath<ReturnType : JSONRawType>(_ key: Key) throws -> ReturnType {
+  public func jsonKeyPath<ReturnType : JSONRawType>(_ keyPath: Key) throws -> ReturnType {
     
-    guard let value = self[keyPath: key] as? ReturnType else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let value = self[keyPath: keyPath] as? ReturnType else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return value
   }
   
   /// Decode an optional JSON raw type
-  public func jsonKeyPath<ReturnType : JSONRawType>(_ key: Key) -> ReturnType? {
-    return self[keyPath: key] as? ReturnType
+  public func jsonKeyPath<ReturnType : JSONRawType>(_ keyPath: Key) -> ReturnType? {
+    return self[keyPath: keyPath] as? ReturnType
   }
   
   // MARK: [JSONRawType] type
   
   /// Decode an Array of mandatory JSON raw types
-  public func jsonKeyPath<ReturnType : JSONRawType>(_ key: Key) throws -> [ReturnType] {
-    guard let value = self[keyPath: key] as? [ReturnType] else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+  public func jsonKeyPath<ReturnType : JSONRawType>(_ keyPath: Key) throws -> [ReturnType] {
+    guard let value = self[keyPath: keyPath] as? [ReturnType] else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return value
   }
   
   /// Decode an Array of optional JSON raw types
-  public func jsonKeyPath<ReturnType : JSONRawType>(_ key: Key) -> [ReturnType]? {
-    return self[keyPath: key] as? [ReturnType]
+  public func jsonKeyPath<ReturnType : JSONRawType>(_ keyPath: Key) -> [ReturnType]? {
+    return self[keyPath: keyPath] as? [ReturnType]
   }
   
   // MARK: [String: Any] type
   
   /// Decodes as a raw Dictionary with a mandatory key
-  public func jsonKeyPath(_ key: Key) throws -> JSONDictionary {
+  public func jsonKeyPath(_ keyPath: Key) throws -> JSONDictionary {
     
-    guard let value = self[keyPath: key] as? JSONDictionary else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let value = self[keyPath: keyPath] as? JSONDictionary else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return value
   }
 
   /// Decodes as a raw dictionary with an optional key
-  public func jsonKeyPath(_ key: Key) -> JSONDictionary? {
-    return self[keyPath: key] as? JSONDictionary
+  public func jsonKeyPath(_ keyPath: Key) -> JSONDictionary? {
+    return self[keyPath: keyPath] as? JSONDictionary
   }
   
   // MARK: [[String: Any]] type
   
   /// Decodes as a raw dictionary array with a mandatory key
-  public func jsonKeyPath(_ key: Key) throws -> [JSONDictionary] {
+  public func jsonKeyPath(_ keyPath: Key) throws -> [JSONDictionary] {
     
-    guard let value = self[keyPath: key] as? [JSONDictionary] else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let value = self[keyPath: keyPath] as? [JSONDictionary] else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return value
   }
   
   /// Decodes as a raw ictionary array with an optional key
-  public func jsonKeyPath(_ key: Key) -> [JSONDictionary]? {
-    return self[keyPath: key] as? [JSONDictionary]
+  public func jsonKeyPath(_ keyPath: Key) -> [JSONDictionary]? {
+    return self[keyPath: keyPath] as? [JSONDictionary]
   }
 
   
   // MARK: Decodable types
   
   /// Decode a mandatory Decodable object
-  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ key: Key) throws -> ReturnType {
-    return try ReturnType(jsonDictionary: JSONDictionaryForKey(key))
+  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ keyPath: Key) throws -> ReturnType {
+    return try ReturnType(jsonDictionary: JSONDictionaryForKey(keyPath))
   }
   
   /// Decode an optional Decodable object
-  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ key: Key) -> ReturnType? {
-    return try? ReturnType(jsonDictionary: JSONDictionaryForKey(key))
+  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ keyPath: Key) -> ReturnType? {
+    return try? ReturnType(jsonDictionary: JSONDictionaryForKey(keyPath))
   }
   
   // MARK: [Decodable] types
   
   /// Decode an Array of mandatory Decodable objects
-  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ key: Key) throws -> [ReturnType] {
-    return decodableObjectsArray(try JSONArrayForKey(key))
+  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ keyPath: Key) throws -> [ReturnType] {
+    return decodableObjectsArray(try JSONArrayForKey(keyPath))
   }
   
   /// Decode an Array of optional Decodable objects
-  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ key: Key) -> [ReturnType]? {
-    guard let jsonArray = try? JSONArrayForKey(key) else {
+  public func jsonKeyPath<ReturnType : JSONObjectConvertible>(_ keyPath: Key) -> [ReturnType]? {
+    guard let jsonArray = try? JSONArrayForKey(keyPath) else {
       return nil
     }
     return decodableObjectsArray(jsonArray)
@@ -118,10 +118,10 @@ extension Dictionary where Key: StringProtocol {
   // MARK: RawRepresentable type
   
   /// Decode a mandatory RawRepresentable
-  public func jsonKeyPath<ReturnType : RawRepresentable>(_ key: Key) throws -> ReturnType where ReturnType.RawValue:JSONRawType {
+  public func jsonKeyPath<ReturnType : RawRepresentable>(_ keyPath: Key) throws -> ReturnType where ReturnType.RawValue:JSONRawType {
     
-    guard let rawValue = self[key] as? ReturnType.RawValue else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let rawValue = self[keyPath] as? ReturnType.RawValue else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     
     guard let value = ReturnType(rawValue:rawValue) else {
@@ -132,8 +132,8 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Decode an optional RawRepresentable
-  public func jsonKeyPath<ReturnType : RawRepresentable>(_ key: Key) -> ReturnType? {
-    guard let rawValue = self[key] as? ReturnType.RawValue else {
+  public func jsonKeyPath<ReturnType : RawRepresentable>(_ keyPath: Key) -> ReturnType? {
+    guard let rawValue = self[keyPath] as? ReturnType.RawValue else {
       return nil
     }
     return ReturnType(rawValue:rawValue)
@@ -143,10 +143,10 @@ extension Dictionary where Key: StringProtocol {
   // MARK: [RawRepresentable] type
   
   /// Decode an array of custom RawRepresentable types with a mandatory key
-  public func jsonKeyPath<ReturnType : RawRepresentable>(_ key: Key) throws -> [ReturnType] where ReturnType.RawValue:JSONRawType {
+  public func jsonKeyPath<ReturnType : RawRepresentable>(_ keyPath: Key) throws -> [ReturnType] where ReturnType.RawValue:JSONRawType {
     
-    guard let jsonValues = self[key] as? [ReturnType.RawValue] else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let jsonValues = self[keyPath] as? [ReturnType.RawValue] else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     
     return jsonValues.flatMap {
@@ -155,9 +155,9 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Optionally decode an array of RawRepresentable types with a mandatory key
-  public func jsonKeyPath<ReturnType : RawRepresentable>(_ key: Key) -> [ReturnType]? where ReturnType.RawValue:JSONRawType {
+  public func jsonKeyPath<ReturnType : RawRepresentable>(_ keyPath: Key) -> [ReturnType]? where ReturnType.RawValue:JSONRawType {
     
-    guard let jsonValues = self[key] as? [ReturnType.RawValue] else {
+    guard let jsonValues = self[keyPath] as? [ReturnType.RawValue] else {
       return nil
     }
     
@@ -169,10 +169,10 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONPrimitiveConvertible type
   
   /// Decode a custom raw types with a mandatory key
-  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) throws -> JSONPrimitiveConvertibleType {
+  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ keyPath: Key) throws -> JSONPrimitiveConvertibleType {
     
-    guard let jsonValue = self[keyPath: key] as? JSONPrimitiveConvertibleType.JSONType else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let jsonValue = self[keyPath: keyPath] as? JSONPrimitiveConvertibleType.JSONType else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     
     guard let transformedValue = JSONPrimitiveConvertibleType.from(jsonValue: jsonValue) else {
@@ -183,9 +183,9 @@ extension Dictionary where Key: StringProtocol {
   }
   
   /// Optionally decode a custom raw types with a mandatory key
-  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) -> JSONPrimitiveConvertibleType? {
+  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ keyPath: Key) -> JSONPrimitiveConvertibleType? {
     
-    guard let jsonValue = self[keyPath: key] as? JSONPrimitiveConvertibleType.JSONType else {
+    guard let jsonValue = self[keyPath: keyPath] as? JSONPrimitiveConvertibleType.JSONType else {
       return nil
     }
     
@@ -195,10 +195,10 @@ extension Dictionary where Key: StringProtocol {
   // MARK: [JSONPrimitiveConvertible] type
   
   /// Decode an array of custom raw types with a mandatory key
-  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) throws -> [JSONPrimitiveConvertibleType] {
+  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ keyPath: Key) throws -> [JSONPrimitiveConvertibleType] {
     
-    guard let jsonValues = self[keyPath: key] as? [JSONPrimitiveConvertibleType.JSONType] else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+    guard let jsonValues = self[keyPath: keyPath] as? [JSONPrimitiveConvertibleType.JSONType] else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     
     return jsonValues.flatMap {
@@ -208,9 +208,9 @@ extension Dictionary where Key: StringProtocol {
   }
 
   /// Optionally decode an array custom raw types with a mandatory key
-  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) -> [JSONPrimitiveConvertibleType]? {
+  public func jsonKeyPath<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ keyPath: Key) -> [JSONPrimitiveConvertibleType]? {
     
-    guard let jsonValues = self[keyPath: key] as? [JSONPrimitiveConvertibleType.JSONType] else {
+    guard let jsonValues = self[keyPath: keyPath] as? [JSONPrimitiveConvertibleType.JSONType] else {
       return nil
     }
     
@@ -222,16 +222,16 @@ extension Dictionary where Key: StringProtocol {
   
   // MARK: JSONDictionary and JSONArray creation
   
-  fileprivate func JSONDictionaryForKey(_ key: Key) throws -> JSONDictionary {
-    guard let jsonDictionary = self[keyPath: key] as? JSONDictionary else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+  fileprivate func JSONDictionaryForKey(_ keyPath: Key) throws -> JSONDictionary {
+    guard let jsonDictionary = self[keyPath: keyPath] as? JSONDictionary else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return jsonDictionary
   }
   
-  fileprivate func JSONArrayForKey(_ key: Key) throws -> JSONArray {
-    guard let jsonArray = self[keyPath: key] as? JSONArray else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+  fileprivate func JSONArrayForKey(_ keyPath: Key) throws -> JSONArray {
+    guard let jsonArray = self[keyPath: keyPath] as? JSONArray else {
+      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return jsonArray
   }
