@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/lucianomarisi/JSONUtilities.svg?branch=master)](https://travis-ci.org/lucianomarisi/JSONUtilities)
 [![](https://img.shields.io/cocoapods/v/JSONUtilities.svg)](https://cocoapods.org/pods/JSONUtilities)
-[![](https://img.shields.io/cocoapods/p/JSONUtilities.svg?style=flat)](https://cocoapods.org/pods/JSONUtilities)
+[![](https://img.shields.io/cocoapods/p/JSONUtilities.svg)](https://cocoapods.org/pods/JSONUtilities)
 [![codecov.io](http://codecov.io/github/lucianomarisi/JSONUtilities/coverage.svg?branch=master)](http://codecov.io/github/lucianomarisi/JSONUtilities?branch=master)
-[![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/JSONUtilities.svg?style=flat)](http://cocoadocs.org/docsets/JSONUtilities/)
+[![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/JSONUtilities.svg)](http://cocoadocs.org/docsets/JSONUtilities/)
 ![Swift Version](https://img.shields.io/badge/swift-3.0-brightgreen.svg)
 
 Easily load JSON objects and decode them into structs or classes. The `jsonKeyPath(_:)` function infers the type from the constant or variable definition to decode meaning no casting is needed. Both string keys and keypaths (keys separated by dots `.`) are supported when decoding JSON.
@@ -21,7 +21,12 @@ Either
 
 OR
 
-- Add the files inside the `JSONUtilities` folder to your project
+- Use [Swift Package Manager](https://github.com/apple/swift-package-manager)
+
+OR
+
+- Add the files inside the `Sources` folder to your project
+
 
 ## Types supported
 
