@@ -16,7 +16,7 @@ struct MockSimpleChild {
 extension MockSimpleChild: JSONObjectConvertible {
   
   init(jsonDictionary: JSONDictionary) throws {
-    name = try jsonDictionary.jsonKeyPath("name")
+    name = try jsonDictionary.json(atKeyPath: "name")
   }
   
 }

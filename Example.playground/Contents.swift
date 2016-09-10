@@ -10,10 +10,10 @@ struct Company {
   let owner: Person
   
   init(jsonDictionary: JSONDictionary) throws {
-    name = try jsonDictionary.jsonKeyPath("name")
-    employees = try jsonDictionary.jsonKeyPath("employees")
-    referenceNumber = try jsonDictionary.jsonKeyPath("attributes.reference-number")
-    owner = try jsonDictionary.jsonKeyPath("attributes.owner")
+    name = try jsonDictionary.json(atKeyPath: "name")
+    employees = try jsonDictionary.json(atKeyPath: "employees")
+    referenceNumber = try jsonDictionary.json(atKeyPath: "attributes.reference-number")
+    owner = try jsonDictionary.json(atKeyPath: "attributes.owner")
   }
 }
 
@@ -24,8 +24,8 @@ struct Person : JSONObjectConvertible {
   let age : Int
   
   init(jsonDictionary: JSONDictionary) throws {
-    name = try jsonDictionary.jsonKeyPath("name")
-    age = try jsonDictionary.jsonKeyPath("age")
+    name = try jsonDictionary.json(atKeyPath: "name")
+    age = try jsonDictionary.json(atKeyPath: "age")
   }
   
 }
@@ -33,7 +33,7 @@ struct Person : JSONObjectConvertible {
 do {
   let jsonDictionary = try JSONDictionary.from(filename: "example")
   let company = try Company(jsonDictionary: jsonDictionary)
-  let rawEmployees : [JSONDictionary] = try jsonDictionary.jsonKeyPath("employees")
+  let rawEmployees : [JSONDictionary] = try jsonDictionary.json(atKeyPath: "employees")
   print(company.name)
   print(company.employees.first!.age)
   print(company.referenceNumber)
@@ -54,7 +54,7 @@ class City {
   
   init?(jsonDictionary: JSONDictionary) {
     do {
-      name = try jsonDictionary.jsonKeyPath("name")
+      name = try jsonDictionary.json(atKeyPath: "name")
     } catch {
       name = ""
       return nil
@@ -63,7 +63,7 @@ class City {
   
   convenience init(throwingJSONDictionary: JSONDictionary) throws {
     self.init(
-      name : try throwingJSONDictionary.jsonKeyPath("name")
+      name : try throwingJSONDictionary.json(atKeyPath: "name")
     )
   }
 }
@@ -108,8 +108,8 @@ extension State : JSONPrimitiveConvertible {
 }
 
 let jsonDictionary = ["state": "normal", "states": ["normal", "selected"]] as [String : Any]
-let stateNormal: State = try! jsonDictionary.jsonKeyPath("state")
-let multipleStates : [State] = try! jsonDictionary.jsonKeyPath("states")
+let stateNormal: State = try! jsonDictionary.json(atKeyPath: "state")
+let multipleStates : [State] = try! jsonDictionary.json(atKeyPath: "states")
 
 
 extension NSURL : JSONPrimitiveConvertible {
@@ -121,9 +121,9 @@ extension NSURL : JSONPrimitiveConvertible {
   
 }
 let urlDictionary = ["url": "www.google.com"]
-let url: NSURL = try! urlDictionary.jsonKeyPath("url") // www.google.com
+let url: NSURL = try! urlDictionary.json(atKeyPath: "url") // www.google.com
 let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
-let urls: [NSURL] = try! urlsDictionary.jsonKeyPath("urls") // [www.google.com, www.yahoo.com]
+let urls: [NSURL] = try! urlsDictionary.json(atKeyPath: "urls") // [www.google.com, www.yahoo.com]
 
 
 let rawDictionary : JSONDictionary = ["rootKey":
@@ -133,7 +133,7 @@ let rawDictionary : JSONDictionary = ["rootKey":
   ]
 ]
 
-let decodedRawDictionary : JSONDictionary = try rawDictionary.jsonKeyPath("rootKey")
+let decodedRawDictionary : JSONDictionary = try rawDictionary.json(atKeyPath: "rootKey")
 
 
 

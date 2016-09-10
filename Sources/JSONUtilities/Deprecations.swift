@@ -26,122 +26,122 @@ public extension Dictionary where Key: StringProtocol {
   
   // MARK: JSONRawType type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONRawType>(_ key: Key) throws -> ReturnType {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONRawType>(_ key: Key) -> ReturnType? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: [JSONRawType] type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONRawType>(_ key: Key) throws -> [ReturnType] {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONRawType>(_ key: Key) -> [ReturnType]? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: [String: Any] type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey(_ key: Key) throws -> JSONDictionary {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey(_ key: Key) -> JSONDictionary? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: [[String: Any]] type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey(_ key: Key) throws -> [JSONDictionary] {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey(_ key: Key) -> [JSONDictionary]? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: Decodable types
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) throws -> ReturnType {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) -> ReturnType? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: [Decodable] types
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) throws -> [ReturnType] {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : JSONObjectConvertible>(_ key: Key) -> [ReturnType]? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: RawRepresentable type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) throws -> ReturnType where ReturnType.RawValue:JSONRawType {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) -> ReturnType? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: [RawRepresentable] type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) throws -> [ReturnType] where ReturnType.RawValue:JSONRawType {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<ReturnType : RawRepresentable>(_ key: Key) -> [ReturnType]? where ReturnType.RawValue:JSONRawType {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: JSONPrimitiveConvertible type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) throws -> JSONPrimitiveConvertibleType {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) -> JSONPrimitiveConvertibleType? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   // MARK: [JSONPrimitiveConvertible] type
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) throws -> [JSONPrimitiveConvertibleType] {
-    return try jsonKeyPath(key)
+    return try json(atKeyPath: key)
   }
   
-  @available(*, deprecated:3.0.0, renamed: "jsonKeyPath")
+  @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
   public func jsonKey<JSONPrimitiveConvertibleType : JSONPrimitiveConvertible>(_ key: Key) -> [JSONPrimitiveConvertibleType]? {
-    return jsonKeyPath(key)
+    return json(atKeyPath: key)
   }
   
   
