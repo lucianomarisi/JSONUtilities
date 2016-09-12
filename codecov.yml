@@ -2,6 +2,8 @@ comment:
   layout: header, changes, diff
 coverage:
   ignore:
-  - JSONUtilitiesTests/.*
+  - Sources/JSONUtilities/Deprecations.swift
+  - Tests/.*
+  - NonSwiftPackageManagerTests/.*
   status:
     patch: false

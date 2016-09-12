@@ -1,7 +1,11 @@
-language: objective-c
-osx_image: xcode7.3
+os:
+  - osx
+language: generic
+osx_image: xcode8
 script:
-  - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator9.3 -destination "OS=9.3,name=iPad 2" test -enableCodeCoverage YES
+  - swift build
+  - swift test
+  - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator10.0 -destination "OS=10.0,name=iPhone 6s" test -enableCodeCoverage YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - pod spec lint JSONUtilities.podspec 

@@ -1,5 +1,19 @@
 # Change Log
 
+## 3.0.0
+
+## New Features
+- Support for Swift 3
+- Keypath access in JSON dictionaries
+
+## API updates
+- Renamed function for accessing values `jsonKey(_:)` to `jsonKeyPath(_:)`
+- Renamed `Transformable` protocol to `JSONPrimitiveConvertible`
+- Renamed `Decodable` protocol to `JSONObjectConvertible`
+- Renamed JSONDictionary loading functions:
+	-  `fromFile(_:)` to `from(filename:)`
+	-  `fromData(_:)` to `from(jsonData:)`
+
 ## 2.5.0
 
 - Added suppport for decoding arrays of `RawRepresentable` enums, i.e. `[RawRepresentable]`
