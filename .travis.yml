@@ -2,6 +2,7 @@ os:
   - osx
 language: generic
 osx_image: xcode8
+rvm: 2.2.3
 before_install:
   - gem install cocoapods --pre
 script:
