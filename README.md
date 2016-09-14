@@ -156,10 +156,11 @@ struct Company {
 
 ### Support custom primitive types by conforming to `JSONPrimitiveConvertible`
 
-Any type can extend the `JSONPrimitiveConvertible` protocol in order to allow decoding. For example extending `NSURL`:
+Any type can extend the `JSONPrimitiveConvertible` protocol in order to allow decoding. For example extending `URL`: **Note that this extension come out of the box**
+:
 
 ```swift
-extension NSURL: JSONPrimitiveConvertible {
+extension URL: JSONPrimitiveConvertible {
 
   public typealias JSONType = String
   
@@ -170,12 +171,13 @@ extension NSURL: JSONPrimitiveConvertible {
 }
 
 let urlDictionary = ["url": "www.google.com"]
-let url: NSURL = try! urlDictionary.json(atKeyPath: "url") // www.google.com
+let url: URL = try! urlDictionary.json(atKeyPath: "url") // www.google.com
 ```
+
 
 It's also possible to have an array of `JSONPrimitiveConvertible` values, for example:
 
 ```swift
 let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
-let urls: [NSURL] = try! urlsDictionary.json(atKeyPath: "urls") // [www.google.com, www.yahoo.com]
+let urls: [URL] = try! urlsDictionary.json(atKeyPath: "urls") // [www.google.com, www.yahoo.com]
 ```

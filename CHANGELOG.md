@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.1.0
+
+- Added support for `URL` decoding out of the box thanks to [Sam Dods](https://github.com/samdods)
+
 ## 3.0.0
 
 ## New Features
