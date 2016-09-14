@@ -7,4 +7,5 @@ script:
   - swift test
   - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator10.0 -destination "OS=10.0,name=iPhone 6s" test -enableCodeCoverage YES
 after_success:
+  - sleep 5
   - bash <(curl -s https://codecov.io/bash)
