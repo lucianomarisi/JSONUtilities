@@ -112,18 +112,10 @@ let stateNormal: State = try! jsonDictionary.json(atKeyPath: "state")
 let multipleStates : [State] = try! jsonDictionary.json(atKeyPath: "states")
 
 
-extension NSURL : JSONPrimitiveConvertible {
-  public typealias JSONType = String
-  
-  public static func from(jsonValue: String) -> Self? {
-    return self.init(string: jsonValue)
-  }
-  
-}
 let urlDictionary = ["url": "www.google.com"]
-let url: NSURL = try! urlDictionary.json(atKeyPath: "url") // www.google.com
+let url: URL = try! urlDictionary.json(atKeyPath: "url") // www.google.com
 let urlsDictionary = ["urls": ["www.google.com", "www.yahoo.com"]]
-let urls: [NSURL] = try! urlsDictionary.json(atKeyPath: "urls") // [www.google.com, www.yahoo.com]
+let urls: [URL] = try! urlsDictionary.json(atKeyPath: "urls") // [www.google.com, www.yahoo.com]
 
 
 let rawDictionary : JSONDictionary = ["rootKey":
