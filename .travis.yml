@@ -2,13 +2,9 @@ os:
   - osx
 language: generic
 osx_image: xcode8
-rvm: 2.2.3
-before_install:
-  - gem install cocoapods --pre
 script:
   - swift build
   - swift test
   - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator10.0 -destination "OS=10.0,name=iPhone 6s" test -enableCodeCoverage YES
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - pod lib lint
