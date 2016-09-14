@@ -9,15 +9,6 @@
 import XCTest
 @testable import JSONUtilities
 
-extension URL : JSONPrimitiveConvertible {
-  public typealias JSONType = String
-  
-  public static func from(jsonValue: String) -> URL? {
-    return self.init(string: jsonValue)
-  }
-  
-}
-
 private let invalidKey = "invalidKey"
 
 class JSONPrimitiveConvertibleTests: XCTestCase {
