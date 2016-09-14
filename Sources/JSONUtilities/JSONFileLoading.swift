@@ -47,7 +47,7 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
   /**
    Load a JSONDictionary from a file
    
-   - parameter url:      The url of the json fo;e
+   - parameter url:      The url of the json file
    - parameter bundle:   The NSBundle to be used
    
    - throws: Throws if a JSONDictionary cannot be created from the file
