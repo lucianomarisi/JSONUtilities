@@ -205,6 +205,6 @@ class InlineDecodingTests: XCTestCase {
 
 }
 
-func ==(lhs: DecodingError, rhs: DecodingError) -> Bool {
+func == (lhs: DecodingError, rhs: DecodingError) -> Bool {
   return lhs.description == rhs.description
 }
