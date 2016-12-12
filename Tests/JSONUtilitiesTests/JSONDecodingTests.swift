@@ -67,7 +67,14 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertNil(mockJSONParent.optionalMissingArrayBool)
       XCTAssertNil(mockJSONParent.optionalMissingWeakDictionaryArrayKey)
       XCTAssertNil(mockJSONParent.optionalMissingArrayCustomJSONObject)
-      
+
+      XCTAssertEqual(mockJSONParent.mandatoryIntDictionary, ["value1": 1, "value2": 2])
+      XCTAssertEqual(mockJSONParent.mandatoryObjectDictionary, ["value1": expectedChild, "value2": expectedChild])
+      XCTAssertEqual(mockJSONParent.mandatoryURLDictionary, ["value1": URL(string: "https://google.com")!, "value2": URL(string: "https://apple.com")!])
+      XCTAssertEqual(mockJSONParent.optionalIntDictionary!, ["value1": 1, "value2": 2])
+      XCTAssertEqual(mockJSONParent.optionalObjectDictionary!, ["value1": expectedChild, "value2": expectedChild])
+      XCTAssertEqual(mockJSONParent.optionalURLDictionary!, ["value1": URL(string: "https://google.com")!, "value2": URL(string: "https://apple.com")!])
+
     } catch let error as DecodingError {
       XCTAssertEqual(error.description, "mandatoryKeyNotFound: stringKey")
     } catch {

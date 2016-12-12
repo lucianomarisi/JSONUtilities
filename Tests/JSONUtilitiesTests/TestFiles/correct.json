@@ -36,4 +36,26 @@
     "boolKey" : true
   },
   "mandatoryEnum": "one",
+  "mandatoryIntDictionary" : {
+    "value1": 1,
+    "value2" : 2
+  },
+  "mandatoryObjectDictionary" : {
+    "value1": {
+      "stringKey" : "stringValue",
+      "integerKey" : 1,
+      "doubleKey" : 1.2,
+      "boolKey" : true
+    },
+    "value2" : {
+      "stringKey" : "stringValue",
+      "integerKey" : 1,
+      "doubleKey" : 1.2,
+      "boolKey" : true
+    }
+  },
+  "mandatoryURLDictionary" : {
+    "value1": "https://google.com",
+    "value2" : "https://apple.com"
+  },
 }

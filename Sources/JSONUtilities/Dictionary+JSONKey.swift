@@ -87,7 +87,66 @@ extension Dictionary where Key: StringProtocol {
     return self[keyPath: keyPath] as? [JSONDictionary]
   }
 
-  
+  // MARK: [String: JSONObjectConvertible] type
+
+  /// Decodes a mandatory dictionary
+  public func json<JSONObjectConvertibleType: JSONObjectConvertible>(atKeyPath keyPath: Key) throws -> [String: JSONObjectConvertibleType] {
+
+    let jsonDictionary:JSONDictionary = try json(atKeyPath: keyPath)
+
+    var result: [String: JSONObjectConvertibleType] = [:]
+    for (key, _) in jsonDictionary {
+      result[key] = try jsonDictionary.json(atKeyPath: key) as JSONObjectConvertibleType
+    }
+
+    return result
+  }
+
+  /// Decodes an optional dictionary
+  public func json<JSONObjectConvertibleType: JSONObjectConvertible>(atKeyPath keyPath: Key) -> [String: JSONObjectConvertibleType]? {
+    return try? json(atKeyPath: keyPath) as [String: JSONObjectConvertibleType]
+  }
+
+  // MARK: [String: JSONObjectConvertible] type
+
+  /// Decodes a mandatory dictionary
+  public func json<JSONRawTypeType: JSONRawType>(atKeyPath keyPath: Key) throws -> [String: JSONRawTypeType] {
+
+    let jsonDictionary:JSONDictionary = try json(atKeyPath: keyPath)
+
+    var result: [String: JSONRawTypeType] = [:]
+    for (key, _) in jsonDictionary {
+      result[key] = try jsonDictionary.json(atKeyPath: key) as JSONRawTypeType
+    }
+
+    return result
+  }
+
+  /// Decodes an optional dictionary
+  public func json<JSONRawTypeType: JSONRawType>(atKeyPath keyPath: Key) -> [String: JSONRawTypeType]? {
+    return try? json(atKeyPath: keyPath) as [String: JSONRawTypeType]
+  }
+
+  // MARK: [String: JSONPrimitiveConvertible] type
+
+  /// Decodes a mandatory dictionary
+  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> [String: JSONPrimitiveConvertibleType] {
+
+    let jsonDictionary:JSONDictionary = try json(atKeyPath: keyPath)
+
+    var result: [String: JSONPrimitiveConvertibleType] = [:]
+    for (key, _) in jsonDictionary {
+      result[key] = try jsonDictionary.json(atKeyPath: key) as JSONPrimitiveConvertibleType
+    }
+
+    return result
+  }
+
+  /// Decodes an optional dictionary
+  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> [String: JSONPrimitiveConvertibleType]? {
+    return try? json(atKeyPath: keyPath) as [String: JSONPrimitiveConvertibleType]
+  }
+
   // MARK: Decodable types
   
   /// Decode a mandatory Decodable object
