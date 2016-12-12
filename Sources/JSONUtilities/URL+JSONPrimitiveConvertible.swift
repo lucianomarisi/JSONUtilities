@@ -9,9 +9,9 @@
 import Foundation
 
 extension URL: JSONPrimitiveConvertible {
-  
+
   public typealias JSONType = String
-  
+
   /// Creates a URL from a string, in order to conform to JSONPrimitiveConvertible
   ///
   /// - parameter jsonValue: The string representation of a valid URL
@@ -20,5 +20,5 @@ extension URL: JSONPrimitiveConvertible {
   public static func from(jsonValue: String) -> URL? {
     return URL(string: jsonValue)
   }
-  
+
 }

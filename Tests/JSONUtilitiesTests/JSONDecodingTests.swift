@@ -10,7 +10,7 @@ import XCTest
 @testable import JSONUtilities
 
 class JSONDecoderTests: XCTestCase {
-  
+
   let expectedChild = MockChild(string: "stringValue", integer: 1, double: 1.2, bool: true)
   let expectedDictionary: JSONDictionary = ["doubleKey": 1.2, "integerKey": 1, "stringKey": "stringValue", "boolKey": true]
   let expectedDictionaryArray: [JSONDictionary] = [
@@ -18,7 +18,7 @@ class JSONDecoderTests: XCTestCase {
     ["doubleKey": 1.2, "integerKey": 1, "stringKey": "stringValue", "boolKey": true],
     ["randomTypeObject": 123]
     ]
-  
+
   func testCorrectDecodingForMandatoryJSONOnParentWithChild() {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correct)
@@ -30,7 +30,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertTrue(mockJSONParent.mandatoryWeakDictionaryKey == expectedDictionary)
       XCTAssertEqual(mockJSONParent.mandatoryCustomJSONObject, expectedChild)
       XCTAssertEqual(mockJSONParent.mandatoryEnum, MockParent.MockEnum.one)
-      
+
       XCTAssertEqual(mockJSONParent.optionalExistingString, "stringValue")
       XCTAssertEqual(mockJSONParent.optionalExistingInt, 1)
       XCTAssertEqual(mockJSONParent.optionalExistingDouble, 1.2)
@@ -38,7 +38,7 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertTrue(mockJSONParent.optionalExistingWeakDictionaryKey == expectedDictionary)
       XCTAssertEqual(mockJSONParent.optionalExistingCustomJSONObject, expectedChild)
       XCTAssertEqual(mockJSONParent.optionalExistingEnum, MockParent.MockEnum.one)
-      
+
       XCTAssertNil(mockJSONParent.optionalMissingString)
       XCTAssertNil(mockJSONParent.optionalMissingInt)
       XCTAssertNil(mockJSONParent.optionalMissingDouble)
@@ -46,21 +46,21 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertNil(mockJSONParent.optionalMissingWeakDictionaryKey)
       XCTAssertNil(mockJSONParent.optionalMissingCustomJSONObject)
       XCTAssertNil(mockJSONParent.optionalMissingEnum)
-      
-      XCTAssertEqual(mockJSONParent.mandatoryArrayString, ["1","2"])
-      XCTAssertEqual(mockJSONParent.mandatoryArrayInt, [1,2])
+
+      XCTAssertEqual(mockJSONParent.mandatoryArrayString, ["1", "2"])
+      XCTAssertEqual(mockJSONParent.mandatoryArrayInt, [1, 2])
       XCTAssertEqual(mockJSONParent.mandatoryArrayDouble, [1.1, 1.2])
       XCTAssertEqual(mockJSONParent.mandatoryArrayBool, [true, false])
       XCTAssertTrue(mockJSONParent.mandatoryWeakDictionaryArrayKey == expectedDictionaryArray)
       XCTAssertEqual(mockJSONParent.mandatoryArrayCustomJSONObject, [expectedChild, expectedChild])
-      
-      XCTAssertEqual(mockJSONParent.optionalExistingArrayString!, ["1","2"])
-      XCTAssertEqual(mockJSONParent.optionalExistingArrayInt!, [1,2])
+
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayString!, ["1", "2"])
+      XCTAssertEqual(mockJSONParent.optionalExistingArrayInt!, [1, 2])
       XCTAssertEqual(mockJSONParent.optionalExistingArrayDouble!, [1.1, 1.2])
       XCTAssertEqual(mockJSONParent.optionalExistingArrayBool!, [true, false])
       XCTAssertTrue(mockJSONParent.optionalExistingWeakDictionaryArrayKey == expectedDictionaryArray)
       XCTAssertEqual(mockJSONParent.optionalExistingArrayCustomJSONObject!, [expectedChild, expectedChild])
-      
+
       XCTAssertNil(mockJSONParent.optionalMissingArrayString)
       XCTAssertNil(mockJSONParent.optionalMissingArrayInt)
       XCTAssertNil(mockJSONParent.optionalMissingArrayDouble)
@@ -81,7 +81,7 @@ class JSONDecoderTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
   func testIncorrectDecodingForMandatoryJSONRawType() {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.empty)
@@ -93,7 +93,7 @@ class JSONDecoderTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
   func testIncorrectDecodingForMandatoryJSONRawTypeArray() {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutRawArray)
@@ -105,7 +105,7 @@ class JSONDecoderTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
   func testIncorrectDecodingForMandatoryJSONNestedObject() {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNested)
@@ -117,7 +117,7 @@ class JSONDecoderTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
   func testIncorrectDecodingForMandatoryJSONNestedObjectArray() {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNestedArray)

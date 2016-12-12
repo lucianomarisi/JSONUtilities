@@ -10,7 +10,7 @@ import XCTest
 @testable import JSONUtilities
 
 class BundleFileLoadingTests: XCTestCase {
-  
+
   func testLoadFromBundle() {
     do {
       let _ = try JSONDictionary.from(filename: JSONFilename.correct, bundle: testBundle)
@@ -18,7 +18,7 @@ class BundleFileLoadingTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
   func testAttemptToLoadMissingFileFromBundle() {
     do {
       let _ = try JSONDictionary.from(filename: JSONFilename.missing, bundle: testBundle)
@@ -28,5 +28,5 @@ class BundleFileLoadingTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
 }

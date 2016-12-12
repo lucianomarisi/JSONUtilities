@@ -14,9 +14,9 @@ struct MockSimpleParent {
 }
 
 extension MockSimpleParent: JSONObjectConvertible {
-  
+
   init(jsonDictionary: JSONDictionary) throws {
     children = try jsonDictionary.json(atKeyPath: "children")
   }
-  
+
 }
