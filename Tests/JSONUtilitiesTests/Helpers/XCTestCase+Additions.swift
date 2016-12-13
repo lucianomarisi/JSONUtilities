@@ -9,9 +9,9 @@
 import XCTest
 
 extension XCTestCase {
-  
+
   var testBundle: Bundle {
     return Bundle(for: type(of: self))
   }
-  
+
 }

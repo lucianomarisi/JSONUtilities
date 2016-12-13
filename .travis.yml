@@ -3,6 +3,7 @@ os:
 language: generic
 osx_image: xcode8
 script:
+  - xcrun instruments -t 'Blank' -l 10 -w "iPhone 6s (10.0)"
   - swift build
   - swift test
   - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator10.0 -destination "OS=10.0,name=iPhone 6s" test -enableCodeCoverage YES

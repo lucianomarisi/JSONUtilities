@@ -9,7 +9,7 @@
 import Foundation
 
 extension Dictionary {
- 
+
   /// Retrieves a value for a keyPath on the dictionary
   ///
   /// - parameter keyPath: A string of keys separated by dots
@@ -20,14 +20,14 @@ extension Dictionary {
     guard let firstKey = keys.first as? Key,
           let value = self[firstKey]
       else { return nil }
-    
+
     keys.removeFirst()
-    
+
     if !keys.isEmpty, let subDictionary = value as? [Key : Any] {
       let rejoined = keys.joined(separator: ".")
       return subDictionary[keyPath: rejoined]
     }
     return value
   }
-  
+
 }

@@ -26,7 +26,7 @@ public enum JSONUtilsError: Error {
 }
 
 public extension Dictionary where Key: StringProtocol, Value: Any {
-  
+
   /**
    Load a JSONDictionary from a file
    
@@ -43,7 +43,7 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
     }
     return try from(url: url)
   }
-  
+
   /**
    Load a JSONDictionary from a file
    
@@ -61,7 +61,7 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
     }
     return try from(jsonData: jsonData)
   }
-  
+
   /**
    Load a JSONDictionary from a NSData object
    
@@ -75,7 +75,7 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
     guard let deserializedJSON = try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) else {
       throw JSONUtilsError.fileDeserializationFailed
     }
-    
+
     guard let jsonDictionary: JSONDictionary = deserializedJSON as? JSONDictionary else {
       throw JSONUtilsError.fileNotAJSONDictionary
     }

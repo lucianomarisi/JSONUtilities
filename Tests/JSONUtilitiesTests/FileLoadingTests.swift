@@ -12,7 +12,7 @@ import XCTest
 typealias NoEscapeFunction = ( () throws -> Void)
 
 class FileLoadingTests: XCTestCase {
-  
+
   func testLoadingJSONFile() {
     do {
       try JSONDictionary.from(url: JSONFilePath.correct)
@@ -20,13 +20,13 @@ class FileLoadingTests: XCTestCase {
       XCTFail("Unexpected error: \(error)")
     }
   }
-  
+
   func testLoadingJSONFileLoadingFailed() {
     expectError(.fileLoadingFailed) {
       try JSONDictionary.from(url: JSONFilePath.missing)
     }
   }
-  
+
   func testLoadingJSONFileDeserializationFailed() {
     expectError(.fileDeserializationFailed) {
       try JSONDictionary.from(url: JSONFilePath.invalid)
@@ -38,9 +38,9 @@ class FileLoadingTests: XCTestCase {
       try JSONDictionary.from(url: JSONFilePath.rootArray)
     }
   }
-  
+
   // MARK: Helpers
-  
+
   fileprivate func expectError(_ expectedError: JSONUtilsError, file: StaticString = #file, line: UInt = #line, block: NoEscapeFunction ) {
     do {
       try block()
@@ -53,5 +53,5 @@ class FileLoadingTests: XCTestCase {
     }
     XCTFail("No error thrown, expected: \(expectedError)", file: file, line: line)
   }
-  
+
 }
