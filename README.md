@@ -59,6 +59,11 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 - `MyStruct`
 - [`MyStruct`]
 
+### Typed dictionaries with a `String` key
+
+- `[String: JSONRawType]`
+- `[String: JSONObjectConvertible]`
+- `[String: JSONPrimitiveConvertible]`
 
 ## Examples of JSON loading
 

@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.2.0
+
+- This adds support for decoding typed dictionaries with a String key, specifically:
+	- `[String: JSONRawType]`
+	- `[String: JSONObjectConvertible]`
+	- `[String: JSONPrimitiveConvertible]`
+
+Thanks to [Yonas Kolb](https://github.com/yonaskolb)
+
 ## 3.1.0
 
 - Added support for `URL` decoding out of the box thanks to [Sam Dods](https://github.com/samdods)
