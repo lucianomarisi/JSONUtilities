@@ -64,6 +64,13 @@ struct MockParent {
   let optionalMissingArrayBool: [Bool]?
   let optionalMissingWeakDictionaryArrayKey: [JSONDictionary]?
   let optionalMissingArrayCustomJSONObject: [MockChild]?
+
+  let mandatoryIntDictionary: [String: Int]
+  let mandatoryObjectDictionary: [String: MockChild]
+  let mandatoryURLDictionary: [String: URL]
+  let optionalIntDictionary: [String: Int]?
+  let optionalObjectDictionary: [String: MockChild]?
+  let optionalURLDictionary: [String: URL]?
   
   init(jsonDictionary: JSONDictionary) throws {
     mandatoryString = try jsonDictionary.json(atKeyPath: "mandatoryStringKey")
@@ -110,5 +117,13 @@ struct MockParent {
     optionalMissingArrayBool = jsonDictionary.json(atKeyPath: randomKey)
     optionalMissingWeakDictionaryArrayKey = jsonDictionary.json(atKeyPath: randomKey)
     optionalMissingArrayCustomJSONObject = jsonDictionary.json(atKeyPath: randomKey)
+
+    mandatoryIntDictionary = try jsonDictionary.json(atKeyPath: "mandatoryIntDictionary")
+    mandatoryObjectDictionary = try jsonDictionary.json(atKeyPath: "mandatoryObjectDictionary")
+    mandatoryURLDictionary = try jsonDictionary.json(atKeyPath: "mandatoryURLDictionary")
+
+    optionalIntDictionary = jsonDictionary.json(atKeyPath: "mandatoryIntDictionary")
+    optionalObjectDictionary = jsonDictionary.json(atKeyPath: "mandatoryObjectDictionary")
+    optionalURLDictionary = jsonDictionary.json(atKeyPath: "mandatoryURLDictionary")
   }
 }
