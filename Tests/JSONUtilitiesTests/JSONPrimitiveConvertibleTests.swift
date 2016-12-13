@@ -21,8 +21,12 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
       "invalid_url": "±"
     ]
 
-    let mandatoryTransformedURL: URL = try! jsonDictionary.json(atKeyPath: "url")
+    guard let mandatoryTransformedURL: URL = try? jsonDictionary.json(atKeyPath: "url") else {
+      XCTFail(#function)
+      return
+    }
     XCTAssertEqual(expectedURL, mandatoryTransformedURL)
+
     let optionalTransformedURL: URL? = jsonDictionary.json(atKeyPath: "url")
     XCTAssertEqual(expectedURL, optionalTransformedURL)
 
