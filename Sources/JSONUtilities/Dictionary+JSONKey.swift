@@ -16,6 +16,15 @@ extension Float : JSONRawType {}
 extension String : JSONRawType {}
 extension Bool : JSONRawType {}
 
+/// The behaviour of what should be done when an invalid JSON object or primitive is found
+///
+/// - remove: The item is filtered, only valid items are returned
+/// - throw:  The call fails by throwing on any invalid item
+public enum InvalidItemBehaviour {
+  case remove
+  case `throw`
+}
+
 // Simple protocol used to extend a JSONDictionary
 public protocol StringProtocol {
   func components(separatedBy: String) -> [String]
@@ -90,61 +99,76 @@ extension Dictionary where Key: StringProtocol {
   // MARK: [String: JSONObjectConvertible] type
 
   /// Decodes a mandatory dictionary
-  public func json<JSONObjectConvertibleType: JSONObjectConvertible>(atKeyPath keyPath: Key) throws -> [String: JSONObjectConvertibleType] {
+  public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [String: T] {
 
     let jsonDictionary: JSONDictionary = try json(atKeyPath: keyPath)
 
-    var result: [String: JSONObjectConvertibleType] = [:]
+    var result: [String: T] = [:]
     for (key, _) in jsonDictionary {
-      result[key] = try jsonDictionary.json(atKeyPath: key) as JSONObjectConvertibleType
+      switch invalidItemBehaviour {
+      case .remove:
+        result[key] = try? jsonDictionary.json(atKeyPath: key) as T
+      case .throw:
+        result[key] = try jsonDictionary.json(atKeyPath: key) as T
+      }
     }
 
     return result
   }
 
   /// Decodes an optional dictionary
-  public func json<JSONObjectConvertibleType: JSONObjectConvertible>(atKeyPath keyPath: Key) -> [String: JSONObjectConvertibleType]? {
-    return try? json(atKeyPath: keyPath) as [String: JSONObjectConvertibleType]
+  public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [String: T]? {
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [String: T]
   }
 
-  // MARK: [String: JSONObjectConvertible] type
+  // MARK: [String: JSONRawType] type
 
   /// Decodes a mandatory dictionary
-  public func json<JSONRawTypeType: JSONRawType>(atKeyPath keyPath: Key) throws -> [String: JSONRawTypeType] {
+  public func json<T: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [String: T] {
 
     let jsonDictionary: JSONDictionary = try json(atKeyPath: keyPath)
 
-    var result: [String: JSONRawTypeType] = [:]
+    var result: [String: T] = [:]
     for (key, _) in jsonDictionary {
-      result[key] = try jsonDictionary.json(atKeyPath: key) as JSONRawTypeType
+      switch invalidItemBehaviour {
+      case .remove:
+        result[key] = try? jsonDictionary.json(atKeyPath: key) as T
+      case .throw:
+        result[key] = try jsonDictionary.json(atKeyPath: key) as T
+      }
     }
 
     return result
   }
 
   /// Decodes an optional dictionary
-  public func json<JSONRawTypeType: JSONRawType>(atKeyPath keyPath: Key) -> [String: JSONRawTypeType]? {
-    return try? json(atKeyPath: keyPath) as [String: JSONRawTypeType]
+  public func json<T: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [String: T]? {
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [String: T]
   }
 
   // MARK: [String: JSONPrimitiveConvertible] type
 
   /// Decodes a mandatory dictionary
-  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> [String: JSONPrimitiveConvertibleType] {
+  public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [String: T] {
 
     let jsonDictionary: JSONDictionary = try json(atKeyPath: keyPath)
 
-    var result: [String: JSONPrimitiveConvertibleType] = [:]
+    var result: [String: T] = [:]
     for (key, _) in jsonDictionary {
-      result[key] = try jsonDictionary.json(atKeyPath: key) as JSONPrimitiveConvertibleType
+      switch invalidItemBehaviour {
+      case .remove:
+        result[key] = try? jsonDictionary.json(atKeyPath: key) as T
+      case .throw:
+        result[key] = try jsonDictionary.json(atKeyPath: key) as T
+      }
     }
 
     return result
   }
 
   /// Decodes an optional dictionary
-  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> [String: JSONPrimitiveConvertibleType]? {
-    return try? json(atKeyPath: keyPath) as [String: JSONPrimitiveConvertibleType]
+  public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [String: T]? {
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [String: T]
   }
 
   // MARK: Decodable types
@@ -227,13 +251,13 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONPrimitiveConvertible type
 
   /// Decode a custom raw types with a mandatory key
-  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> JSONPrimitiveConvertibleType {
+  public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> T {
 
-    guard let jsonValue = self[keyPath: keyPath] as? JSONPrimitiveConvertibleType.JSONType else {
+    guard let jsonValue = self[keyPath: keyPath] as? T.JSONType else {
       throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
 
-    guard let transformedValue = JSONPrimitiveConvertibleType.from(jsonValue: jsonValue) else {
+    guard let transformedValue = T.from(jsonValue: jsonValue) else {
       throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue)
     }
 
@@ -241,39 +265,39 @@ extension Dictionary where Key: StringProtocol {
   }
 
   /// Optionally decode a custom raw types with a mandatory key
-  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> JSONPrimitiveConvertibleType? {
+  public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> T? {
 
-    guard let jsonValue = self[keyPath: keyPath] as? JSONPrimitiveConvertibleType.JSONType else {
+    guard let jsonValue = self[keyPath: keyPath] as? T.JSONType else {
       return nil
     }
 
-    return JSONPrimitiveConvertibleType.from(jsonValue: jsonValue)
+    return T.from(jsonValue: jsonValue)
   }
 
   // MARK: [JSONPrimitiveConvertible] type
 
   /// Decode an array of custom raw types with a mandatory key
-  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> [JSONPrimitiveConvertibleType] {
+  public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> [T] {
 
-    guard let jsonValues = self[keyPath: keyPath] as? [JSONPrimitiveConvertibleType.JSONType] else {
+    guard let jsonValues = self[keyPath: keyPath] as? [T.JSONType] else {
       throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
 
     return jsonValues.flatMap {
-      JSONPrimitiveConvertibleType.from(jsonValue: $0)
+      T.from(jsonValue: $0)
     }
 
   }
 
   /// Optionally decode an array custom raw types with a mandatory key
-  public func json<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> [JSONPrimitiveConvertibleType]? {
+  public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> [T]? {
 
-    guard let jsonValues = self[keyPath: keyPath] as? [JSONPrimitiveConvertibleType.JSONType] else {
+    guard let jsonValues = self[keyPath: keyPath] as? [T.JSONType] else {
       return nil
     }
 
     return jsonValues.flatMap {
-      JSONPrimitiveConvertibleType.from(jsonValue:$0)
+      T.from(jsonValue:$0)
     }
 
   }
