@@ -2,3 +2,4 @@ excluded:
   - Example.playground
 disabled_rules:
   - line_length
+  - redundant_discardable_let

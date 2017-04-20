@@ -38,7 +38,8 @@
   "mandatoryEnum": "one",
   "mandatoryIntDictionary" : {
     "value1": 1,
-    "value2" : 2
+    "value2" : 2,
+    "invalid" : "some invalid"
   },
   "mandatoryObjectDictionary" : {
     "value1": {
@@ -52,10 +53,14 @@
       "integerKey" : 1,
       "doubleKey" : 1.2,
       "boolKey" : true
+    },
+    "invalid" : {
+      "stringKey" : "stringValue"
     }
   },
   "mandatoryURLDictionary" : {
     "value1": "https://google.com",
-    "value2" : "https://apple.com"
+    "value2" : "https://apple.com",
+    "invalid" : 2
   },
 }

@@ -65,6 +65,11 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 - `[String: JSONObjectConvertible]`
 - `[String: JSONPrimitiveConvertible]`
 
+### Notes
+
+- When parsing arrays or typed dictionaries, invalid objects are filtered out by default. For example, for JSON array with 5 objects where only 4 are valid an array of 4 objects is returned, i.e. the response does not fail.
+- Typed dictionaries allow failing parsing the whole dictionary by setting the `invalidItemBehaviour` to `throw`.
+
 ## Examples of JSON loading
 
 ### From file

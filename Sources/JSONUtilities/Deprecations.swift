@@ -123,24 +123,24 @@ public extension Dictionary where Key: StringProtocol {
   // MARK: JSONPrimitiveConvertible type
 
   @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
-  public func jsonKey<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(_ key: Key) throws -> JSONPrimitiveConvertibleType {
+  public func jsonKey<T: JSONPrimitiveConvertible>(_ key: Key) throws -> T {
     return try json(atKeyPath: key)
   }
 
   @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
-  public func jsonKey<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(_ key: Key) -> JSONPrimitiveConvertibleType? {
+  public func jsonKey<T: JSONPrimitiveConvertible>(_ key: Key) -> T? {
     return json(atKeyPath: key)
   }
 
   // MARK: [JSONPrimitiveConvertible] type
 
   @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
-  public func jsonKey<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(_ key: Key) throws -> [JSONPrimitiveConvertibleType] {
+  public func jsonKey<T: JSONPrimitiveConvertible>(_ key: Key) throws -> [T] {
     return try json(atKeyPath: key)
   }
 
   @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
-  public func jsonKey<JSONPrimitiveConvertibleType: JSONPrimitiveConvertible>(_ key: Key) -> [JSONPrimitiveConvertibleType]? {
+  public func jsonKey<T: JSONPrimitiveConvertible>(_ key: Key) -> [T]? {
     return json(atKeyPath: key)
   }
 

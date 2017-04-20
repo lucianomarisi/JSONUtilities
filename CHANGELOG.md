@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.0
+
+- Decoded typed dictionaries now filter out invalid objects instead of failing the whole response. This aligns how arrays are parsed where invalid objects are filtered out.
+- Typed dictionaries function now allow for either removing invalid items or failing to parse the whole dictionary, i.e.
+	- `json(atKeyPath: invalidItemBehaviour:)`, 
+	- The `invalidItemBehaviour` parameter defaults to `remove`
+
 ## 3.2.0
 
 - This adds support for decoding typed dictionaries with a String key, specifically:
@@ -20,7 +27,7 @@ Thanks to [Yonas Kolb](https://github.com/yonaskolb)
 - Keypath access in JSON dictionaries
 
 ## API updates
-- Renamed function for accessing values `jsonKey(_:)` to `jsonKeyPath(_:)`
+- Renamed function for accessing values `jsonKey(_:)` to `json(atKeyPath:)`
 - Renamed `Transformable` protocol to `JSONPrimitiveConvertible`
 - Renamed `Decodable` protocol to `JSONObjectConvertible`
 - Renamed JSONDictionary loading functions:

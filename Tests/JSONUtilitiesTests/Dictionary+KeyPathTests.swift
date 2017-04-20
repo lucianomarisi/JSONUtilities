@@ -30,7 +30,7 @@ class Dictionary_KeyPathTests: XCTestCase {
     let dictionary = [
       "root_key": [
         "first_level_key": [
-          "second_level_key" : expectedValue
+          "second_level_key": expectedValue
         ]
       ]
     ]
@@ -60,7 +60,7 @@ class Dictionary_KeyPathTests: XCTestCase {
     let dictionary = [
       "root_key": [
         "root_key": [
-          "root_key" : expectedValue
+          "root_key": expectedValue
         ]
       ]
     ]
@@ -76,7 +76,7 @@ class Dictionary_KeyPathTests: XCTestCase {
     let dictionary = [
       "root_key": [
         "first_level_key": [
-          "root_key" : expectedValue
+          "root_key": expectedValue
         ]
       ]
     ]
