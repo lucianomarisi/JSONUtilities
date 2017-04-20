@@ -16,6 +16,7 @@ import Foundation
 public enum DecodingError: Error, CustomStringConvertible {
   case mandatoryKeyNotFound(key: StringProtocol)
   case mandatoryRawRepresentableHasIncorrectValue(rawRepresentable:Any, rawValue:JSONRawType)
+  case incorrectType(expected: Any.Type, found: Any)
 
   public var description: String {
     switch self {
@@ -23,6 +24,9 @@ public enum DecodingError: Error, CustomStringConvertible {
       return "mandatoryKeyNotFound: \(key)"
     case .mandatoryRawRepresentableHasIncorrectValue(let rawRepresentable, let rawValue):
       return "mandatoryRawRepresentableHasIncorrectValue: \(rawRepresentable): \(rawValue)"
+    case .incorrectType(let expected, let recieved):
+      return "incorrectType: expected \(expected), found \(recieved)"
+
     }
   }
 
