@@ -36,28 +36,28 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONRawType type
 
   /// Decode a mandatory JSON raw type
-  public func json<ReturnType: JSONRawType>(atKeyPath keyPath: Key) throws -> ReturnType {
+  public func json<T: JSONRawType>(atKeyPath keyPath: Key) throws -> T {
 
-    guard let value = self[keyPath: keyPath] as? ReturnType else {
+    guard let value = self[keyPath: keyPath] as? T else {
       throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
     return value
   }
 
   /// Decode an optional JSON raw type
-  public func json<ReturnType: JSONRawType>(atKeyPath keyPath: Key) -> ReturnType? {
-    return self[keyPath: keyPath] as? ReturnType
+  public func json<T: JSONRawType>(atKeyPath keyPath: Key) -> T? {
+    return self[keyPath: keyPath] as? T
   }
 
   // MARK: [JSONRawType] type
 
   /// Decode an Array of mandatory JSON raw types
-  public func json<ReturnType: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [ReturnType] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { $0 as? ReturnType }
+  public func json<T: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { $0 as? T }
   }
 
   /// Decode an Array of optional JSON raw types
-  public func json<ReturnType: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [ReturnType]? {
+  public func json<T: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [T]? {
     return try? self.json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
   }
 
@@ -134,66 +134,66 @@ extension Dictionary where Key: StringProtocol {
   // MARK: Decodable types
 
   /// Decode a mandatory Decodable object
-  public func json<ReturnType: JSONObjectConvertible>(atKeyPath keyPath: Key) throws -> ReturnType {
-    return try ReturnType(jsonDictionary: JSONDictionaryForKey(atKeyPath: keyPath))
+  public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key) throws -> T {
+    return try T(jsonDictionary: JSONDictionaryForKey(atKeyPath: keyPath))
   }
 
   /// Decode an optional Decodable object
-  public func json<ReturnType: JSONObjectConvertible>(atKeyPath keyPath: Key) -> ReturnType? {
-    return try? ReturnType(jsonDictionary: JSONDictionaryForKey(atKeyPath: keyPath))
+  public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key) -> T? {
+    return try? T(jsonDictionary: JSONDictionaryForKey(atKeyPath: keyPath))
   }
 
   // MARK: [Decodable] types
 
   /// Decode an Array of mandatory Decodable objects
-  public func json<ReturnType: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [ReturnType] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { try ($0 as? JSONDictionary).flatMap(ReturnType.init) }
+  public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { try ($0 as? JSONDictionary).flatMap(T.init) }
   }
 
   /// Decode an Array of optional Decodable objects
-  public func json<ReturnType: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [ReturnType]? {
+  public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [T]? {
     return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
   }
 
   // MARK: RawRepresentable type
 
   /// Decode a mandatory RawRepresentable
-  public func json<ReturnType: RawRepresentable>(atKeyPath keyPath: Key) throws -> ReturnType where ReturnType.RawValue:JSONRawType {
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key) throws -> T where T.RawValue:JSONRawType {
 
-    guard let rawValue = self[keyPath] as? ReturnType.RawValue else {
+    guard let rawValue = self[keyPath] as? T.RawValue else {
       throw DecodingError.mandatoryKeyNotFound(key: keyPath)
     }
 
-    guard let value = ReturnType(rawValue:rawValue) else {
-      throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: ReturnType.self, rawValue: rawValue)
+    guard let value = T(rawValue:rawValue) else {
+      throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: T.self, rawValue: rawValue)
     }
 
     return value
   }
 
   /// Decode an optional RawRepresentable
-  public func json<ReturnType: RawRepresentable>(atKeyPath keyPath: Key) -> ReturnType? {
-    guard let rawValue = self[keyPath] as? ReturnType.RawValue else {
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key) -> T? {
+    guard let rawValue = self[keyPath] as? T.RawValue else {
       return nil
     }
-    return ReturnType(rawValue:rawValue)
+    return T(rawValue:rawValue)
   }
 
   // MARK: [RawRepresentable] type
 
   /// Decode an array of custom RawRepresentable types with a mandatory key
-  public func json<ReturnType: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [ReturnType] where ReturnType.RawValue:JSONRawType {
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] where T.RawValue:JSONRawType {
 
     return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) {
-      guard let rawValue = $0 as? ReturnType.RawValue else {
+      guard let rawValue = $0 as? T.RawValue else {
         return nil
       }
-      return ReturnType(rawValue: rawValue)
+      return T(rawValue: rawValue)
     }
   }
 
   /// Optionally decode an array of RawRepresentable types with a mandatory key
-  public func json<ReturnType: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [ReturnType]? where ReturnType.RawValue:JSONRawType {
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) -> [T]? where T.RawValue:JSONRawType {
     return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
   }
 
