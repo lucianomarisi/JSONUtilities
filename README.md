@@ -67,8 +67,9 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 
 ### Notes
 
-- When parsing arrays or typed dictionaries, invalid objects are filtered out by default. For example, for JSON array with 5 objects where only 4 are valid an array of 4 objects is returned, i.e. the response does not fail.
-- Typed dictionaries allow failing parsing the whole dictionary by setting the `invalidItemBehaviour` to `throw`.
+- When decoding arrays or dictionaries an `invalidItemBehaviour` parameter can be passed which controls what happens when an error occurs while decoding child items
+	- `.remove` this will simply remove the item from the array or dictionary. This is the default
+	- `.throw` if any of the children encounter an error the whole array or dictionary will fail and throw this error
 
 ## Examples of JSON loading
 
