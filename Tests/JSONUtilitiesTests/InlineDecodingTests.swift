@@ -159,6 +159,8 @@ class InlineDecodingTests: XCTestCase {
     XCTAssert(decodedParent.children.count == 1)
   }
 
+  // MARK: Dictionary invalidItemBehaviour
+
   func test_stringJSONRawTypeDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
     let dictionary = [
       "key": [
@@ -205,6 +207,51 @@ class InlineDecodingTests: XCTestCase {
       let expectedError = DecodingError.mandatoryKeyNotFound(key: "key2")
       print(error)
       XCTAssert(error as? DecodingError == expectedError)
+    }
+  }
+
+  func test_stringJSONRawTypeDictionary_removesInvalidObjects_invalidItemBehaviourIsRemove() {
+    let dictionary = [
+      "key": [
+        "key1": "value1",
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .remove)
+      XCTAssert(decodedDictionary.count == 1)
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleDictionary_removesInvalidObjects_invalidItemBehaviourIsRemove() {
+    let dictionary = [
+      "key": [
+        "key1": "www.google.com",
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .remove)
+      XCTAssert(decodedDictionary.count == 1)
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONObjectConvertibleDictionary_removesInvalidObjects_invalidItemBehaviourIsRemove() {
+    let dictionary = [
+      "key": [
+        "key1": ["name": "john"],
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .remove)
+      XCTAssert(decodedDictionary.count == 1)
+    } catch {
+      XCTFail("Should not throw error")
     }
   }
 
