@@ -255,6 +255,102 @@ class InlineDecodingTests: XCTestCase {
     }
   }
 
+  // MARK: Array invalidItemBehaviour
+
+  func test_stringJSONRawTypeArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+    let dictionary = [
+      "key": [
+        "value1",
+        2
+      ]
+    ]
+    do {
+      let _: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      XCTFail("Error not thrown")
+    } catch {
+      let expectedError = DecodingError.incorrectType(expected: String.self, found: 2)
+      XCTAssert(error as? DecodingError == expectedError)
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+    let dictionary = [
+      "key": [
+        "www.google.com",
+        2
+      ]
+    ]
+    do {
+      let _: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      XCTFail("Error not thrown")
+    } catch {
+      let expectedError = DecodingError.incorrectType(expected: URL.self, found: 2)
+      XCTAssert(error as? DecodingError == expectedError)
+    }
+  }
+
+  func test_stringJSONObjectConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+    let dictionary = [
+      "key": [
+        ["name": "john"],
+        2
+      ]
+    ]
+    do {
+      let _: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      XCTFail("Error not thrown")
+    } catch {
+      let expectedError = DecodingError.incorrectType(expected: MockSimpleChild.self, found: 2)
+      print(error)
+      XCTAssert(error as? DecodingError == expectedError)
+    }
+  }
+
+  func test_stringJSONRawTypeArray_removesInvalidObjects_invalidItemBehaviourIsRemove() {
+    let dictionary = [
+      "key": [
+        "value1",
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .remove)
+      XCTAssert(decodedDictionary.count == 1)
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleArray_removesInvalidObjects_invalidItemBehaviourIsRemove() {
+    let dictionary = [
+      "key": [
+        "www.google.com",
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .remove)
+      XCTAssert(decodedDictionary.count == 1)
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONObjectConvertibleArray_removesInvalidObjects_invalidItemBehaviourIsRemove() {
+    let dictionary = [
+      "key": [
+        ["name": "john"],
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .remove)
+      XCTAssert(decodedDictionary.count == 1)
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
   // MARK: Helpers
 
   fileprivate func expectDecodeType<ExpectedType: JSONRawType & Equatable>(_ expectedValue: ExpectedType, file: StaticString = #file, line: UInt = #line) {
