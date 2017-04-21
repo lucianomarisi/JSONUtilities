@@ -22,7 +22,7 @@ extension Bool : JSONRawType {}
 /// - throw:  The call fails by throwing on any invalid item
 public enum InvalidItemBehaviour {
   case remove
-  case `throw`
+  case fail
 }
 
 // Simple protocol used to extend a JSONDictionary
@@ -267,7 +267,7 @@ extension Dictionary where Key: StringProtocol {
         if let typedItem = try? decode(jsonDictionary, key) {
           dictionary[key] = typedItem
         }
-      case .throw:
+      case .fail:
         dictionary[key] = try decode(jsonDictionary, key)
       }
     }
@@ -287,7 +287,7 @@ extension Dictionary where Key: StringProtocol {
           return nil
         }
         return typedItem
-      case .throw:
+      case .fail:
         return try decode(jsonArray, $0)
       }
     }

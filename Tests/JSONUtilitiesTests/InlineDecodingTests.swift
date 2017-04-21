@@ -169,7 +169,7 @@ class InlineDecodingTests: XCTestCase {
       ]
     ]
     do {
-      let _: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      let _: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
       let expectedError = DecodingError.mandatoryKeyNotFound(key: "key2")
@@ -185,7 +185,7 @@ class InlineDecodingTests: XCTestCase {
       ]
     ]
     do {
-      let _: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      let _: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
       let expectedError = DecodingError.incorrectTypeForKey(key: "key2", expected: String.self, found: 2)
@@ -201,7 +201,7 @@ class InlineDecodingTests: XCTestCase {
       ]
     ]
     do {
-      let _: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      let _: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
       let expectedError = DecodingError.incorrectTypeForKey(key: "key2", expected: JSONDictionary.self, found: 2)
@@ -264,7 +264,7 @@ class InlineDecodingTests: XCTestCase {
       ]
     ]
     do {
-      let _: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      let _: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
       let expectedError = DecodingError.incorrectType(expected: String.self, found: 2)
@@ -280,7 +280,7 @@ class InlineDecodingTests: XCTestCase {
       ]
     ]
     do {
-      let _: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      let _: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
       let expectedError = DecodingError.incorrectType(expected: String.self, found: 2)
@@ -296,7 +296,7 @@ class InlineDecodingTests: XCTestCase {
       ]
     ]
     do {
-      let _: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .throw)
+      let _: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
       let expectedError = DecodingError.incorrectType(expected: JSONDictionary.self, found: 2)

@@ -69,7 +69,7 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 
 - When decoding arrays or dictionaries an `invalidItemBehaviour` parameter can be passed which controls what happens when an error occurs while decoding child items
 	- `.remove` this will simply remove the item from the array or dictionary. This is the default
-	- `.throw` if any of the children encounter an error the whole array or dictionary will fail and throw this error
+	- `.fail` if any of the children encounter an error the whole array or dictionary decoding will fail. For optional properties this means the array or dictionary will return nil, and for non optional properties it will throw an error
 
 ## Examples of JSON loading
 
