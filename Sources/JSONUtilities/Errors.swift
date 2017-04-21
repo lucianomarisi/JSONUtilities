@@ -17,6 +17,7 @@ public enum DecodingError: Error, CustomStringConvertible {
   case mandatoryKeyNotFound(key: StringProtocol)
   case mandatoryRawRepresentableHasIncorrectValue(rawRepresentable:Any, rawValue:JSONRawType)
   case incorrectType(expected: Any.Type, found: Any)
+  case incorrectTypeForKey(key: StringProtocol, expected: Any.Type, found: Any)
 
   public var description: String {
     switch self {
@@ -24,9 +25,10 @@ public enum DecodingError: Error, CustomStringConvertible {
       return "mandatoryKeyNotFound: \(key)"
     case .mandatoryRawRepresentableHasIncorrectValue(let rawRepresentable, let rawValue):
       return "mandatoryRawRepresentableHasIncorrectValue: \(rawRepresentable): \(rawValue)"
-    case .incorrectType(let expected, let recieved):
-      return "incorrectType: expected \(expected), found \(recieved)"
-
+    case .incorrectType(let expected, let found):
+      return "incorrectType: expected \(expected), found \(found)"
+    case .incorrectTypeForKey(let key, let expected, let found):
+      return "incorrectTypeForKey: key \(key), expected \(expected), found \(found)"
     }
   }
 

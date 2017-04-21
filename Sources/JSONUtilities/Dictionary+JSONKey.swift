@@ -37,23 +37,19 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode a mandatory JSON raw type
   public func json<T: JSONRawType>(atKeyPath keyPath: Key) throws -> T {
-
-    guard let value = self[keyPath: keyPath] as? T else {
-      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
-    }
-    return value
+    return try getValue(atKeyPath: keyPath)
   }
 
   /// Decode an optional JSON raw type
   public func json<T: JSONRawType>(atKeyPath keyPath: Key) -> T? {
-    return self[keyPath: keyPath] as? T
+    return try? json(atKeyPath: keyPath)
   }
 
   // MARK: [JSONRawType] type
 
   /// Decode an Array of mandatory JSON raw types
   public func json<T: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { $0 as? T }
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour, decode: getValue)
   }
 
   /// Decode an Array of optional JSON raw types
@@ -65,11 +61,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decodes as a raw Dictionary with a mandatory key
   public func json(atKeyPath keyPath: Key) throws -> JSONDictionary {
-
-    guard let value = self[keyPath: keyPath] as? JSONDictionary else {
-      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
-    }
-    return value
+    return try getValue(atKeyPath: keyPath)
   }
 
   /// Decodes as a raw dictionary with an optional key
@@ -81,7 +73,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decodes as a raw dictionary array with a mandatory key
   public func json(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [JSONDictionary] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { $0 as? JSONDictionary }
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour, decode: getValue)
   }
 
   /// Decodes as a raw ictionary array with an optional key
@@ -147,7 +139,10 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an Array of mandatory Decodable objects
   public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { try ($0 as? JSONDictionary).flatMap(T.init) }
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonArray, value in
+      let jsonDictionary: JSONDictionary = try getValue(array: jsonArray, value: value)
+      return try T(jsonDictionary: jsonDictionary)
+    }
   }
 
   /// Decode an Array of optional Decodable objects
@@ -159,10 +154,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode a mandatory RawRepresentable
   public func json<T: RawRepresentable>(atKeyPath keyPath: Key) throws -> T where T.RawValue:JSONRawType {
-
-    guard let rawValue = self[keyPath] as? T.RawValue else {
-      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
-    }
+    let rawValue: T.RawValue = try getValue(atKeyPath: keyPath)
 
     guard let value = T(rawValue:rawValue) else {
       throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: T.self, rawValue: rawValue)
@@ -172,11 +164,8 @@ extension Dictionary where Key: StringProtocol {
   }
 
   /// Decode an optional RawRepresentable
-  public func json<T: RawRepresentable>(atKeyPath keyPath: Key) -> T? {
-    guard let rawValue = self[keyPath] as? T.RawValue else {
-      return nil
-    }
-    return T(rawValue:rawValue)
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key) -> T? where T.RawValue:JSONRawType {
+    return try? json(atKeyPath: keyPath)
   }
 
   // MARK: [RawRepresentable] type
@@ -184,11 +173,13 @@ extension Dictionary where Key: StringProtocol {
   /// Decode an array of custom RawRepresentable types with a mandatory key
   public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] where T.RawValue:JSONRawType {
 
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) {
-      guard let rawValue = $0 as? T.RawValue else {
-        return nil
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonArray, value in
+      let rawValue: T.RawValue = try getValue(array: jsonArray, value: value)
+
+      guard let value = T(rawValue:rawValue) else {
+        throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: T.self, rawValue: rawValue)
       }
-      return T(rawValue: rawValue)
+      return value
     }
   }
 
@@ -201,10 +192,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode a custom raw types with a mandatory key
   public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) throws -> T {
-
-    guard let jsonValue = self[keyPath: keyPath] as? T.JSONType else {
-      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
-    }
+    let jsonValue: T.JSONType = try getValue(atKeyPath: keyPath)
 
     guard let transformedValue = T.from(jsonValue: jsonValue) else {
       throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue)
@@ -215,23 +203,20 @@ extension Dictionary where Key: StringProtocol {
 
   /// Optionally decode a custom raw types with a mandatory key
   public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> T? {
-
-    guard let jsonValue = self[keyPath: keyPath] as? T.JSONType else {
-      return nil
-    }
-
-    return T.from(jsonValue: jsonValue)
+    return try? json(atKeyPath: keyPath)
   }
 
   // MARK: [JSONPrimitiveConvertible] type
 
   /// Decode an array of custom raw types with a mandatory key
   public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) {
-      guard let jsonValue = $0 as? T.JSONType else {
-        return nil
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonArray, value in
+      let jsonValue: T.JSONType = try getValue(array: jsonArray, value: value)
+
+      guard let transformedValue = T.from(jsonValue: jsonValue) else {
+        throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue)
       }
-      return T.from(jsonValue: jsonValue)
+      return transformedValue
     }
   }
 
@@ -243,22 +228,35 @@ extension Dictionary where Key: StringProtocol {
   // MARK: JSONDictionary and JSONArray creation
 
   fileprivate func JSONDictionaryForKey(atKeyPath keyPath: Key) throws -> JSONDictionary {
-    guard let jsonDictionary = self[keyPath: keyPath] as? JSONDictionary else {
-      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
-    }
-    return jsonDictionary
+    return try getValue(atKeyPath: keyPath)
   }
 
   fileprivate func JSONArrayForKey(atKeyPath keyPath: Key) throws -> JSONArray {
-    guard let jsonArray = self[keyPath: keyPath] as? JSONArray else {
-      throw DecodingError.mandatoryKeyNotFound(key: keyPath)
+    return try getValue(atKeyPath: keyPath)
+  }
+
+  // MARK: Value decoding
+
+  fileprivate func getValue<A, B>(array: [A], value: A) throws -> B {
+    guard let typedValue = value as? B else {
+      throw DecodingError.incorrectType(expected: B.self, found: value)
     }
-    return jsonArray
+    return typedValue
+  }
+
+  fileprivate func getValue<T>(atKeyPath key: Key) throws -> T {
+    guard let value = self[key] else {
+      throw DecodingError.mandatoryKeyNotFound(key: key)
+    }
+    guard let typedValue = value as? T else {
+      throw DecodingError.incorrectTypeForKey(key: key, expected: T.self, found: value)
+    }
+    return typedValue
   }
 
   // MARK: Dictionary decoding
 
-  fileprivate func decodeDictionary<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decodeClosure: (JSONDictionary, String) throws -> T?) throws -> [String: T] {
+  fileprivate func decodeDictionary<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decode: (JSONDictionary, String) throws -> T) throws -> [String: T] {
     let jsonDictionary: JSONDictionary = try json(atKeyPath: keyPath)
 
     var dictionary: [String: T] = [:]
@@ -266,14 +264,11 @@ extension Dictionary where Key: StringProtocol {
 
       switch invalidItemBehaviour {
       case .remove:
-        if let typedItem = try? decodeClosure(jsonDictionary, key) {
+        if let typedItem = try? decode(jsonDictionary, key) {
           dictionary[key] = typedItem
         }
       case .throw:
-        guard let typedItem = try decodeClosure(jsonDictionary, key) else {
-          throw DecodingError.mandatoryKeyNotFound(key: key)
-        }
-        dictionary[key] = typedItem
+        dictionary[key] = try decode(jsonDictionary, key)
       }
     }
 
@@ -282,21 +277,18 @@ extension Dictionary where Key: StringProtocol {
 
   // MARK: Array decoding
 
-  fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decodeClosure: (Any) throws -> T?) throws -> [T] {
+  fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decode: (JSONArray, Any) throws -> T) throws -> [T] {
     let jsonArray = try JSONArrayForKey(atKeyPath: keyPath)
 
     return try jsonArray.flatMap {
       switch invalidItemBehaviour {
       case .remove:
-        guard let typedItem  = try? decodeClosure($0) else {
+        guard let typedItem  = try? decode(jsonArray, $0) else {
           return nil
         }
         return typedItem
       case .throw:
-        guard let typedItem = try decodeClosure($0) else {
-          throw DecodingError.incorrectType(expected: T.self, found: $0)
-        }
-        return typedItem
+        return try decode(jsonArray, $0)
       }
     }
   }
