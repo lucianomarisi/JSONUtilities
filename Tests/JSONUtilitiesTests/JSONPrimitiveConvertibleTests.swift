@@ -76,4 +76,16 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
     XCTAssertNil(decodedMissingURLs)
   }
 
+  func testJSONPrimitiveConvertibleArray_failsOnNonTransformable() {
+    let expectedURLStrings = ["www.google.com", "±"]
+    let jsonDictionary = ["urls": expectedURLStrings]
+    do {
+      let _: [URL] = try jsonDictionary.json(atKeyPath: "urls", invalidItemBehaviour: .fail)
+      XCTFail(#function)
+    } catch {
+      let expectedError = DecodingError.conversionFailure(type: URL.self, value: "±")
+      XCTAssert(error as? DecodingError == expectedError)
+    }
+  }
+
 }

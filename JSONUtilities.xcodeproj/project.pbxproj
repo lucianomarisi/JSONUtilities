@@ -36,6 +36,7 @@
 		4FE3C0531C00EED400607CC4 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FE3C04E1C00EED400607CC4 /* empty.json */; };
 		4FE3C0551C00EEE800607CC4 /* JSONDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */; };
 		4FF31F3B1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF31F3A1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift */; };
+		CCE82AD11EAA41900035C9F1 /* InvalidItemBehaviourTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE82ACF1EAA41450035C9F1 /* InvalidItemBehaviourTests.swift */; };
 		EAD4CA401D894B0D001842D6 /* URL+JSONPrimitiveConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD4CA3F1D894B0D001842D6 /* URL+JSONPrimitiveConvertible.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodingTests.swift; sourceTree = "<group>"; };
 		4FE3C05B1C00F05700607CC4 /* JSONFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFiles.swift; sourceTree = "<group>"; };
 		4FF31F3A1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyPathTests.swift"; sourceTree = "<group>"; };
+		CCE82ACF1EAA41450035C9F1 /* InvalidItemBehaviourTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidItemBehaviourTests.swift; sourceTree = "<group>"; };
 		EAD4CA3F1D894B0D001842D6 /* URL+JSONPrimitiveConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+JSONPrimitiveConvertible.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +153,7 @@
 				4FE3C0541C00EEE800607CC4 /* JSONDecodingTests.swift */,
 				4F0842021C96143500C28467 /* JSONPrimitiveConvertibleTests.swift */,
 				4FF31F3A1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift */,
+				CCE82ACF1EAA41450035C9F1 /* InvalidItemBehaviourTests.swift */,
 			);
 			path = JSONUtilitiesTests;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				4FE3C0351C00EDE900607CC4 /* FileLoadingTests.swift in Sources */,
 				4F05C4F41CE89191003D4718 /* InlineDecodingTests.swift in Sources */,
 				4F05C4F61CE8C50F003D4718 /* MockSimpleChild.swift in Sources */,
+				CCE82AD11EAA41900035C9F1 /* InvalidItemBehaviourTests.swift in Sources */,
 				4F0842031C96143500C28467 /* JSONPrimitiveConvertibleTests.swift in Sources */,
 				4F316CC61CE88898007F9241 /* XCTestCase+Additions.swift in Sources */,
 				4FF31F3B1D7CBF8C00C9CCC8 /* Dictionary+KeyPathTests.swift in Sources */,
