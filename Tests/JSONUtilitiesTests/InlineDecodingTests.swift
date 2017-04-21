@@ -43,7 +43,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: JSONDictionary = try dictionary.json(atKeyPath: randomKey)
     } catch let error {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.keyNotFound(dictionary: expectedValue, key: randomKey)
       let actualError = error as? DecodingError
       XCTAssert(actualError == expectedError)
     }
@@ -77,7 +77,7 @@ class InlineDecodingTests: XCTestCase {
       let _:MockParent.MockEnum = try dictionary.json(atKeyPath: "enumIncorrect")
       XCTAssertThrowsError("Did not catch mandatoryKeyNotFound error")
     } catch let error {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: "enumIncorrect")
+      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: "enumIncorrect")
       let actualError = error as? DecodingError
       XCTAssert(expectedError == actualError)
     }
@@ -86,7 +86,7 @@ class InlineDecodingTests: XCTestCase {
       let _:MockParent.MockEnum = try dictionary.json(atKeyPath: "enum")
       XCTAssertThrowsError("Did not catch mandatoryRawRepresentableHasIncorrectValue error")
     } catch let error {
-      let expectedError = DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
+      let expectedError = DecodingError.incorrectRawRepresentableRawValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
       let actualError = error as? DecodingError
       XCTAssert(expectedError == actualError)
     }
@@ -117,7 +117,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [MockParent.MockEnum] = try dictionary.json(atKeyPath: "invalid_key")
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: "invalid_key")
+      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: "invalid_key")
       XCTAssert(error as? DecodingError == expectedError)
     }
 
@@ -144,7 +144,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: [JSONDictionary] = try dictionary.json(atKeyPath: randomKey)
     } catch let error {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: randomKey)
       let actualError = error as? DecodingError
       XCTAssert(actualError == expectedError)
     }
@@ -172,7 +172,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: "key2")
+      let expectedError = DecodingError.incorrectTypeInDictionary(dictionary: dictionary, key: "key2", expectedType: String.self, value: 2)
       XCTAssert(error as? DecodingError == expectedError)
     }
   }
@@ -188,7 +188,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.incorrectTypeForKey(key: "key2", expected: String.self, found: 2)
+      let expectedError = DecodingError.incorrectTypeInDictionary(dictionary: dictionary, key: "key2", expectedType: String.self, value: 2)
       XCTAssert(error as? DecodingError == expectedError)
     }
   }
@@ -204,7 +204,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.incorrectTypeForKey(key: "key2", expected: JSONDictionary.self, found: 2)
+      let expectedError = DecodingError.incorrectTypeInDictionary(dictionary: dictionary, key: "key2", expectedType: JSONDictionary.self, value: 2)
       XCTAssert(error as? DecodingError == expectedError)
     }
   }
@@ -267,7 +267,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.incorrectType(expected: String.self, found: 2)
+      let expectedError = DecodingError.incorrectTypeInArray(array: [], expectedType: String.self, value: 2)
       XCTAssert(error as? DecodingError == expectedError)
     }
   }
@@ -283,7 +283,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.incorrectType(expected: String.self, found: 2)
+      let expectedError = DecodingError.incorrectTypeInArray(array: [], expectedType: String.self, value: 2)
       XCTAssert(error as? DecodingError == expectedError)
     }
   }
@@ -299,7 +299,7 @@ class InlineDecodingTests: XCTestCase {
       let _: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
       XCTFail("Error not thrown")
     } catch {
-      let expectedError = DecodingError.incorrectType(expected: JSONDictionary.self, found: 2)
+      let expectedError = DecodingError.incorrectTypeInArray(array: [], expectedType: JSONDictionary.self, value: 2)
       print(error)
       XCTAssert(error as? DecodingError == expectedError)
     }
@@ -364,7 +364,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: ExpectedType = try dictionary.json(atKeyPath: randomKey)
     } catch let error {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: randomKey)
       let actualError = error as? DecodingError
       XCTAssert(actualError == expectedError, file: file, line: line)
     }
@@ -385,7 +385,7 @@ class InlineDecodingTests: XCTestCase {
     do {
       let _: [ExpectedType] = try dictionary.json(atKeyPath: randomKey)
     } catch let error {
-      let expectedError = DecodingError.mandatoryKeyNotFound(key: randomKey)
+      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: randomKey)
       let actualError = error as? DecodingError
       XCTAssert(actualError == expectedError, file: file, line: line)
     }

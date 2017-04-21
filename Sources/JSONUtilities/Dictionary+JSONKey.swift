@@ -157,7 +157,7 @@ extension Dictionary where Key: StringProtocol {
     let rawValue: T.RawValue = try getValue(atKeyPath: keyPath)
 
     guard let value = T(rawValue:rawValue) else {
-      throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: T.self, rawValue: rawValue)
+      throw DecodingError.incorrectRawRepresentableRawValue(rawRepresentable: T.self, rawValue: rawValue)
     }
 
     return value
@@ -177,7 +177,7 @@ extension Dictionary where Key: StringProtocol {
       let rawValue: T.RawValue = try getValue(array: jsonArray, value: value)
 
       guard let value = T(rawValue:rawValue) else {
-        throw DecodingError.mandatoryRawRepresentableHasIncorrectValue(rawRepresentable: T.self, rawValue: rawValue)
+        throw DecodingError.incorrectRawRepresentableRawValue(rawRepresentable: T.self, rawValue: rawValue)
       }
       return value
     }
@@ -195,7 +195,7 @@ extension Dictionary where Key: StringProtocol {
     let jsonValue: T.JSONType = try getValue(atKeyPath: keyPath)
 
     guard let transformedValue = T.from(jsonValue: jsonValue) else {
-      throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue)
+      throw DecodingError.conversionFailure(type: T.self, value: jsonValue)
     }
 
     return transformedValue
@@ -214,7 +214,7 @@ extension Dictionary where Key: StringProtocol {
       let jsonValue: T.JSONType = try getValue(array: jsonArray, value: value)
 
       guard let transformedValue = T.from(jsonValue: jsonValue) else {
-        throw JSONPrimitiveConvertibleError.couldNotTransformJSONValue(value: jsonValue)
+        throw DecodingError.conversionFailure(type: T.self, value: jsonValue)
       }
       return transformedValue
     }
@@ -239,17 +239,19 @@ extension Dictionary where Key: StringProtocol {
 
   fileprivate func getValue<A, B>(array: [A], value: A) throws -> B {
     guard let typedValue = value as? B else {
-      throw DecodingError.incorrectType(expected: B.self, found: value)
+      throw DecodingError.incorrectTypeInArray(array: array, expectedType: B.self, value: value)
     }
     return typedValue
   }
 
   fileprivate func getValue<T>(atKeyPath key: Key) throws -> T {
     guard let value = self[key] else {
-      throw DecodingError.mandatoryKeyNotFound(key: key)
+      // swiftlint:disable:next force_cast
+      throw DecodingError.keyNotFound(dictionary: self as! JSONDictionary, key: key)
     }
     guard let typedValue = value as? T else {
-      throw DecodingError.incorrectTypeForKey(key: key, expected: T.self, found: value)
+      // swiftlint:disable:next force_cast
+      throw DecodingError.incorrectTypeInDictionary(dictionary: self as! JSONDictionary, key: key, expectedType: T.self, value: value)
     }
     return typedValue
   }
