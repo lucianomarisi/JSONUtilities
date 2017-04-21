@@ -6,6 +6,14 @@
 - Typed dictionaries and array functions now allow for either removing invalid items or failing to parse the whole dictionary or array, i.e.
 	- `json(atKeyPath: invalidItemBehaviour:)`, 
 	- The `invalidItemBehaviour` parameter defaults to `.remove`
+- DecodingError: renamed errors, added new errors, and combined with JSONPrimitiveConvertibleError. There are now the following types of DecodingErrors:
+	- keyNotFound
+	- incorrectRawRepresentableRawValue
+	- incorrectTypeInArray
+	- incorrectTypeInDictionary
+	- conversionFailure
+- DecodingError: added more information (such as the dictionary where a specified key could not be found)
+- DecodingError: changed descriptions, including the new information
 
 ## 3.2.0
 
