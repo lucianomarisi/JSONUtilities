@@ -246,12 +246,10 @@ extension Dictionary where Key: StringProtocol {
 
   fileprivate func getValue<T>(atKeyPath key: Key) throws -> T {
     guard let value = self[key] else {
-      // swiftlint:disable:next force_cast
-      throw DecodingError.keyNotFound(dictionary: self as! JSONDictionary, key: key)
+      throw DecodingError.keyNotFound(dictionary: self, key: key)
     }
     guard let typedValue = value as? T else {
-      // swiftlint:disable:next force_cast
-      throw DecodingError.incorrectTypeInDictionary(dictionary: self as! JSONDictionary, key: key, expectedType: T.self, value: value)
+      throw DecodingError.incorrectTypeInDictionary(dictionary: self, key: key, expectedType: T.self, value: value)
     }
     return typedValue
   }

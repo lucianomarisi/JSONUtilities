@@ -14,10 +14,10 @@ import Foundation
  - Mandatory: The key that failed the decoding
  */
 public enum DecodingError: Error, CustomStringConvertible {
-  case keyNotFound(dictionary: JSONDictionary, key: StringProtocol)
+  case keyNotFound(dictionary: [AnyHashable: Any], key: StringProtocol)
   case incorrectRawRepresentableRawValue(rawRepresentable: Any.Type, rawValue: JSONRawType)
   case incorrectTypeInArray(array: JSONArray, expectedType: Any.Type, value: Any)
-  case incorrectTypeInDictionary(dictionary: JSONDictionary, key: StringProtocol, expectedType: Any.Type, value: Any)
+  case incorrectTypeInDictionary(dictionary: [AnyHashable: Any], key: StringProtocol, expectedType: Any.Type, value: Any)
   case conversionFailure(type: Any.Type, value: Any)
 
   public var description: String {
