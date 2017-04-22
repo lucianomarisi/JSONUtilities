@@ -244,12 +244,12 @@ extension Dictionary where Key: StringProtocol {
     return typedValue
   }
 
-  fileprivate func getValue<T>(atKeyPath key: Key) throws -> T {
-    guard let value = self[key] else {
-      throw DecodingError.keyNotFound(dictionary: self, key: key)
+  fileprivate func getValue<T>(atKeyPath keyPath: Key) throws -> T {
+    guard let value = self[keyPath: keyPath] else {
+      throw DecodingError.keyNotFound(dictionary: self, key: keyPath)
     }
     guard let typedValue = value as? T else {
-      throw DecodingError.incorrectTypeInDictionary(dictionary: self, key: key, expectedType: T.self, value: value)
+      throw DecodingError.incorrectTypeInDictionary(dictionary: self, key: keyPath, expectedType: T.self, value: value)
     }
     return typedValue
   }
