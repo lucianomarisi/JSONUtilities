@@ -1,6 +1,8 @@
 {
-  "mandatoryStringKey" : "stringValue",
-  "mandatoryIntKey" : 1,
-  "mandatoryDoubleKey" : 1.2,
-  "mandatoryBoolKey" : true
+	"keypath": {
+		"mandatoryStringKey": "stringValue",
+		"mandatoryIntKey": 1,
+		"mandatoryDoubleKey": 1.2,
+		"mandatoryBoolKey": true
+	}
 }

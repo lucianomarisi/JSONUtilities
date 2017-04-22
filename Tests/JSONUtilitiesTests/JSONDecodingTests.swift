@@ -1,5 +1,5 @@
 //
-//  JSONDecoderTests.swift
+//  JSONDecodingTests.swift
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 21/11/2015.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import JSONUtilities
 
-class JSONDecoderTests: XCTestCase {
+class JSONDecodingTests: XCTestCase {
 
   let expectedChild = MockChild(string: "stringValue", integer: 1, double: 1.2, bool: true)
   let expectedDictionary: JSONDictionary = ["doubleKey": 1.2, "integerKey": 1, "stringKey": "stringValue", "boolKey": true]
@@ -75,8 +75,6 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertEqual(mockJSONParent.optionalObjectDictionary!, ["value1": expectedChild, "value2": expectedChild])
       XCTAssertEqual(mockJSONParent.optionalURLDictionary!, ["value1": URL(string: "https://google.com")!, "value2": URL(string: "https://apple.com")!])
 
-    } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "mandatoryKeyNotFound: stringKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }
@@ -86,10 +84,15 @@ class JSONDecoderTests: XCTestCase {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.empty)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
+      XCTFail(#function)
     } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryStringKey")
-      XCTAssert(error as? DecodingError == expectedError)
+      guard let caughtError = error as? DecodingError,
+        case let DecodingError.keyNotFound(_, key) = caughtError,
+        let caughtKey = key as? String else {
+          XCTFail(#function)
+          return
+      }
+      XCTAssertEqual(caughtKey, "keypath.mandatoryStringKey")
     }
   }
 
@@ -97,10 +100,15 @@ class JSONDecoderTests: XCTestCase {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutRawArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
+      XCTFail(#function)
     } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryArrayStringKey")
-      XCTAssert(error as? DecodingError == expectedError)
+      guard let caughtError = error as? DecodingError,
+        case let DecodingError.keyNotFound(_, key) = caughtError,
+        let caughtKey = key as? String else {
+          XCTFail(#function)
+          return
+      }
+      XCTAssertEqual(caughtKey, "keypath.mandatoryArrayStringKey")
     }
   }
 
@@ -108,10 +116,15 @@ class JSONDecoderTests: XCTestCase {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNested)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
+      XCTFail(#function)
     } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryCustomJSONObjectKey")
-      XCTAssert(error as? DecodingError == expectedError)
+      guard let caughtError = error as? DecodingError,
+        case let DecodingError.keyNotFound(_, key) = caughtError,
+        let caughtKey = key as? String else {
+          XCTFail(#function)
+          return
+      }
+      XCTAssertEqual(caughtKey, "keypath.mandatoryCustomJSONObjectKey")
     }
   }
 
@@ -119,10 +132,15 @@ class JSONDecoderTests: XCTestCase {
     do {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNestedArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
+      XCTFail(#function)
     } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryArrayCustomJSONObjectKey")
-      XCTAssert(error as? DecodingError == expectedError)
+      guard let caughtError = error as? DecodingError,
+            case let DecodingError.keyNotFound(_, key) = caughtError,
+            let caughtKey = key as? String else {
+        XCTFail(#function)
+        return
+      }
+      XCTAssertEqual(caughtKey, "keypath.mandatoryArrayCustomJSONObjectKey")
     }
   }
 }
