@@ -19,7 +19,7 @@ extension Bool : JSONRawType {}
 /// The behaviour of what should be done when an invalid JSON object or primitive is found
 ///
 /// - remove: The item is filtered, only valid items are returned
-/// - throw:  The call fails by throwing on any invalid item
+/// - fail:  The call fails. For non optional properties this will throw an error, and for optional properties nil is returned
 public enum InvalidItemBehaviour {
   case remove
   case fail
