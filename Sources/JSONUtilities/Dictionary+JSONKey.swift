@@ -283,10 +283,7 @@ extension Dictionary where Key: StringProtocol {
     return try jsonArray.flatMap {
       switch invalidItemBehaviour {
       case .remove:
-        guard let typedItem  = try? decode(jsonArray, $0) else {
-          return nil
-        }
-        return typedItem
+        return try? decode(jsonArray, $0)
       case .fail:
         return try decode(jsonArray, $0)
       }
