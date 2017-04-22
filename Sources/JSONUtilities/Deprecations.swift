@@ -104,7 +104,7 @@ public extension Dictionary where Key: StringProtocol {
   }
 
   @available(*, deprecated:3.0.0, renamed: "json(atKeyPath:)")
-  public func jsonKey<ReturnType: RawRepresentable>(_ key: Key) -> ReturnType? {
+  public func jsonKey<ReturnType: RawRepresentable>(_ key: Key) -> ReturnType? where ReturnType.RawValue:JSONRawType {
     return json(atKeyPath: key)
   }
 

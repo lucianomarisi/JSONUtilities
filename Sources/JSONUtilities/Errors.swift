@@ -10,37 +10,43 @@ import Foundation
 
 /**
  Decoding error for mandatory keys
- 
+
  - Mandatory: The key that failed the decoding
  */
 public enum DecodingError: Error, CustomStringConvertible {
-  case mandatoryKeyNotFound(key: StringProtocol)
-  case mandatoryRawRepresentableHasIncorrectValue(rawRepresentable:Any, rawValue:JSONRawType)
+  case keyNotFound(dictionary: [AnyHashable: Any], key: StringProtocol)
+  case incorrectRawRepresentableRawValue(rawRepresentable: Any.Type, rawValue: JSONRawType)
+  case incorrectTypeInArray(array: JSONArray, expectedType: Any.Type, value: Any)
+  case incorrectTypeInDictionary(dictionary: [AnyHashable: Any], key: StringProtocol, expectedType: Any.Type, value: Any)
+  case conversionFailure(type: Any.Type, value: Any)
 
   public var description: String {
     switch self {
-    case .mandatoryKeyNotFound(let key):
-      return "mandatoryKeyNotFound: \(key)"
-    case .mandatoryRawRepresentableHasIncorrectValue(let rawRepresentable, let rawValue):
-      return "mandatoryRawRepresentableHasIncorrectValue: \(rawRepresentable): \(rawValue)"
+    case .keyNotFound(_, let key):
+      return "Key not found: \(key)"
+    case .incorrectRawRepresentableRawValue(let rawRepresentable, let rawValue):
+      return "Incorrect rawValue for \(rawRepresentable): \(rawValue)"
+    case .incorrectTypeInArray(_, let expectedType, let value):
+      return "Incorrect type in [\(expectedType)]: \(value)"
+    case .incorrectTypeInDictionary(_, let key, let expectedType, let value):
+      return "Incorrect type in [String: \(expectedType)] for key \"\(key)\": \(value)"
+    case .conversionFailure(let type, let value):
+      return "\(type) failed to convert: \(value)"
     }
   }
 
-}
-
-/**
- Error used when a json value fails to be transformed
- 
- - couldNotTransformJSONValue: The value that failed to be transformed
- */
-public enum JSONPrimitiveConvertibleError<ValueType: JSONRawType>: Error, CustomStringConvertible {
-  case couldNotTransformJSONValue(value: ValueType)
-
-  public var description: String {
+  public var name: String {
     switch self {
-    case .couldNotTransformJSONValue(let value):
-      return "couldNotTransformJSONValue: \(value)"
+    case .keyNotFound:
+      return "Key not found"
+    case .incorrectRawRepresentableRawValue:
+      return "Incorrect RawRepresentable RawValue"
+    case .incorrectTypeInArray:
+      return "Incorrect type in array"
+    case .incorrectTypeInDictionary:
+      return "Incorrect type in dictionary"
+    case .conversionFailure:
+      return "Conversion failure"
     }
   }
-
 }

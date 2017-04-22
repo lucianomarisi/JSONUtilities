@@ -2,10 +2,18 @@
 
 ## 4.0.0
 
-- Decoded typed dictionaries now filter out invalid objects instead of failing the whole response. This aligns how arrays are parsed where invalid objects are filtered out.
-- Typed dictionaries function now allow for either removing invalid items or failing to parse the whole dictionary, i.e.
+- Decoded typed dictionaries now filter out invalid objects by default instead of failing the whole response. This aligns with the defaults of how arrays are decoded.
+- Typed dictionaries and array functions now allow for either removing invalid items or failing to parse the whole dictionary or array, i.e.
 	- `json(atKeyPath: invalidItemBehaviour:)`, 
-	- The `invalidItemBehaviour` parameter defaults to `remove`
+	- The `invalidItemBehaviour` parameter defaults to `.remove`
+- DecodingError: renamed errors, added new errors, and combined with JSONPrimitiveConvertibleError. There are now the following types of DecodingErrors:
+	- keyNotFound
+	- incorrectRawRepresentableRawValue
+	- incorrectTypeInArray
+	- incorrectTypeInDictionary
+	- conversionFailure
+- DecodingError: added more information (such as the dictionary where a specified key could not be found)
+- DecodingError: changed descriptions, including the new information
 
 ## 3.2.0
 
