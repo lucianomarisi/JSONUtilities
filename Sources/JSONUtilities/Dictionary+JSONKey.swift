@@ -28,8 +28,13 @@ public enum InvalidItemBehaviour {
 // Simple protocol used to extend a JSONDictionary
 public protocol StringProtocol {
   func components(separatedBy: String) -> [String]
+  var string: String { get }
 }
-extension String: StringProtocol {}
+extension String: StringProtocol {
+  public var string: String {
+    return self
+  }
+}
 
 extension Dictionary where Key: StringProtocol {
 
@@ -139,8 +144,8 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an Array of mandatory Decodable objects
   public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonArray, value in
-      let jsonDictionary: JSONDictionary = try getValue(array: jsonArray, value: value)
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { keyPath, jsonArray, value in
+      let jsonDictionary: JSONDictionary = try getValue(atKeyPath: keyPath, array: jsonArray, value: value)
       return try T(jsonDictionary: jsonDictionary)
     }
   }
@@ -157,7 +162,7 @@ extension Dictionary where Key: StringProtocol {
     let rawValue: T.RawValue = try getValue(atKeyPath: keyPath)
 
     guard let value = T(rawValue:rawValue) else {
-      throw DecodingError.incorrectRawRepresentableRawValue(rawRepresentable: T.self, rawValue: rawValue)
+      throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: rawValue, reason: .incorrectRawRepresentableRawValue)
     }
 
     return value
@@ -173,11 +178,11 @@ extension Dictionary where Key: StringProtocol {
   /// Decode an array of custom RawRepresentable types with a mandatory key
   public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] where T.RawValue:JSONRawType {
 
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonArray, value in
-      let rawValue: T.RawValue = try getValue(array: jsonArray, value: value)
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { keyPath, jsonArray, value in
+      let rawValue: T.RawValue = try getValue(atKeyPath: keyPath, array: jsonArray, value: value)
 
       guard let value = T(rawValue:rawValue) else {
-        throw DecodingError.incorrectRawRepresentableRawValue(rawRepresentable: T.self, rawValue: rawValue)
+        throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: rawValue, array: jsonArray, reason: .incorrectRawRepresentableRawValue)
       }
       return value
     }
@@ -195,7 +200,7 @@ extension Dictionary where Key: StringProtocol {
     let jsonValue: T.JSONType = try getValue(atKeyPath: keyPath)
 
     guard let transformedValue = T.from(jsonValue: jsonValue) else {
-      throw DecodingError.conversionFailure(type: T.self, value: jsonValue)
+      throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: jsonValue, reason: .conversionFailure)
     }
 
     return transformedValue
@@ -210,11 +215,11 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an array of custom raw types with a mandatory key
   public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove) throws -> [T] {
-    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonArray, value in
-      let jsonValue: T.JSONType = try getValue(array: jsonArray, value: value)
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { keyPath, jsonArray, value in
+      let jsonValue: T.JSONType = try getValue(atKeyPath: keyPath, array: jsonArray, value: value)
 
       guard let transformedValue = T.from(jsonValue: jsonValue) else {
-        throw DecodingError.conversionFailure(type: T.self, value: jsonValue)
+        throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: jsonValue, array: jsonArray, reason: .conversionFailure)
       }
       return transformedValue
     }
@@ -237,19 +242,19 @@ extension Dictionary where Key: StringProtocol {
 
   // MARK: Value decoding
 
-  fileprivate func getValue<A, B>(array: [A], value: A) throws -> B {
+  fileprivate func getValue<A, B>(atKeyPath keyPath: Key, array: [A], value: A) throws -> B {
     guard let typedValue = value as? B else {
-      throw DecodingError.incorrectTypeInArray(array: array, expectedType: B.self, value: value)
+      throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: B.self, value: value, array: array, reason: .incorrectType)
     }
     return typedValue
   }
 
-  fileprivate func getValue<T>(atKeyPath key: Key) throws -> T {
-    guard let value = self[key] else {
-      throw DecodingError.keyNotFound(dictionary: self, key: key)
+  fileprivate func getValue<T>(atKeyPath keyPath: Key) throws -> T {
+    guard let value = self[keyPath] else {
+      throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: "", reason: .keyNotFound)
     }
     guard let typedValue = value as? T else {
-      throw DecodingError.incorrectTypeInDictionary(dictionary: self, key: key, expectedType: T.self, value: value)
+      throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: value, reason: .incorrectType)
     }
     return typedValue
   }
@@ -277,15 +282,15 @@ extension Dictionary where Key: StringProtocol {
 
   // MARK: Array decoding
 
-  fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decode: (JSONArray, Any) throws -> T) throws -> [T] {
+  fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decode: (Key, JSONArray, Any) throws -> T) throws -> [T] {
     let jsonArray = try JSONArrayForKey(atKeyPath: keyPath)
 
     return try jsonArray.flatMap {
       switch invalidItemBehaviour {
       case .remove:
-        return try? decode(jsonArray, $0)
+        return try? decode(keyPath, jsonArray, $0)
       case .fail:
-        return try decode(jsonArray, $0)
+        return try decode(keyPath, jsonArray, $0)
       }
     }
   }

@@ -40,12 +40,8 @@ class InlineDecodingTests: XCTestCase {
     let decodedOptionalInt: JSONDictionary? = dictionary.json(atKeyPath: "key")
     XCTAssert(decodedOptionalInt == expectedValue)
 
-    do {
-      let _: JSONDictionary = try dictionary.json(atKeyPath: randomKey)
-    } catch let error {
-      let expectedError = DecodingError.keyNotFound(dictionary: expectedValue, key: randomKey)
-      let actualError = error as? DecodingError
-      XCTAssert(actualError == expectedError)
+    expectDecodingError(reason: .keyNotFound, keyPath: randomKey) {
+      let _ : JSONDictionary = try dictionary.json(atKeyPath: randomKey)
     }
 
     let decodedMissingInt: JSONDictionary? = dictionary.json(atKeyPath: randomKey)
@@ -73,22 +69,12 @@ class InlineDecodingTests: XCTestCase {
 
     let dictionary = ["enum": "three"]
 
-    do {
-      let _:MockParent.MockEnum = try dictionary.json(atKeyPath: "enumIncorrect")
-      XCTAssertThrowsError("Did not catch mandatoryKeyNotFound error")
-    } catch let error {
-      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: "enumIncorrect")
-      let actualError = error as? DecodingError
-      XCTAssert(expectedError == actualError)
+    expectDecodingError(reason: .keyNotFound, keyPath: "enumIncorrect") {
+      let _ : MockParent.MockEnum = try dictionary.json(atKeyPath: "enumIncorrect")
     }
 
-    do {
-      let _:MockParent.MockEnum = try dictionary.json(atKeyPath: "enum")
-      XCTAssertThrowsError("Did not catch mandatoryRawRepresentableHasIncorrectValue error")
-    } catch let error {
-      let expectedError = DecodingError.incorrectRawRepresentableRawValue(rawRepresentable: MockParent.MockEnum.self, rawValue: "three")
-      let actualError = error as? DecodingError
-      XCTAssert(expectedError == actualError)
+    expectDecodingError(reason: .incorrectRawRepresentableRawValue, keyPath: "enum") {
+      let _ : MockParent.MockEnum = try dictionary.json(atKeyPath: "enum")
     }
   }
 
@@ -113,14 +99,9 @@ class InlineDecodingTests: XCTestCase {
   func test_decodingMandatoryEnumArray_withoutKey() {
     let dictionary: JSONDictionary = ["enums": ["one", "!@1", "two"]]
 
-    do {
-      let _: [MockParent.MockEnum] = try dictionary.json(atKeyPath: "invalid_key")
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: "invalid_key")
-      XCTAssert(error as? DecodingError == expectedError)
+    expectDecodingError(reason: .keyNotFound, keyPath: "invalid_key") {
+      let _ : MockParent.MockEnum = try dictionary.json(atKeyPath: "invalid_key")
     }
-
   }
 
   func test_decodingOptionalEnumArray_withoutKey() {
@@ -141,12 +122,8 @@ class InlineDecodingTests: XCTestCase {
     let decodedOptionalInt: [JSONDictionary]? = dictionary.json(atKeyPath: "key")
     XCTAssert(decodedOptionalInt == expectedValue)
 
-    do {
-      let _: [JSONDictionary] = try dictionary.json(atKeyPath: randomKey)
-    } catch let error {
-      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: randomKey)
-      let actualError = error as? DecodingError
-      XCTAssert(actualError == expectedError)
+    expectDecodingError(reason: .keyNotFound, keyPath: randomKey) {
+      let _ : [JSONDictionary] = try dictionary.json(atKeyPath: randomKey)
     }
 
     let decodedMissingInt: [JSONDictionary]? = dictionary.json(atKeyPath: randomKey)
@@ -159,18 +136,20 @@ class InlineDecodingTests: XCTestCase {
     XCTAssert(decodedParent.children.count == 1)
   }
 
-  // MARK: DecodingErrorNames
+  // MARK: DecodingErrors
 
-  func testDecodingErrorNames() {
-    let errors: [DecodingError] = [
-      .keyNotFound(dictionary: [:], key: ""),
-      .incorrectRawRepresentableRawValue(rawRepresentable: MockParent.MockEnum.self, rawValue: ""),
-      .incorrectTypeInArray(array: [], expectedType: String.self, value: 0),
-      .incorrectTypeInDictionary(dictionary: [:], key: "", expectedType: String.self, value: 0),
-      .conversionFailure(type: String.self, value: "")
+  func testDecodingErrorDescriptions() {
+    let failureReasons: [DecodingError.Reason] = [
+      .keyNotFound,
+      .incorrectRawRepresentableRawValue,
+      .incorrectType,
+      .conversionFailure
     ]
-    errors.forEach {
-      XCTAssert($0.name.characters.count > 0)
+    failureReasons.forEach {
+      let error = DecodingError(dictionary: [:], keyPath: "", expectedType: String.self, value: "", array: nil, reason: $0)
+      XCTAssert(error.description.characters.count > 0)
+      XCTAssert(error.debugDescription.characters.count > 0)
+      XCTAssert(error.reason.description.characters.count > 0)
     }
   }
 
@@ -185,12 +164,8 @@ class InlineDecodingTests: XCTestCase {
     let decodedOptionalInt: ExpectedType? = dictionary.json(atKeyPath: "key")
     XCTAssertEqual(decodedOptionalInt!, expectedValue, file: file, line: line)
 
-    do {
-      let _: ExpectedType = try dictionary.json(atKeyPath: randomKey)
-    } catch let error {
-      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: randomKey)
-      let actualError = error as? DecodingError
-      XCTAssert(actualError == expectedError, file: file, line: line)
+    expectDecodingError(reason: .keyNotFound, keyPath: randomKey) {
+      let _ : ExpectedType = try dictionary.json(atKeyPath: randomKey)
     }
 
     let decodedMissingInt: ExpectedType? = dictionary.json(atKeyPath: randomKey)
@@ -206,21 +181,11 @@ class InlineDecodingTests: XCTestCase {
     let decodedOptionalInt: [ExpectedType]? = dictionary.json(atKeyPath: "key")
     XCTAssertEqual(decodedOptionalInt!, expectedValue, file: file, line: line)
 
-    do {
-      let _: [ExpectedType] = try dictionary.json(atKeyPath: randomKey)
-    } catch let error {
-      let expectedError = DecodingError.keyNotFound(dictionary: dictionary, key: randomKey)
-      let actualError = error as? DecodingError
-      XCTAssert(actualError == expectedError, file: file, line: line)
+    expectDecodingError(reason: .keyNotFound, keyPath: randomKey) {
+      let _ : [ExpectedType] = try dictionary.json(atKeyPath: randomKey)
     }
 
     let decodedMissingInt: [ExpectedType]? = dictionary.json(atKeyPath: randomKey)
     XCTAssertNil(decodedMissingInt)
   }
-
-}
-
-func == (lhs: DecodingError?, rhs: DecodingError?) -> Bool {
-  guard let lhs = lhs, let rhs = rhs else { return false }
-  return lhs.description == rhs.description
 }

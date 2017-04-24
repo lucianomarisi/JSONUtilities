@@ -30,24 +30,16 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
     let optionalTransformedURL: URL? = jsonDictionary.json(atKeyPath: "url")
     XCTAssertEqual(expectedURL, optionalTransformedURL)
 
-    do {
+    expectDecodingError(reason: .conversionFailure, keyPath: "invalid_url") {
       let _ : URL = try jsonDictionary.json(atKeyPath: "invalid_url")
-      XCTFail(#function)
-    } catch {
-      let expectedError = DecodingError.conversionFailure(type: URL.self, value: "±")
-      XCTAssert(error as? DecodingError == expectedError)
     }
   }
 
   func testDecodedAndTransformNSURL_missingKey() {
     let jsonDictionary = ["url": "url"]
 
-    do {
-      let _ : URL = try jsonDictionary.json(atKeyPath: invalidKey)
-      XCTFail(#function)
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: invalidKey)
-      XCTAssert(error as? DecodingError == expectedError)
+    expectDecodingError(reason: .keyNotFound, keyPath: invalidKey) {
+        let _ : URL = try jsonDictionary.json(atKeyPath: invalidKey)
     }
 
     let urlFromMissingKey: URL? = jsonDictionary.json(atKeyPath: invalidKey)
@@ -61,12 +53,8 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
     let decodedURLs: [URL] = try! jsonDictionary.json(atKeyPath: "urls")
     XCTAssertEqual(decodedURLs, expectedURLs)
 
-    do {
-      let _ : [URL] = try jsonDictionary.json(atKeyPath: invalidKey)
-      XCTFail(#function)
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: jsonDictionary, key: invalidKey)
-      XCTAssert(error as? DecodingError == expectedError)
+    expectDecodingError(reason: .keyNotFound, keyPath: invalidKey) {
+      let _ : URL = try jsonDictionary.json(atKeyPath: invalidKey)
     }
 
     let decodedOptionalURLs: [URL]? = jsonDictionary.json(atKeyPath: "urls")
@@ -79,12 +67,9 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
   func testJSONPrimitiveConvertibleArray_failsOnNonTransformable() {
     let expectedURLStrings = ["www.google.com", "±"]
     let jsonDictionary = ["urls": expectedURLStrings]
-    do {
-      let _: [URL] = try jsonDictionary.json(atKeyPath: "urls", invalidItemBehaviour: .fail)
-      XCTFail(#function)
-    } catch {
-      let expectedError = DecodingError.conversionFailure(type: URL.self, value: "±")
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .conversionFailure, keyPath: "urls") {
+      let _ : [URL] = try jsonDictionary.json(atKeyPath: "urls", invalidItemBehaviour: .fail)
     }
   }
 

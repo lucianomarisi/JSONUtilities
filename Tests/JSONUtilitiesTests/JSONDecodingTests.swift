@@ -83,46 +83,30 @@ class JSONDecoderTests: XCTestCase {
   }
 
   func testIncorrectDecodingForMandatoryJSONRawType() {
-    do {
+    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryStringKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.empty)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryStringKey")
-      XCTAssert(error as? DecodingError == expectedError)
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONRawTypeArray() {
-    do {
+    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryArrayStringKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutRawArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryArrayStringKey")
-      XCTAssert(error as? DecodingError == expectedError)
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONNestedObject() {
-    do {
+    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryCustomJSONObjectKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNested)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryCustomJSONObjectKey")
-      XCTAssert(error as? DecodingError == expectedError)
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONNestedObjectArray() {
-    do {
+    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryArrayCustomJSONObjectKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNestedArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
-      XCTAssertTrue(false)
-    } catch {
-      let expectedError = DecodingError.keyNotFound(dictionary: [:], key: "mandatoryArrayCustomJSONObjectKey")
-      XCTAssert(error as? DecodingError == expectedError)
     }
   }
 }
