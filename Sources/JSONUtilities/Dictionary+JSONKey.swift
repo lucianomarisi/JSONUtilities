@@ -282,6 +282,7 @@ extension Dictionary where Key: StringProtocol {
 
   // MARK: Array decoding
 
+  //swiftlint:disable:next large_tuple
   fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour = .remove, decode: (Key, JSONArray, Any) throws -> T) throws -> [T] {
     let jsonArray = try JSONArrayForKey(atKeyPath: keyPath)
 
