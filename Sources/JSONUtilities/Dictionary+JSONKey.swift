@@ -250,7 +250,7 @@ extension Dictionary where Key: StringProtocol {
   }
 
   fileprivate func getValue<T>(atKeyPath keyPath: Key) throws -> T {
-    guard let value = self[keyPath] else {
+    guard let value = self[keyPath: keyPath] else {
       throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: "", reason: .keyNotFound)
     }
     guard let typedValue = value as? T else {
