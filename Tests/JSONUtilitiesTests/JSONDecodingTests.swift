@@ -1,5 +1,5 @@
 //
-//  JSONDecoderTests.swift
+//  JSONDecodingTests.swift
 //  JSONUtilities
 //
 //  Created by Luciano Marisi on 21/11/2015.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import JSONUtilities
 
-class JSONDecoderTests: XCTestCase {
+class JSONDecodingTests: XCTestCase {
 
   let expectedChild = MockChild(string: "stringValue", integer: 1, double: 1.2, bool: true)
   let expectedDictionary: JSONDictionary = ["doubleKey": 1.2, "integerKey": 1, "stringKey": "stringValue", "boolKey": true]
@@ -75,36 +75,34 @@ class JSONDecoderTests: XCTestCase {
       XCTAssertEqual(mockJSONParent.optionalObjectDictionary!, ["value1": expectedChild, "value2": expectedChild])
       XCTAssertEqual(mockJSONParent.optionalURLDictionary!, ["value1": URL(string: "https://google.com")!, "value2": URL(string: "https://apple.com")!])
 
-    } catch let error as DecodingError {
-      XCTAssertEqual(error.description, "mandatoryKeyNotFound: stringKey")
     } catch {
       XCTFail("Unexpected error: \(error)")
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONRawType() {
-    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryStringKey") {
+    expectDecodingError(reason: .keyNotFound, keyPath: "keypath.mandatoryStringKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.empty)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONRawTypeArray() {
-    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryArrayStringKey") {
+    expectDecodingError(reason: .keyNotFound, keyPath: "keypath.mandatoryArrayStringKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutRawArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONNestedObject() {
-    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryCustomJSONObjectKey") {
+    expectDecodingError(reason: .keyNotFound, keyPath: "keypath.mandatoryCustomJSONObjectKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNested)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
     }
   }
 
   func testIncorrectDecodingForMandatoryJSONNestedObjectArray() {
-    expectDecodingError(reason: .keyNotFound, keyPath: "mandatoryArrayCustomJSONObjectKey") {
+    expectDecodingError(reason: .keyNotFound, keyPath: "keypath.mandatoryArrayCustomJSONObjectKey") {
       let jsonDictionary = try JSONDictionary.from(url: JSONFilePath.correctWithoutNestedArray)
       let _ = try MockParent(jsonDictionary: jsonDictionary)
     }

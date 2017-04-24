@@ -1,66 +1,67 @@
 {
-  "mandatoryStringKey" : "stringValue",
-  "mandatoryIntKey" : 1,
-  "mandatoryDoubleKey" : 1.2,
-  "mandatoryBoolKey" : true,
-  "mandatoryCustomJSONObjectKey" : {
-    "stringKey" : "stringValue",
-    "integerKey" : 1,
-    "doubleKey" : 1.2,
-    "boolKey" : true
-  },
-  
-  "mandatoryArrayStringKey": ["1", "2"],
-  "mandatoryArrayIntKey": [1, 2],
-  "mandatoryArrayDoubleKey": [1.1, 1.2],
-  "mandatoryArrayBoolKey": [true, false],
-  "mandatoryArrayCustomJSONObjectKey" : [
-                                         {
-                                         "stringKey" : "stringValue",
-                                         "integerKey" : 1,
-                                         "doubleKey" : 1.2,
-                                         "boolKey" : true
-                                         },
-                                         {
-                                         "stringKey" : "stringValue",
-                                         "integerKey" : 1,
-                                         "doubleKey" : 1.2,
-                                         "boolKey" : true
-                                         },
-                                         {
-                                         "randomTypeObject" : 123
-                                         }
-                                         ],
-  "mandatoryWeakDictionaryKey" : {
-    "stringKey": "value",
-    "boolKey" : true
-  },
-  "mandatoryEnum": "one",
-  "mandatoryIntDictionary" : {
-    "value1": 1,
-    "value2" : 2,
-    "invalid" : "some invalid"
-  },
-  "mandatoryObjectDictionary" : {
-    "value1": {
-      "stringKey" : "stringValue",
-      "integerKey" : 1,
-      "doubleKey" : 1.2,
-      "boolKey" : true
+  "keypath": {
+    "mandatoryStringKey": "stringValue",
+    "mandatoryIntKey": 1,
+    "mandatoryDoubleKey": 1.2,
+    "mandatoryBoolKey": true,
+    "mandatoryCustomJSONObjectKey": {
+      "stringKey": "stringValue",
+      "integerKey": 1,
+      "doubleKey": 1.2,
+      "boolKey": true
     },
-    "value2" : {
-      "stringKey" : "stringValue",
-      "integerKey" : 1,
-      "doubleKey" : 1.2,
-      "boolKey" : true
+
+    "mandatoryArrayStringKey": ["1", "2"],
+    "mandatoryArrayIntKey": [1, 2],
+    "mandatoryArrayDoubleKey": [1.1, 1.2],
+    "mandatoryArrayBoolKey": [true, false],
+    "mandatoryArrayCustomJSONObjectKey": [{
+                                          "stringKey": "stringValue",
+                                          "integerKey": 1,
+                                          "doubleKey": 1.2,
+                                          "boolKey": true
+                                          },
+                                          {
+                                          "stringKey": "stringValue",
+                                          "integerKey": 1,
+                                          "doubleKey": 1.2,
+                                          "boolKey": true
+                                          },
+                                          {
+                                          "randomTypeObject": 123
+                                          }
+                                          ],
+    "mandatoryWeakDictionaryKey": {
+      "stringKey": "value",
+      "boolKey": true
     },
-    "invalid" : {
-      "stringKey" : "stringValue"
+    "mandatoryEnum": "one",
+    "mandatoryIntDictionary": {
+      "value1": 1,
+      "value2": 2,
+      "invalid": "some invalid"
+    },
+    "mandatoryObjectDictionary": {
+      "value1": {
+        "stringKey": "stringValue",
+        "integerKey": 1,
+        "doubleKey": 1.2,
+        "boolKey": true
+      },
+      "value2": {
+        "stringKey": "stringValue",
+        "integerKey": 1,
+        "doubleKey": 1.2,
+        "boolKey": true
+      },
+      "invalid": {
+        "stringKey": "stringValue"
+      }
+    },
+    "mandatoryURLDictionary": {
+      "value1": "https://google.com",
+      "value2": "https://apple.com",
+      "invalid": 2
     }
-  },
-  "mandatoryURLDictionary" : {
-    "value1": "https://google.com",
-    "value2" : "https://apple.com",
-    "invalid" : 2
-  },
+  }
 }
