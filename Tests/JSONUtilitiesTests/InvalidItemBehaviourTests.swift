@@ -166,25 +166,25 @@ class InvalidItemBehaviourTests: XCTestCase {
     }
   }
 
-  // MARK: Dictionary InvalidItemBehaviour.calculateValue
+  // MARK: Dictionary InvalidItemBehaviour.custom
 
-  func test_stringJSONRawTypeDictionary_setsValue_invalidItemBehaviourIsCalculateValue() {
+  func test_stringJSONRawTypeDictionary_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [String: String] = try dictionaryString.json(atKeyPath: key, invalidItemBehaviour: .calculateValue({"\($0.value)"}))
+      let decodedDictionary: [String: String] = try dictionaryString.json(atKeyPath: key, invalidItemBehaviour: .custom({"\($0.value)"}))
       XCTAssert(decodedDictionary["key2"] == "2")
     }
   }
 
-  func test_stringJSONPrimitiveConvertibleDictionary_setsValue_invalidItemBehaviourIsCalculateValue() {
+  func test_stringJSONPrimitiveConvertibleDictionary_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [String: URL] = try dictionaryConvertable.json(atKeyPath: key, invalidItemBehaviour: .calculateValue({URL(string: "\($0.value)")!}))
+      let decodedDictionary: [String: URL] = try dictionaryConvertable.json(atKeyPath: key, invalidItemBehaviour: .custom({URL(string: "\($0.value)")!}))
       XCTAssert(decodedDictionary["key2"]?.absoluteString == "2")
     }
   }
 
   func test_stringJSONObjectConvertibleDictionary_setsValue_invalidItemBehaviourIsCalculateValue() {
     expectNoError {
-      let decodedDictionary: [String: MockSimpleChild] = try dictionaryMockChild.json(atKeyPath: key, invalidItemBehaviour: .calculateValue({MockSimpleChild(name: "\($0.value)") }))
+      let decodedDictionary: [String: MockSimpleChild] = try dictionaryMockChild.json(atKeyPath: key, invalidItemBehaviour: .custom({MockSimpleChild(name: "\($0.value)") }))
       XCTAssert(decodedDictionary["key2"]?.name == "2")
     }
   }
@@ -212,26 +212,41 @@ class InvalidItemBehaviourTests: XCTestCase {
     }
   }
 
-  // MARK: Array InvalidItemBehaviour.calculateValue
+  // MARK: Array InvalidItemBehaviour.custom
 
-  func test_stringJSONRawTypeArray_setsValue_invalidItemBehaviourIsCalculateValue() {
+  func test_stringJSONRawTypeArray_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [String] = try arrayString.json(atKeyPath: key, invalidItemBehaviour: .calculateValue({"\($0.value)"}))
+      let decodedDictionary: [String] = try arrayString.json(atKeyPath: key, invalidItemBehaviour: .custom({"\($0.value)"}))
       XCTAssert(decodedDictionary.last == "2")
     }
   }
 
-  func test_stringJSONPrimitiveConvertibleArray_setsValue_invalidItemBehaviourIsCalculateValue() {
+  func test_stringJSONPrimitiveConvertibleArray_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [URL] = try arrayConvertable.json(atKeyPath: key, invalidItemBehaviour: .calculateValue({URL(string: "\($0.value)")!}))
+      let decodedDictionary: [URL] = try arrayConvertable.json(atKeyPath: key, invalidItemBehaviour: .custom({URL(string: "\($0.value)")!}))
       XCTAssert(decodedDictionary.last?.absoluteString == "2")
     }
   }
 
-  func test_stringJSONObjectConvertibleArray_setsValue_invalidItemBehaviourIsCalculateValue() {
+  func test_stringJSONObjectConvertibleArray_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [MockSimpleChild] = try arrayMockChild.json(atKeyPath: key, invalidItemBehaviour: .calculateValue({MockSimpleChild(name: "\($0.value)") }))
+      let decodedDictionary: [MockSimpleChild] = try arrayMockChild.json(atKeyPath: key, invalidItemBehaviour: .custom({MockSimpleChild(name: "\($0.value)") }))
       XCTAssert(decodedDictionary.last?.name == "2")
+    }
+  }
+
+  // MARK: InvalidItemBehaviour.custom
+
+  func test_invalidItemBehaviourIsCustom_removesNil() {
+    expectNoError {
+      let array: [String] = try arrayString.json(atKeyPath: key, invalidItemBehaviour: .custom({ _ in nil }))
+      XCTAssert(array.count == 1)
+    }
+  }
+
+  func test_invalidItemBehaviourIsCustom_throws() {
+    expectDecodingError(reason: .incorrectType, keyPath: key) {
+      let _: [String] = try arrayString.json(atKeyPath: key, invalidItemBehaviour: .custom({ throw $0 }))
     }
   }
 

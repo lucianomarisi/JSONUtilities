@@ -24,7 +24,7 @@ public enum InvalidItemBehaviour<T> {
   case remove
   case fail
   case value(T)
-  case calculateValue((DecodingError) -> T)
+  case custom((DecodingError) throws -> T?)
 }
 
 // Simple protocol used to extend a JSONDictionary
@@ -282,11 +282,11 @@ extension Dictionary where Key: StringProtocol {
         } catch {
           dictionary[key] = value
         }
-      case .calculateValue(let getValue):
+      case .custom(let getValue):
         do {
           dictionary[key] = try decode(jsonDictionary, key)
         } catch let error as DecodingError {
-          dictionary[key] = getValue(error)
+          dictionary[key] = try getValue(error)
         }
       }
     }
@@ -312,11 +312,11 @@ extension Dictionary where Key: StringProtocol {
         } catch {
           return value
         }
-      case .calculateValue(let getValue):
+      case .custom(let getValue):
         do {
           return try decode(keyPath, jsonArray, $0)
         } catch let error as DecodingError {
-          return getValue(error)
+          return try getValue(error)
         }
       }
     }
