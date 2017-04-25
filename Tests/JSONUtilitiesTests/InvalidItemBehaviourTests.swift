@@ -189,4 +189,192 @@ class InvalidItemBehaviourTests: XCTestCase {
     }
   }
 
+  // MARK: Dictionary InvalidItemBehaviour.value
+
+  func test_stringJSONRawTypeDictionary_setsValue_invalidItemBehaviourIsValue() {
+    let dictionary = [
+      "key": [
+        "key1": "value1",
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .value("default"))
+      XCTAssert(decodedDictionary["key2"] == "default")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleDictionary_setsValue_invalidItemBehaviourIsValue() {
+    let dictionary = [
+      "key": [
+        "key1": "www.google.com",
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .value(URL(string: "test.com")!))
+      XCTAssert(decodedDictionary["key2"]?.absoluteString == "test.com")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONObjectConvertibleDictionaryy_setsValue_invalidItemBehaviourIsValue() {
+    let dictionary = [
+      "key": [
+        "key1": ["name": "john"],
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .value(MockSimpleChild(name: "default")))
+      XCTAssert(decodedDictionary["key2"]?.name == "default")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  // MARK: Dictionary InvalidItemBehaviour.calculateValue
+
+  func test_stringJSONRawTypeDictionary_setsValue_invalidItemBehaviourIsCalculateValue() {
+    let dictionary = [
+      "key": [
+        "key1": "value1",
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .calculateValue({"\($0.value)"}))
+      XCTAssert(decodedDictionary["key2"] == "2")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleDictionary_setsValue_invalidItemBehaviourIsCalculateValue() {
+    let dictionary = [
+      "key": [
+        "key1": "www.google.com",
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .calculateValue({URL(string: "\($0.value)")!}))
+      XCTAssert(decodedDictionary["key2"]?.absoluteString == "2")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONObjectConvertibleDictionary_setsValue_invalidItemBehaviourIsCalculateValue() {
+    let dictionary = [
+      "key": [
+        "key1": ["name": "john"],
+        "key2": 2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .calculateValue({MockSimpleChild(name: "\($0.value)") }))
+      XCTAssert(decodedDictionary["key2"]?.name == "2")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  // MARK: Array InvalidItemBehaviour.value
+
+  func test_stringJSONRawTypeArray_setsValue_invalidItemBehaviourIsValue() {
+    let dictionary = [
+      "key": [
+        "value1",
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .value("default"))
+      XCTAssert(decodedDictionary.last == "default")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleArray_setsValue_invalidItemBehaviourIsValue() {
+    let dictionary = [
+      "key": [
+        "www.google.com",
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .value(URL(string: "test.com")!))
+      XCTAssert(decodedDictionary.last?.absoluteString == "test.com")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONObjectConvertibleArray_setsValue_invalidItemBehaviourIsValue() {
+    let dictionary = [
+      "key": [
+        ["name": "john"],
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .value(MockSimpleChild(name: "default")))
+      XCTAssert(decodedDictionary.last?.name == "default")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  // MARK: Array InvalidItemBehaviour.calculateValue
+
+  func test_stringJSONRawTypeArray_setsValue_invalidItemBehaviourIsCalculateValue() {
+    let dictionary = [
+      "key": [
+        "value1",
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .calculateValue({"\($0.value)"}))
+      XCTAssert(decodedDictionary.last == "2")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONPrimitiveConvertibleArray_setsValue_invalidItemBehaviourIsCalculateValue() {
+    let dictionary = [
+      "key": [
+        "www.google.com",
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .calculateValue({URL(string: "\($0.value)")!}))
+      XCTAssert(decodedDictionary.last?.absoluteString == "2")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
+  func test_stringJSONObjectConvertibleArray_setsValue_invalidItemBehaviourIsCalculateValue() {
+    let dictionary = [
+      "key": [
+        ["name": "john"],
+        2
+      ]
+    ]
+    do {
+      let decodedDictionary: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .calculateValue({MockSimpleChild(name: "\($0.value)") }))
+      XCTAssert(decodedDictionary.last?.name == "2")
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
 }

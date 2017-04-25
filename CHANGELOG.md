@@ -3,9 +3,7 @@
 ## 4.0.0
 
 - Decoded typed dictionaries now filter out invalid objects by default instead of failing the whole response. This aligns with the defaults of how arrays are decoded.
-- Typed dictionaries and array functions now allow for either removing invalid items or failing to parse the whole dictionary or array, i.e.
-	- `json(atKeyPath: invalidItemBehaviour:)`, 
-	- The `invalidItemBehaviour` parameter defaults to `.remove`
+- Typed dictionaries and array functions now allow for specifiying the behaviour of when a child item encounters an error. See [InvalidItemBehaviour](Readme.md#InvalidItemBehaviour) for more details. The default is to remove these child items with `.remove`
 - DecodingError has been restructured, so that every error provides:
 	- dictionary
 	- keypath
@@ -17,6 +15,8 @@
 	- incorrectRawRepresentableRawValue
 	- incorrectType
 	- conversionFailure
+
+Thanks to [Yonas Kolb](https://github.com/yonaskolb)
 
 ## 3.2.0
 

@@ -65,11 +65,14 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 - `[String: JSONObjectConvertible]`
 - `[String: JSONPrimitiveConvertible]`
 
-### Notes
+## InvalidItemBehaviour
 
-- When decoding arrays or dictionaries an `invalidItemBehaviour` parameter can be passed which controls what happens when an error occurs while decoding child items
-	- `.remove` this will simply remove the item from the array or dictionary. This is the default
-	- `.fail` if any of the children encounter an error the whole array or dictionary decoding will fail. For optional properties this means the array or dictionary will return nil, and for non optional properties it will throw an error
+When decoding arrays or dictionaries an `invalidItemBehaviour` parameter can be passed which controls what happens when an error occurs while decoding child items
+
+- `.remove` this will simply remove the item from the array or dictionary. This is the default
+- `.fail` if any of the children encounter an error the whole array or dictionary decoding will fail. For optional properties this means the array or dictionary will return nil, and for non optional properties it will throw an error
+- `.value(T)` Provide an alternative value
+- `.calculateValue((DecodingError) -> T)` Calculate an alternative value based on the DecodingError via a closure. This lets you look up information about the error to make an informed decision.
 
 ## Examples of JSON loading
 
