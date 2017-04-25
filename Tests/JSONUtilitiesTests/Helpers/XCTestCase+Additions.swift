@@ -15,6 +15,14 @@ extension XCTestCase {
     return Bundle(for: type(of: self))
   }
 
+  func expectNoError(decode: () throws -> Void) {
+    do {
+      try decode()
+    } catch {
+      XCTFail("Should not throw error")
+    }
+  }
+
   func expectDecodingError(reason: DecodingError.Reason, keyPath: String, decode: () throws -> Void) {
     do {
       try decode()
