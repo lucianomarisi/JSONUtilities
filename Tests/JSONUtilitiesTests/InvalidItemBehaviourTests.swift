@@ -22,12 +22,9 @@ class InvalidItemBehaviourTests: XCTestCase {
         "key2": 2
       ]
     ]
-    do {
-      let _: [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.incorrectTypeInDictionary(dictionary: dictionary, key: "key2", expectedType: String.self, value: 2)
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .incorrectType, keyPath: "key2") {
+      let _ : [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
     }
   }
 
@@ -38,12 +35,9 @@ class InvalidItemBehaviourTests: XCTestCase {
         "key2": 2
       ]
     ]
-    do {
-      let _: [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.incorrectTypeInDictionary(dictionary: dictionary, key: "key2", expectedType: String.self, value: 2)
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .incorrectType, keyPath: "key2") {
+      let _ : [String: URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
     }
   }
 
@@ -54,12 +48,9 @@ class InvalidItemBehaviourTests: XCTestCase {
         "key2": 2
       ]
     ]
-    do {
-      let _: [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.incorrectTypeInDictionary(dictionary: dictionary, key: "key2", expectedType: JSONDictionary.self, value: 2)
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .incorrectType, keyPath: "key2") {
+      let _ : [String: MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
     }
   }
 
@@ -119,12 +110,9 @@ class InvalidItemBehaviourTests: XCTestCase {
         2
       ]
     ]
-    do {
-      let _: [String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.incorrectTypeInArray(array: [], expectedType: String.self, value: 2)
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .incorrectType, keyPath: "key") {
+      let _ : [String: String] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
     }
   }
 
@@ -135,12 +123,9 @@ class InvalidItemBehaviourTests: XCTestCase {
         2
       ]
     ]
-    do {
-      let _: [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.incorrectTypeInArray(array: [], expectedType: String.self, value: 2)
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .incorrectType, keyPath: "key") {
+      let _ : [URL] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
     }
   }
 
@@ -151,13 +136,9 @@ class InvalidItemBehaviourTests: XCTestCase {
         2
       ]
     ]
-    do {
-      let _: [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
-      XCTFail("Error not thrown")
-    } catch {
-      let expectedError = DecodingError.incorrectTypeInArray(array: [], expectedType: JSONDictionary.self, value: 2)
-      print(error)
-      XCTAssert(error as? DecodingError == expectedError)
+
+    expectDecodingError(reason: .incorrectType, keyPath: "key") {
+      let _ : [MockSimpleChild] = try dictionary.json(atKeyPath: "key", invalidItemBehaviour: .fail)
     }
   }
 
