@@ -17,4 +17,29 @@ public enum InvalidItemBehaviour<T> {
   case fail
   case value(T)
   case custom((DecodingError) throws -> T?)
+
+  func decodeItem(decode: () throws -> T) throws -> T? {
+    switch self {
+    case .remove:
+      do {
+         return try decode()
+      } catch {
+        return nil
+      }
+    case .fail:
+      return try decode()
+    case .value(let value):
+      do {
+        return try decode()
+      } catch {
+        return value
+      }
+    case .custom(let getValue):
+      do {
+        return try decode()
+      } catch let error as DecodingError {
+        return try getValue(error)
+      }
+    }
+  }
 }

@@ -257,26 +257,8 @@ extension Dictionary where Key: StringProtocol {
 
     var dictionary: [String: T] = [:]
     for (key, _) in jsonDictionary {
-
-      switch invalidItemBehaviour {
-      case .remove:
-        if let typedItem = try? decode(jsonDictionary, key) {
-          dictionary[key] = typedItem
-        }
-      case .fail:
-        dictionary[key] = try decode(jsonDictionary, key)
-      case .value(let value):
-        do {
-          dictionary[key] = try decode(jsonDictionary, key)
-        } catch {
-          dictionary[key] = value
-        }
-      case .custom(let getValue):
-        do {
-          dictionary[key] = try decode(jsonDictionary, key)
-        } catch let error as DecodingError {
-          dictionary[key] = try getValue(error)
-        }
+      if let item = try invalidItemBehaviour.decodeItem(decode: { try decode(jsonDictionary, key) }) {
+          dictionary[key] = item
       }
     }
 
@@ -289,25 +271,8 @@ extension Dictionary where Key: StringProtocol {
   fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove, decode: (Key, JSONArray, Any) throws -> T) throws -> [T] {
     let jsonArray = try JSONArrayForKey(atKeyPath: keyPath)
 
-    return try jsonArray.flatMap {
-      switch invalidItemBehaviour {
-      case .remove:
-        return try? decode(keyPath, jsonArray, $0)
-      case .fail:
-        return try decode(keyPath, jsonArray, $0)
-      case .value(let value):
-        do {
-          return try decode(keyPath, jsonArray, $0)
-        } catch {
-          return value
-        }
-      case .custom(let getValue):
-        do {
-          return try decode(keyPath, jsonArray, $0)
-        } catch let error as DecodingError {
-          return try getValue(error)
-        }
-      }
+    return try jsonArray.flatMap { value in
+      try invalidItemBehaviour.decodeItem(decode: { try decode(keyPath, jsonArray, value) })
     }
   }
 
