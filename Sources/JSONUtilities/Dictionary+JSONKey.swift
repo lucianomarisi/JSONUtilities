@@ -16,17 +16,6 @@ extension Float : JSONRawType {}
 extension String : JSONRawType {}
 extension Bool : JSONRawType {}
 
-/// The behaviour of what should be done when an invalid JSON object or primitive is found
-///
-/// - remove: The item is filtered, only valid items are returned
-/// - fail:  The call fails. For non optional properties this will throw an error, and for optional properties nil is returned
-public enum InvalidItemBehaviour<T> {
-  case remove
-  case fail
-  case value(T)
-  case custom((DecodingError) throws -> T?)
-}
-
 // Simple protocol used to extend a JSONDictionary
 public protocol StringProtocol {
   func components(separatedBy: String) -> [String]
