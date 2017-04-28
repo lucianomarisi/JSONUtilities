@@ -73,7 +73,7 @@ public struct DecodingError: Error, CustomStringConvertible, CustomDebugStringCo
     /// The value has the incorrect type
     case incorrectType = "Incorrect type"
 
-    /// A JSONPrimitiveConvertable failed to convert
+    /// A JSONPrimitiveConvertible failed to convert
     case conversionFailure = "Conversion failure"
 
     public var description: String {
