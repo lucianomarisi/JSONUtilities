@@ -22,7 +22,7 @@ class InvalidItemBehaviourTests: XCTestCase {
     ]
   ]
 
-  let dictionaryConvertable = [
+  let dictionaryConvertible = [
     "key": [
       "key1": "www.google.com",
       "key2": 2
@@ -43,7 +43,7 @@ class InvalidItemBehaviourTests: XCTestCase {
     ]
   ]
 
-  let arrayConvertable = [
+  let arrayConvertible = [
     "key": [
       "www.google.com",
       2
@@ -67,7 +67,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
     expectDecodingError(reason: .incorrectType, keyPath: "key2") {
-      let _ : [String: URL] = try dictionaryConvertable.json(atKeyPath: key, invalidItemBehaviour: .fail)
+      let _ : [String: URL] = try dictionaryConvertible.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
   }
 
@@ -88,7 +88,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleDictionary_removesInvalidObjects_invalidItemBehaviourIsRemove() {
     expectNoError {
-      let decodedDictionary: [String: URL] = try dictionaryConvertable.json(atKeyPath: key, invalidItemBehaviour: .remove)
+      let decodedDictionary: [String: URL] = try dictionaryConvertible.json(atKeyPath: key, invalidItemBehaviour: .remove)
       XCTAssert(decodedDictionary.count == 1)
     }
   }
@@ -110,7 +110,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
     expectDecodingError(reason: .incorrectType, keyPath: key) {
-      let _ : [URL] = try arrayConvertable.json(atKeyPath: key, invalidItemBehaviour: .fail)
+      let _ : [URL] = try arrayConvertible.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
   }
 
@@ -131,7 +131,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleArray_removesInvalidObjects_invalidItemBehaviourIsRemove() {
    expectNoError {
-      let decodedDictionary: [URL] = try arrayConvertable.json(atKeyPath: key, invalidItemBehaviour: .remove)
+      let decodedDictionary: [URL] = try arrayConvertible.json(atKeyPath: key, invalidItemBehaviour: .remove)
       XCTAssert(decodedDictionary.count == 1)
     }
   }
@@ -154,7 +154,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleDictionary_setsValue_invalidItemBehaviourIsValue() {
     expectNoError {
-      let decodedDictionary: [String: URL] = try dictionaryConvertable.json(atKeyPath: key, invalidItemBehaviour: .value(URL(string: "test.com")!))
+      let decodedDictionary: [String: URL] = try dictionaryConvertible.json(atKeyPath: key, invalidItemBehaviour: .value(URL(string: "test.com")!))
       XCTAssert(decodedDictionary["key2"]?.absoluteString == "test.com")
     }
   }
@@ -177,7 +177,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleDictionary_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [String: URL] = try dictionaryConvertable.json(atKeyPath: key, invalidItemBehaviour: .custom({URL(string: "\($0.value)")!}))
+      let decodedDictionary: [String: URL] = try dictionaryConvertible.json(atKeyPath: key, invalidItemBehaviour: .custom({URL(string: "\($0.value)")!}))
       XCTAssert(decodedDictionary["key2"]?.absoluteString == "2")
     }
   }
@@ -200,7 +200,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleArray_setsValue_invalidItemBehaviourIsValue() {
     expectNoError {
-      let decodedDictionary: [URL] = try arrayConvertable.json(atKeyPath: key, invalidItemBehaviour: .value(URL(string: "test.com")!))
+      let decodedDictionary: [URL] = try arrayConvertible.json(atKeyPath: key, invalidItemBehaviour: .value(URL(string: "test.com")!))
       XCTAssert(decodedDictionary.last?.absoluteString == "test.com")
     }
   }
@@ -223,7 +223,7 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   func test_stringJSONPrimitiveConvertibleArray_setsValue_invalidItemBehaviourIsCustom() {
     expectNoError {
-      let decodedDictionary: [URL] = try arrayConvertable.json(atKeyPath: key, invalidItemBehaviour: .custom({URL(string: "\($0.value)")!}))
+      let decodedDictionary: [URL] = try arrayConvertible.json(atKeyPath: key, invalidItemBehaviour: .custom({URL(string: "\($0.value)")!}))
       XCTAssert(decodedDictionary.last?.absoluteString == "2")
     }
   }
