@@ -16,13 +16,13 @@ public enum InvalidItemBehaviour<T> {
   case remove
   case fail
   case value(T)
-  case custom((DecodingError) throws -> T?)
+  case custom((DecodingError) -> InvalidItemBehaviour<T>)
 
   func decodeItem(decode: () throws -> T) throws -> T? {
     switch self {
     case .remove:
       do {
-         return try decode()
+        return try decode()
       } catch {
         return nil
       }
@@ -34,11 +34,13 @@ public enum InvalidItemBehaviour<T> {
       } catch {
         return value
       }
-    case .custom(let getValue):
+    case .custom(let getBehaviour):
       do {
         return try decode()
-      } catch let error as DecodingError {
-        return try getValue(error)
+      } catch {
+        guard let error = error as? DecodingError else { return nil }
+        let behaviour = getBehaviour(error)
+        return try behaviour.decodeItem(decode: decode)
       }
     }
   }

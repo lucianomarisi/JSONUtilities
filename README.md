@@ -72,7 +72,7 @@ When decoding arrays or dictionaries an `invalidItemBehaviour` parameter can be 
 - `.remove` this will simply remove the item from the array or dictionary. This is the default
 - `.fail` if any of the children encounter an error the whole array or dictionary decoding will fail. For optional properties this means the array or dictionary will return nil, and for non optional properties it will throw an error
 - `.value(T)` Provide an alternative value
-- `.custom((DecodingError) throws -> T?)` Calculate an alternative value based on the DecodingError via a closure. This lets you look up information about the error to make an informed decision. If you throw an error (typically the one that is passed) this will have the same behaviour as `.fail`, and if you return nil it will be the same as `.remove`
+- `.custom((DecodingError) -> InvalidItemBehaviour)` Lets you specify the behaviour based on the specific DecodingError
 
 ## Examples of JSON loading
 
