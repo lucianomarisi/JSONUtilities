@@ -59,19 +59,19 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   // MARK: Dictionary InvalidItemBehaviour.fail
 
-  func test_stringJSONRawTypeDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+  func test_stringJSONRawTypeDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsFail() {
     expectDecodingError(reason: .incorrectType, keyPath: "key2") {
       let _ : [String: String] = try dictionaryString.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
   }
 
-  func test_stringJSONPrimitiveConvertibleDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+  func test_stringJSONPrimitiveConvertibleDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsFail() {
     expectDecodingError(reason: .incorrectType, keyPath: "key2") {
       let _ : [String: URL] = try dictionaryConvertible.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
   }
 
-  func test_stringJSONObjectConvertibleDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+  func test_stringJSONObjectConvertibleDictionaryFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsFail() {
     expectDecodingError(reason: .incorrectType, keyPath: "key2") {
       let _ : [String: MockSimpleChild] = try dictionaryMockChild.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
@@ -102,19 +102,19 @@ class InvalidItemBehaviourTests: XCTestCase {
 
   // MARK: Array InvalidItemBehaviour.fail
 
-  func test_stringJSONRawTypeArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+  func test_stringJSONRawTypeArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsFail() {
     expectDecodingError(reason: .incorrectType, keyPath: key) {
       let _ : [String: String] = try arrayString.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
   }
 
-  func test_stringJSONPrimitiveConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+  func test_stringJSONPrimitiveConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsFail() {
     expectDecodingError(reason: .incorrectType, keyPath: key) {
       let _ : [URL] = try arrayConvertible.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
   }
 
-  func test_stringJSONObjectConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsThrow() {
+  func test_stringJSONObjectConvertibleArrayFails_whenThereAreInvalidObjects_and_invalidItemBehaviourIsFail() {
     expectDecodingError(reason: .incorrectType, keyPath: key) {
       let _ : [MockSimpleChild] = try arrayMockChild.json(atKeyPath: key, invalidItemBehaviour: .fail)
     }
