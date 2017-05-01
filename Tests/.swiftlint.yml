@@ -4,3 +4,4 @@ disabled_rules:
   - force_cast
   - type_name
   - function_body_length
+  - redundant_discardable_let
