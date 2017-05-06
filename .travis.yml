@@ -21,8 +21,7 @@ script:
     Mac)
       xcodebuild -scheme JSONUtilities -enableCodeCoverage YES test | xcpretty;;
     iOS|tvOS)
-      open -a "simulator" --args -CurrentDeviceUDID "$UUID"
-      xcodebuild -scheme JSONUtilities -destination "id=$UUID" -enableCodeCoverage YES test | xcpretty;;
+      open -a "simulator" --args -CurrentDeviceUDID "$UUID" && xcodebuild -scheme JSONUtilities -destination "id=$UUID" -enableCodeCoverage YES test | xcpretty;;
     watchOS)
       xcodebuild -scheme JSONUtilities -destination "name=Apple Watch - 38mm" | xcpretty;;
     SPM)
