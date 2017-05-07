@@ -5,6 +5,7 @@
 [![](https://img.shields.io/cocoapods/p/JSONUtilities.svg)](https://cocoapods.org/pods/JSONUtilities)
 [![codecov.io](http://codecov.io/github/lucianomarisi/JSONUtilities/coverage.svg?branch=master)](http://codecov.io/github/lucianomarisi/JSONUtilities?branch=master)
 [![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/JSONUtilities.svg)](http://cocoadocs.org/docsets/JSONUtilities/)
+![Carthage Compatible](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)
 ![Swift Version](https://img.shields.io/badge/swift-3.0-brightgreen.svg)
 
 Easily load JSON objects and decode them into structs or classes. The `json(atKeyPath:)` function infers the type from the constant or variable definition to decode meaning no casting is needed. Both string keys and keypaths (keys separated by dots `.`) are supported when decoding JSON.
@@ -13,20 +14,21 @@ Easily load JSON objects and decode them into structs or classes. The `json(atKe
 
 ## Installation
 
-Either
+**CocoaPods:**
 
-- Use [CocoaPods](http://cocoapods.org):
+Add the line `pod 'JSONUtilities'` to your `Podfile`.
 
-	`pod 'JSONUtilities'`
+**Carthage:**
 
-OR
+Add the line `github "lucianomarisi/JSONUtilities"` to your `Cartfile`.
 
-- Use [Swift Package Manager](https://github.com/apple/swift-package-manager)
+**Manual:**
 
-OR
+Add the files inside the `Sources` folder into your Xcode project.
 
-- Add the files inside the `Sources` folder to your project
+**Swift Package Manager:**
 
+Add the line `.Package(url: "https://github.com/lucianomarisi/JSONUtilities", majorVersion: 3)` to your `Package.swift`.
 
 ## Types supported
 
@@ -121,14 +123,14 @@ struct Person { //OR class Person {
   let age: Int
   let weight: Double
   let profession: String?
-   
+
   init(jsonDictionary: JSONDictionary) throws {
     name = try jsonDictionary.json(atKeyPath: "name")
     age = try jsonDictionary.json(atKeyPath: "age")
     weight = try jsonDictionary.json(atKeyPath: "weight")
     profession = jsonDictionary.json(atKeyPath: "profession")
   }
-  
+
 }
 ```
 
@@ -160,7 +162,7 @@ The `Company` struct can decode an array of `Person` structs/classes by making `
 struct Company {
   let name: String
   let employees: [Person]
-  
+
   init(jsonDictionary: JSONDictionary) throws {
     name = try jsonDictionary.json(atKeyPath: "name")
     employees = try jsonDictionary.json(atKeyPath: "employees")
@@ -177,11 +179,11 @@ Any type can extend the `JSONPrimitiveConvertible` protocol in order to allow de
 extension URL: JSONPrimitiveConvertible {
 
   public typealias JSONType = String
-  
+
   public static func from(jsonValue: String) -> Self? {
     return self.init(string: jsonValue)
   }
-  
+
 }
 
 let urlDictionary = ["url": "www.google.com"]

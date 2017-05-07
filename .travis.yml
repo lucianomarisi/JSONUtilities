@@ -2,11 +2,32 @@ os:
   - osx
 language: generic
 osx_image: xcode8
+
+env:
+  - PLATFORM=Mac
+  - PLATFORM=iOS NAME='iPhone 6s'
+  - PLATFORM=tvOS NAME='Apple TV 1080p'
+  - PLATFORM=watchOS
+  - PLATFORM=SPM
+
+before_install:
+  - if [ -n "$NAME" ]; then
+      export UUID=$(instruments -s | ruby -e "ARGF.each_line{ |ln| ln =~ /$NAME .* \[(.*)\]/; if \$1; puts(\$1); exit; end }");
+    fi
+
 script:
-  - xcrun instruments -t 'Blank' -l 10 -w "iPhone 6s (10.0)"
-  - swift build
-  - swift test
-  - xcodebuild -scheme JSONUtilities -configuration Debug -sdk iphonesimulator10.0 -destination "OS=10.0,name=iPhone 6s" test -enableCodeCoverage YES
+  - set -o pipefail;
+    case $PLATFORM in
+    Mac)
+      xcodebuild -scheme JSONUtilities -enableCodeCoverage YES test | xcpretty;;
+    iOS|tvOS)
+      open -a "simulator" --args -CurrentDeviceUDID "$UUID" && xcodebuild -scheme JSONUtilities -destination "id=$UUID" -enableCodeCoverage YES test | xcpretty;;
+    watchOS)
+      xcodebuild -scheme JSONUtilities -destination "name=Apple Watch - 38mm" | xcpretty;;
+    SPM)
+      swift build && swift test;;
+    esac
+
 after_success:
   - sleep 5
   - bash <(curl -s https://codecov.io/bash)

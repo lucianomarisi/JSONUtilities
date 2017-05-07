@@ -6,7 +6,7 @@
 //  Copyright © 2015 Luciano Marisi All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for JSONUtilities.
 FOUNDATION_EXPORT double JSONUtilitiesVersionNumber;
