@@ -4,7 +4,6 @@
 [![](https://img.shields.io/cocoapods/v/JSONUtilities.svg)](https://cocoapods.org/pods/JSONUtilities)
 [![](https://img.shields.io/cocoapods/p/JSONUtilities.svg)](https://cocoapods.org/pods/JSONUtilities)
 [![codecov.io](http://codecov.io/github/lucianomarisi/JSONUtilities/coverage.svg?branch=master)](http://codecov.io/github/lucianomarisi/JSONUtilities?branch=master)
-[![Documentation](https://img.shields.io/cocoapods/metrics/doc-percent/JSONUtilities.svg)](http://cocoadocs.org/docsets/JSONUtilities/)
 ![Carthage Compatible](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)
 ![Swift Version](https://img.shields.io/badge/swift-3.0-brightgreen.svg)
 
