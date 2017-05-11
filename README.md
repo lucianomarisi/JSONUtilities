@@ -65,6 +65,7 @@ e.g. if `MyClass` and `MyStruct` conform to `JSONObjectConvertible` protocol
 - `[String: JSONRawType]`
 - `[String: JSONObjectConvertible]`
 - `[String: JSONPrimitiveConvertible]`
+- `[String: RawRepresentable]`
 
 ## InvalidItemBehaviour
 

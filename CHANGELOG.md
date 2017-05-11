@@ -15,6 +15,7 @@
 	- incorrectRawRepresentableRawValue
 	- incorrectType
 	- conversionFailure
+- `[String: RawRepresentable]` can be now be decoded
 
 Thanks to [Yonas Kolb](https://github.com/yonaskolb)
 

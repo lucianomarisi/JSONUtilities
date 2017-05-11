@@ -184,6 +184,25 @@ extension Dictionary where Key: StringProtocol {
     return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
   }
 
+  // MARK: [String: RawRepresentable] type
+
+  /// Decode a dictionary of custom RawRepresentable types with a mandatory key
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) throws -> [String: T] where T.RawValue:JSONRawType {
+    return try decodeDictionary(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { jsonDictionary, key in
+      let rawValue: T.RawValue = try jsonDictionary.getValue(atKeyPath: key)
+
+      guard let value = T(rawValue:rawValue) else {
+        throw DecodingError(dictionary: jsonDictionary, keyPath: keyPath, expectedType: T.self, value: rawValue, reason: .incorrectRawRepresentableRawValue)
+      }
+      return value
+    }
+  }
+
+  /// Optionally decode a dictionary of RawRepresentable types with a mandatory key
+  public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [String: T]? where T.RawValue:JSONRawType {
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+  }
+
   // MARK: JSONPrimitiveConvertible type
 
   /// Decode a custom raw types with a mandatory key
