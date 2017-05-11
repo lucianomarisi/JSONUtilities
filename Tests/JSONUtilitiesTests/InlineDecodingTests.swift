@@ -78,6 +78,24 @@ class InlineDecodingTests: XCTestCase {
     }
   }
 
+  func test_decodingMandatoryEnumDictionary_withKey() {
+    let dictionary: JSONDictionary = ["enums": ["value1": "one", "value2": "!@1", "value3": "two"]]
+
+    let decodedEnums: [String: MockParent.MockEnum] = try! dictionary.json(atKeyPath: "enums")
+
+    let expectedEnums: [String: MockParent.MockEnum] = ["value1": .one, "value3": .two]
+    XCTAssertEqual(decodedEnums, expectedEnums)
+  }
+
+  func test_decodingOptionalEnumDictionary_withKey() {
+    let dictionary: JSONDictionary = ["enums": ["value1": "one", "value2": "!@1", "value3": "two"]]
+
+    let decodedEnums: [String: MockParent.MockEnum]? = dictionary.json(atKeyPath: "enums")
+
+    let expectedEnums: [String: MockParent.MockEnum] = ["value1": .one, "value3": .two]
+    XCTAssertEqual(decodedEnums!, expectedEnums)
+  }
+
   func test_decodingMandatoryEnumArray_withKey() {
     let dictionary: JSONDictionary = ["enums": ["one", "!@1", "two"]]
 
