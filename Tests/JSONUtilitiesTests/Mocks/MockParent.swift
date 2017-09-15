@@ -18,7 +18,7 @@ struct MockParent {
     case two
   }
 
-  // Mark: JSON raw types and custom objects properties
+  // MARK: JSON raw types and custom objects properties
   let mandatoryString: String
   let mandatoryInt: Int
   let mandatoryDouble: Double
@@ -43,7 +43,7 @@ struct MockParent {
   let optionalMissingCustomJSONObject: MockChild?
   let optionalMissingEnum: MockEnum?
 
-  // Mark: Array properties
+  // MARK: Array properties
   let mandatoryArrayString: [String]
   let mandatoryArrayInt: [Int]
   let mandatoryArrayDouble: [Double]
