@@ -4,6 +4,9 @@ language: generic
 osx_image: xcode9
 
 env:
+  global:
+  - PROJECT_NAME=JSONUtilities
+  matrix:
   - PLATFORM=Mac
   - PLATFORM=iOS NAME='iPhone 6s'
   - PLATFORM=tvOS NAME='Apple TV 1080p'
@@ -19,11 +22,11 @@ script:
   - set -o pipefail;
     case $PLATFORM in
     Mac)
-      xcodebuild -scheme JSONUtilities -enableCodeCoverage YES test | xcpretty;;
+      xcodebuild -scheme $PROJECT_NAME -enableCodeCoverage YES test | xcpretty;;
     iOS|tvOS)
-      open -a "simulator" --args -CurrentDeviceUDID "$UUID" && xcodebuild -scheme JSONUtilities -destination "id=$UUID" -enableCodeCoverage YES test | xcpretty;;
+      open -a "simulator" --args -CurrentDeviceUDID "$UUID" && xcodebuild -scheme $PROJECT_NAME -destination "id=$UUID" -enableCodeCoverage YES test | xcpretty;;
     watchOS)
-      xcodebuild -scheme JSONUtilities -destination "name=Apple Watch - 38mm" | xcpretty;;
+      xcodebuild -scheme $PROJECT_NAME -destination "name=Apple Watch - 38mm" | xcpretty;;
     SPM)
       swift build && swift test;;
     esac
