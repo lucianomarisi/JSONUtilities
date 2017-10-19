@@ -1,5 +1,9 @@
 # Change Log
 
+## 5.0.0
+
+- Migrated to Swift 4
+
 ## 4.0.0
 
 - Decoded typed dictionaries now filter out invalid objects by default instead of failing the whole response. This aligns with the defaults of how arrays are decoded.

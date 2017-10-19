@@ -23,12 +23,12 @@ extension XCTestCase {
     }
   }
 
-  func expectDecodingError(reason: DecodingError.Reason, keyPath: String, decode: () throws -> Void) {
+  func expectDecodingError(reason: JSONUtilities.DecodingError.Reason, keyPath: String, decode: () throws -> Void) {
     do {
       try decode()
       XCTFail("Decoding was supposed to throw \"\(reason)\" error")
     } catch {
-      guard let error = error as? DecodingError else {
+      guard let error = error as? JSONUtilities.DecodingError else {
         XCTFail("Error is not a Decoding Error")
         return
       }

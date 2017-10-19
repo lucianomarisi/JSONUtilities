@@ -157,7 +157,7 @@ class InlineDecodingTests: XCTestCase {
   // MARK: DecodingErrors
 
   func testDecodingErrorDescriptions() {
-    let failureReasons: [DecodingError.Reason] = [
+    let failureReasons: [JSONUtilities.DecodingError.Reason] = [
       .keyNotFound,
       .incorrectRawRepresentableRawValue,
       .incorrectType,
