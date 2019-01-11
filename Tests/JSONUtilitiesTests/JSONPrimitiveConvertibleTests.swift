@@ -48,7 +48,7 @@ class JSONPrimitiveConvertibleTests: XCTestCase {
 
   func testJSONPrimitiveConvertibleArray() {
     let expectedURLStrings = ["www.google.com", "www.apple.com"]
-    let expectedURLs = expectedURLStrings.flatMap { URL(string: $0) }
+    let expectedURLs = expectedURLStrings.compactMap { URL(string: $0) }
     let jsonDictionary = ["urls": expectedURLStrings]
     let decodedURLs: [URL] = try! jsonDictionary.json(atKeyPath: "urls")
     XCTAssertEqual(decodedURLs, expectedURLs)

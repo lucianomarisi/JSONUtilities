@@ -1,30 +1,27 @@
 os:
   - osx
 language: generic
-osx_image: xcode9
+osx_image: xcode10.1
 
 env:
   global:
   - PROJECT_NAME=JSONUtilities
   matrix:
   - PLATFORM=Mac
-  - PLATFORM=iOS NAME='iPhone 6s'
+  - PLATFORM=iOS NAME='iPhone X'
   - PLATFORM=tvOS NAME='Apple TV 1080p'
   - PLATFORM=watchOS
   - PLATFORM=SPM
-
-before_install:
-  - if [ -n "$NAME" ]; then
-      export UUID=$(instruments -s | ruby -e "ARGF.each_line{ |ln| ln =~ /$NAME .* \[(.*)\]/; if \$1; puts(\$1); exit; end }");
-    fi
 
 script:
   - set -o pipefail;
     case $PLATFORM in
     Mac)
       xcodebuild -scheme $PROJECT_NAME -enableCodeCoverage YES test | xcpretty;;
-    iOS|tvOS)
-      open -a "simulator" --args -CurrentDeviceUDID "$UUID" && xcodebuild -scheme $PROJECT_NAME -destination "id=$UUID" -enableCodeCoverage YES test | xcpretty;;
+    iOS)
+      xcodebuild -scheme $PROJECT_NAME -destination "name=iPhone X" | xcpretty;;
+    tvOS)
+      xcodebuild -scheme $PROJECT_NAME -destination "name=Apple TV" | xcpretty;;
     watchOS)
       xcodebuild -scheme $PROJECT_NAME -destination "name=Apple Watch - 38mm" | xcpretty;;
     SPM)

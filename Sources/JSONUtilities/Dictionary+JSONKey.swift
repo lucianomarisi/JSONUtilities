@@ -288,8 +288,7 @@ extension Dictionary where Key: StringProtocol {
 
   fileprivate func decodeArray<T>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove, decode: (Key, JSONArray, Any) throws -> T) throws -> [T] {
     let jsonArray = try JSONArrayForKey(atKeyPath: keyPath)
-
-    return try jsonArray.flatMap { value in
+    return try jsonArray.compactMap { value in
       try invalidItemBehaviour.decodeItem(decode: { try decode(keyPath, jsonArray, value) })
     }
   }
