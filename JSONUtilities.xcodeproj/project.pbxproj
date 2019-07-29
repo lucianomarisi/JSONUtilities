@@ -18,7 +18,6 @@
 		4F316CC61CE88898007F9241 /* XCTestCase+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F316CC51CE88898007F9241 /* XCTestCase+Additions.swift */; };
 		4F4339691D3C159900C64537 /* Dictionary+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F85FA1CDFEA6E00D2EEB6 /* Dictionary+Equatable.swift */; };
 		4F43396B1D3C174000C64537 /* MockChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F316CC21CE885C8007F9241 /* MockChild.swift */; };
-		4F47CDF71D1B3C4800F95472 /* Deprecations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47CDF11D1B3C4800F95472 /* Deprecations.swift */; };
 		4F47CDF81D1B3C4800F95472 /* Dictionary+JSONKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47CDF21D1B3C4800F95472 /* Dictionary+JSONKey.swift */; };
 		4F47CDF91D1B3C4800F95472 /* DecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47CDF31D1B3C4800F95472 /* DecodingError.swift */; };
 		4F47CDFA1D1B3C4800F95472 /* JSONFileLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47CDF41D1B3C4800F95472 /* JSONFileLoading.swift */; };
@@ -63,7 +62,6 @@
 		4F316CC01CE88599007F9241 /* MockParent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockParent.swift; sourceTree = "<group>"; };
 		4F316CC21CE885C8007F9241 /* MockChild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockChild.swift; sourceTree = "<group>"; };
 		4F316CC51CE88898007F9241 /* XCTestCase+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Additions.swift"; sourceTree = "<group>"; };
-		4F47CDF11D1B3C4800F95472 /* Deprecations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deprecations.swift; sourceTree = "<group>"; };
 		4F47CDF21D1B3C4800F95472 /* Dictionary+JSONKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSONKey.swift"; sourceTree = "<group>"; };
 		4F47CDF31D1B3C4800F95472 /* DecodingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingError.swift; sourceTree = "<group>"; };
 		4F47CDF41D1B3C4800F95472 /* JSONFileLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFileLoading.swift; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 		4F7429FC1D7CAE9E0027EAAD /* JSONUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				4F47CDF11D1B3C4800F95472 /* Deprecations.swift */,
 				4F47CDF21D1B3C4800F95472 /* Dictionary+JSONKey.swift */,
 				4F044FA61D7CB40E009FADD4 /* Dictionary+KeyPath.swift */,
 				4F47CDF31D1B3C4800F95472 /* DecodingError.swift */,
@@ -300,7 +297,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Luciano Marisi";
 				TargetAttributes = {
 					4FE3C0241C00EDE900607CC4 = {
@@ -316,10 +313,11 @@
 			};
 			buildConfigurationList = 4FE3C01F1C00EDE900607CC4 /* Build configuration list for PBXProject "JSONUtilities" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 4FE3C01B1C00EDE900607CC4;
 			productRefGroup = 4FE3C0261C00EDE900607CC4 /* Products */;
@@ -383,7 +381,6 @@
 				4F044FA71D7CB40E009FADD4 /* Dictionary+KeyPath.swift in Sources */,
 				4F47CDF91D1B3C4800F95472 /* DecodingError.swift in Sources */,
 				4F037C2B1D1B406D0075FC5E /* JSONPrimitiveConvertible.swift in Sources */,
-				4F47CDF71D1B3C4800F95472 /* Deprecations.swift in Sources */,
 				CC0188FF1EB2288A00D4EA87 /* InvalidItemBehaviour.swift in Sources */,
 				4F037C2A1D1B406D0075FC5E /* JSONObjectConvertible.swift in Sources */,
 				EAD4CA401D894B0D001842D6 /* URL+JSONPrimitiveConvertible.swift in Sources */,
@@ -426,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -486,6 +484,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

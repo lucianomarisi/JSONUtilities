@@ -36,7 +36,7 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
    
    - returns: An initilized JSONDictionary
    */
-  public static func from(filename: String, bundle: Bundle = .main) throws -> JSONDictionary {
+  static func from(filename: String, bundle: Bundle = .main) throws -> JSONDictionary {
     bundle.url(forResource: filename, withExtension: "json")
     guard let url = bundle.url(forResource: filename, withExtension: "json") else {
       throw JSONUtilsError.couldNotFindFile
@@ -71,7 +71,7 @@ public extension Dictionary where Key: StringProtocol, Value: Any {
    
    - returns: An initilized JSONDictionary
    */
-  public static func from(jsonData: Data) throws -> JSONDictionary {
+  static func from(jsonData: Data) throws -> JSONDictionary {
     guard let deserializedJSON = try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) else {
       throw JSONUtilsError.fileDeserializationFailed
     }
