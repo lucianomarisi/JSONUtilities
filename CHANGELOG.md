@@ -1,5 +1,14 @@
 # Change Log
 
+## 6.0.1
+
+- Fixed throwing issue 
+
+## 6.0.0
+
+- Migrated to Swift 5
+
+
 ## 5.0.0
 
 - Migrated to Swift 4
