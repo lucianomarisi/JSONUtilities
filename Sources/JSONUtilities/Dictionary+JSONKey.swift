@@ -38,7 +38,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an optional JSON raw type
   public func json<T: JSONRawType>(atKeyPath keyPath: Key) -> T? {
-    return try? json(atKeyPath: keyPath)
+    return try? json(atKeyPath: keyPath) as T
   }
 
   // MARK: [JSONRawType] type
@@ -50,7 +50,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an Array of optional JSON raw types
   public func json<T: JSONRawType>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [T]? {
-    return try? self.json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+    return try? self.json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [T]
   }
 
   // MARK: [String: Any] type
@@ -74,7 +74,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decodes as a raw ictionary array with an optional key
   public func json(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<JSONDictionary> = .remove) -> [JSONDictionary]? {
-    return try? self.json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+    return try? self.json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [JSONDictionary]
   }
 
   // MARK: [String: JSONObjectConvertible] type
@@ -143,7 +143,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an Array of optional Decodable objects
   public func json<T: JSONObjectConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [T]? {
-    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [T]
   }
 
   // MARK: RawRepresentable type
@@ -161,7 +161,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Decode an optional RawRepresentable
   public func json<T: RawRepresentable>(atKeyPath keyPath: Key) -> T? where T.RawValue:JSONRawType {
-    return try? json(atKeyPath: keyPath)
+    return try? json(atKeyPath: keyPath) as T
   }
 
   // MARK: [RawRepresentable] type
@@ -181,7 +181,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Optionally decode an array of RawRepresentable types with a mandatory key
   public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [T]? where T.RawValue:JSONRawType {
-    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [T]
   }
 
   // MARK: [String: RawRepresentable] type
@@ -200,7 +200,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Optionally decode a dictionary of RawRepresentable types with a mandatory key
   public func json<T: RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [String: T]? where T.RawValue:JSONRawType {
-    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [String: T]
   }
 
   // MARK: JSONPrimitiveConvertible type
@@ -218,7 +218,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Optionally decode a custom raw types with a mandatory key
   public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key) -> T? {
-    return try? json(atKeyPath: keyPath)
+    return try? json(atKeyPath: keyPath) as T
   }
 
   // MARK: [JSONPrimitiveConvertible] type
@@ -237,7 +237,7 @@ extension Dictionary where Key: StringProtocol {
 
   /// Optionally decode an array custom raw types with a mandatory key
   public func json<T: JSONPrimitiveConvertible>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [T]? {
-    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour)
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [T]
   }
 
   // MARK: JSONDictionary and JSONArray creation
