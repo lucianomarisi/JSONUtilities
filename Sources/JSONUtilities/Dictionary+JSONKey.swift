@@ -240,6 +240,43 @@ extension Dictionary where Key: StringProtocol {
     return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [T]
   }
 
+  // MARK: JSONPrimitiveConvertible & RawRepresentable type
+	
+  /// Decode a custom raw type that is also a RawRepresentable with a mandatory key
+  public func json<T: JSONPrimitiveConvertible & RawRepresentable>(atKeyPath keyPath: Key) throws -> T where T.JSONType == T.RawValue {
+    let rawValue: T.RawValue = try getValue(atKeyPath: keyPath)
+  
+    guard let value = T.from(jsonValue: rawValue) else {
+      throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: rawValue, reason: .conversionFailure)
+    }
+  
+    return value
+  }
+
+  /// Optionally decode a custom raw type that is also a RawRepresentable with a mandatory key
+  public func json<T: JSONPrimitiveConvertible & RawRepresentable>(atKeyPath keyPath: Key) -> T? where T.JSONType == T.RawValue {
+    return try? json(atKeyPath: keyPath) as T
+  }
+  
+  // MARK: [JSONPrimitiveConvertible & RawRepresentable] type
+
+  /// Decode an array of custom raw types with a mandatory key
+  public func json<T: JSONPrimitiveConvertible & RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) throws -> [T] where T.JSONType == T.RawValue {
+    return try decodeArray(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) { keyPath, jsonArray, value in
+      let jsonValue: T.JSONType = try getValue(atKeyPath: keyPath, array: jsonArray, value: value)
+
+      guard let transformedValue = T.from(jsonValue: jsonValue) else {
+        throw DecodingError(dictionary: self, keyPath: keyPath, expectedType: T.self, value: jsonValue, array: jsonArray, reason: .conversionFailure)
+      }
+      return transformedValue
+    }
+  }
+
+  /// Optionally decode an array custom raw types with a mandatory key
+  public func json<T: JSONPrimitiveConvertible & RawRepresentable>(atKeyPath keyPath: Key, invalidItemBehaviour: InvalidItemBehaviour<T> = .remove) -> [T]? where T.JSONType == T.RawValue {
+    return try? json(atKeyPath: keyPath, invalidItemBehaviour: invalidItemBehaviour) as [T]
+  }
+
   // MARK: JSONDictionary and JSONArray creation
 
   fileprivate func JSONDictionaryForKey(atKeyPath keyPath: Key) throws -> JSONDictionary {
